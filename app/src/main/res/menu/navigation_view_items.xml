@@ -1,0 +1,37 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="all">
+        <item
+            android:id="@+id/navigation_item_1"
+            android:checked="true"
+            android:icon="@drawable/main_menu_drawer"
+            android:title="@string/mainmenu" />
+        <item
+            android:id="@+id/navigation_item_2"
+            android:icon="@drawable/ic_drawer2"
+            android:title="@string/user_profile_fragment" />
+        <item
+            android:id="@+id/navigation_item_3"
+            android:icon="@drawable/ic_drawer1"
+            android:title="@string/orders_fragment" />
+
+        <item
+            android:id="@+id/navigation_item_4"
+            android:icon="@drawable/ic_drawer3"
+            android:title="@string/orders_history_fragment" />
+        <item
+            android:id="@+id/navigation_item_5"
+            android:icon="@drawable/ic_drawer4"
+            android:title="@string/reminders_fragment" />
+        <item
+            android:id="@+id/navigation_item_6"
+            android:icon="@drawable/ic_drawer5"
+            android:title="@string/charts_fragment" />
+        <item
+            android:id="@+id/navigation_item_7"
+            android:icon="@drawable/ic_drawer6"
+            android:title="@string/about_us_fragment" />
+        <item
+            android:id="@+id/navigation_item_8"
+            android:title="Sign Out" />
+    </group>
+</menu>

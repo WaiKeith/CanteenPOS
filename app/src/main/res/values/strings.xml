@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Canteen POS</string>
+    <string name="hello_world">Welcome to Canteen POS</string>
+    <string name="action_settings">Settings</string>
+    <string name="home_fragment">Home</string>
+    <string name="user_profile_fragment">User Profile</string>
+    <string name="orders_fragment">Orders</string>
+    <string name="orders_history_fragment">Order History</string>
+    <string name="reminders_fragment">Reminders</string>
+    <string name="charts_fragment">Charts</string>
+    <string name="about_us_fragment">About Us</string>
+    <string name="navigation_view_category_2">Navigation View Category</string>
+    <string name="contentDescription">Come join us now!</string>
+    <string name="username">USERNAME</string>
+    <string name="password">PASSWORD</string>
+    <string name="firstGreet">LETS GET STARTED</string>
+    <string name="secondGreet">Canteen POS ease your life!</string>
+    <string name="login">LOGIN</string>
+    <string name="register">Sign Up</string>
+    <string name="forgotpw">Forgot Password</string>
+    <string name="titleRegister">Sign Up</string>
+    <string name="enterID">Enter your ID</string>
+    <string name="submitPW">Enter your password</string>
+    <string name="resubmitPW">Resubmit your password</string>
+    <string name="confirm">Confirm</string>
+    <string name="reset">Reset</string>
+    <string name="titleReload">Account Reload</string>
+    <string name="amtreload">Choose amount to reload</string>
+    <string name="reload">Account Reload</string>
+    <string name="enterid">Enter your ID</string>
+    <string name="title_order_history">Order History</string>
+    <string name="title_edit_profile">Edit Profile</string>
+    <string name="title_edit_reminder">Edit Reminder</string>
+    <string name="title_forgot_password">Forgot Password</string>
+    <string name="title_activity_register">Sign Up</string>
+    <string name="title_order_details">Order Details</string>
+    <string name="title_order_list">Order List</string>
+    <string name="title_reminder_list">Reminder List</string>
+    <string name="title_register_account">Sign Up</string>
+    <string name="enterName">Enter user name</string>
+    <string name="write">Write</string>
+    <string name="price">10</string>
+    <string name="totalprice">Total price</string>
+    <string name="add_to_cart">Add to cart</string>
+
+    <string-array name="amount">
+        <item name="5">RM5</item>
+        <item name="10">RM10</item>
+        <item name="15">RM15</item>
+        <item name="20">RM20</item>
+    </string-array>
+
+    <string name="forgotPW">Forgot Password</string>
+    <string name="agree_terms">Agree</string>
+    <string name="i_agree_terms">I agree with the terms and conditions</string>
+
+    <string-array name="ques">
+        <item name="PetName">Pet name</item>
+        <item name="FavouriteFood">Favourite food</item>
+        <item name="FavouriteMovie">Movie</item>
+    </string-array>
+
+    <string name="submitAns">Submit answer</string>
+
+    <integer-array name="quantity">
+        <item name="1">1</item>
+        <item name="2">2</item>
+        <item name="3">3</item>
+        <item name="4">4</item>
+        <item name="5">5</item>
+    </integer-array>
+
+    <string name="title_activity_order">Order</string>
+    <string name="title_activity_splash_screen">Splash Screen</string>
+    <string name="title_activity_update">Edit Profile</string>
+    <string name="title_activity_edit_reminder">Edit Reminder</string>
+    <string name="title_activity_history_card_view">HistoryCardView</string>
+    <string name="title_activity_forgot_password">Forgot Password</string>
+    <string name="orderHistory">Order List</string>
+    <string name="orderDetails">Order Details</string>
+    <string name="title_activity_event_history">Reminder List</string>
+    <string name="title_activity_edit_event">Edit Reminder</string>
+    <string name="writeTag">Write tag</string>
+    <string name="open_drawer">Open drawer</string>
+    <string name="close_drawer">Close drawer</string>
+    <string name="mainmenu">Main Menu</string>
+    <string name="n">n</string>
+    <string name="p">p</string>
+    <string name="desc">Description</string>
+    <string name="pick_date">Pick Date</string>
+    <string name="pick_time">Pick Time</string>
+    <string name="chkEvent">Check Event</string>
+    <string name="reminder">Reminder</string>
+    <string name="hint_date">Pick Date</string>
+    <string name="hint_time">Pick Time</string>
+    <string name="enterCustId">Enter customer ID</string>
+    <string name="enterAccId">Enter account ID</string>
+    <string name="totalGST">GST(6%)</string>
+    <string name="developerInfo">Hi, I am a third year of Bachelor Degree student from Tunku Abdul Rahman University College and
+                                    currently developing this mobile application, Canteen POS for final year project purpose
+                                    Hope you guys enjoy the application!</string>
+    <string name="appInfo">This mobile application is named as Canteen POS and it is developed in two version which are student usage version
+                                and canteen staff usage version. Therefore, I took part in development of the student version of Canteen POS
+                                and this version had took six months of development period to be completed.As you know, student version means for
+                                student personal use and students can use this app to in canteen or cafeteria of Tunku Abdul Rahman University College.
+                                We highly recommend students not to reveal important information in this app to others due to security issues.</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

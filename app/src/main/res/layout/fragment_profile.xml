@@ -1,0 +1,305 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="my.edu.chiawaikeith.canteenpos.Fragments.ProfileFragment">
+
+
+    <RelativeLayout
+        android:background="@drawable/content_bg"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:id="@+id/profile_information">
+
+        <ImageView
+            android:id="@+id/cover_image"
+            android:layout_width="fill_parent"
+            android:layout_height="140dp"
+         />
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/circleView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="50dp"
+            android:clickable="true"
+            app:border_width="2dp"
+            app:border_color="@android:color/darker_gray"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cover_image"
+            android:id="@+id/profile_name"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/profile_information"
+        android:background="@drawable/content_bg"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        android:overScrollMode="always">
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:text="Student Information"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textSize="16dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/ProfileTitle"
+            />
+
+        <View
+            android:layout_below="@+id/ProfileTitle"
+            android:id="@+id/separator2"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#90909090"
+            />
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_marginRight="@dimen/dimen_10"
+            android:id="@+id/cv1"
+            android:layout_below="@+id/separator2"
+            >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/stud">
+
+            <TextView
+                android:id="@+id/tvStud"
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:padding="6dp"
+                android:layout_centerVertical="true"
+                android:text="Student Name"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/stud_name"
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:text=""
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:id="@+id/course">
+
+                <TextView
+                    android:id="@+id/tvCourse"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:padding="6dp"
+                    android:layout_centerVertical="true"
+                    android:text="Studying Course"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/courseStudy"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:text=""
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:id="@+id/email">
+
+                <TextView
+                    android:id="@+id/tvEmail"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:padding="6dp"
+                    android:layout_centerVertical="true"
+                    android:text="E-mail"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/studemail"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:text=""
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:text="Account Information"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textSize="16dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/accountTitle"
+            android:layout_below="@+id/cv1"/>
+
+        <View
+            android:layout_below="@+id/accountTitle"
+            android:id="@+id/separator1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#90909090"
+            />
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_marginRight="@dimen/dimen_10"
+            android:id="@+id/cv2"
+            android:layout_below="@+id/separator1"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:id="@+id/cust">
+
+                    <TextView
+                        android:id="@+id/tvCust"
+                        android:layout_width="150dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:padding="6dp"
+                        android:layout_centerVertical="true"
+                        android:text="Student ID"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/cust_Id"
+                        android:layout_width="150dp"
+                        android:layout_height="30dp"
+                        android:text=""
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:id="@+id/name">
+
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="150dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:padding="6dp"
+                        android:layout_centerVertical="true"
+                        android:text="User Name"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/user_Name"
+                        android:layout_width="150dp"
+                        android:layout_height="30dp"
+                        android:text=""
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:id="@+id/balance">
+
+                    <TextView
+                        android:id="@+id/tvBalance"
+                        android:layout_width="150dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:padding="6dp"
+                        android:layout_centerVertical="true"
+                        android:text="Account Balance"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/acc_Balance"
+                        android:layout_width="150dp"
+                        android:layout_height="30dp"
+                        android:text=""
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:id="@+id/date">
+
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_width="150dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:padding="6dp"
+                        android:layout_centerVertical="true"
+                        android:text="Register Date"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/register_Date"
+                        android:layout_width="150dp"
+                        android:layout_height="30dp"
+                        android:text=""
+                        android:textStyle="bold"/>
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+
+
+    <com.software.shell.fab.ActionButton
+        android:id="@+id/action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin"/>
+
+</RelativeLayout>

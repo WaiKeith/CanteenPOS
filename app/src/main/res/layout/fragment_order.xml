@@ -1,0 +1,204 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="my.edu.chiawaikeith.canteenpos.Fragments.OrderFragment">
+
+    <TextView
+        android:layout_width="19dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:id="@+id/tvFoodID"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerQty"
+        android:focusableInTouchMode="false"
+        android:layout_below="@+id/textView9"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="19dp"
+        android:layout_height="wrap_content"
+        android:text="B"
+        android:id="@+id/textView9"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="45dp"
+        android:layout_below="@+id/tvFoodID" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5"
+        android:id="@+id/singlePrice"
+        android:layout_alignTop="@+id/textQty"
+        android:layout_alignRight="@+id/tvPrice"
+        android:layout_alignEnd="@+id/tvPrice" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPrice"
+        android:hint="@string/price"
+        android:text="@string/price"
+        android:layout_alignTop="@+id/spinnerQty"
+        android:layout_toRightOf="@+id/imagePlus"
+        android:layout_toEndOf="@+id/imagePlus"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp" />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:id="@+id/textQty"
+        android:layout_below="@+id/tvFoodID"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
+        android:paddingLeft="20dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imagePlus"
+        android:src="@drawable/ic_plus"
+        android:clickable="true"
+        android:layout_alignTop="@+id/tvFoodID"
+        android:layout_toRightOf="@+id/textQty"
+        android:layout_toEndOf="@+id/textQty" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageMinus"
+        android:src="@drawable/ic_minus"
+        android:clickable="true"
+        android:layout_alignTop="@+id/tvFoodID"
+        android:layout_alignRight="@+id/textQty"
+        android:layout_alignEnd="@+id/textQty" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:id="@+id/subtotal1"
+        android:layout_alignTop="@+id/singlePrice"
+        android:layout_toRightOf="@+id/singlePrice"
+        android:layout_toEndOf="@+id/singlePrice"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:id="@+id/subtotal2"
+        android:layout_alignTop="@+id/spinnerQty"
+        android:layout_alignLeft="@+id/subtotal1"
+        android:layout_alignStart="@+id/subtotal1" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout1"
+        android:layout_below="@+id/subtotal2"
+        android:paddingTop="220dp"
+        android:paddingLeft="200dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvTotalPrice"
+            android:layout_centerVertical="true"
+            android:text="@string/totalprice" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textviewTotalPrice"
+            android:layout_centerVertical="true"
+            android:text="0"
+            android:paddingLeft="30dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2"
+        android:layout_below="@+id/linearLayout1"
+        android:paddingLeft="200dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/totalGST"
+            android:id="@+id/totalGst"
+            android:layout_below="@+id/tvTotalPrice" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textviewGSTPrice"
+            android:layout_centerVertical="true"
+            android:text="0"
+            android:paddingLeft="30dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="120dp"
+        android:id="@+id/linearLayout3">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calculate"
+        android:id="@+id/btnCal"
+        android:textColor="@color/blue"
+        style="?android:attr/borderlessButtonStyle"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/confirm"
+        android:id="@+id/btnConfirm"
+        android:textColor="@color/blue"
+        style="?android:attr/borderlessButtonStyle"/>
+
+     <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start"
+        android:id="@+id/btnStart"
+         android:textColor="@color/blue"
+        style="?android:attr/borderlessButtonStyle"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/write"
+            android:id="@+id/btnWrite"
+            android:textColor="@color/blue"
+            style="?android:attr/borderlessButtonStyle"/>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add to cart"
+        android:id="@+id/btnAddcart"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/linearLayout1"
+        style="?android:attr/borderlessButtonStyle"/>
+
+
+</RelativeLayout>
