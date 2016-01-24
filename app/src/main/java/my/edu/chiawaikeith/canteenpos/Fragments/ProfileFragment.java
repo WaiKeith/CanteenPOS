@@ -37,6 +37,7 @@ public class ProfileFragment extends BaseFragment {
     final static String KEY_USER_NAME = "A.user_name";
     final static String KEY_ACCBALANCE = "A.acc_balance";
     final static String KEY_REGISTERDATE = "A.register_date";
+    final static String KEY_PROFILE_IMAGE_PATH = "A.profile_image_path";
     final static String KEY_STUD_NAME = "S.stud_name";
     final static String KEY_COURSE = "S.stud_course";
     final static String KEY_EMAIL = "S.stud_email";
@@ -107,6 +108,12 @@ public class ProfileFragment extends BaseFragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), EditProfile.class);
                 intent.putExtra(KEY_ACCOUNT, account);
+
+                if(account.getProfile_image_path() == null)
+                    Log.d("Account image path","null");
+                else
+
+                    Log.d("Account image path", account.getProfile_image_path());
                 startActivity(intent);
             }
         });
@@ -116,6 +123,7 @@ public class ProfileFragment extends BaseFragment {
 
     public void initValues(){
         acc_id = new BaseActivity().getLoginDetail(getActivity()).getAcc_id();
+        account.setAcc_id(acc_id);
     }
 
     public void onButtonPressed(Uri uri) {
@@ -176,7 +184,7 @@ public class ProfileFragment extends BaseFragment {
         protected String doInBackground(String... strings) {
             HashMap<String, String> data = new HashMap<>();
             data.put(KEY_STUD_ID, account.getCust_id());
-            Log.d("studid",String.valueOf(account.getCust_id()));
+            Log.d("studid", String.valueOf(account.getCust_id()));
             return rh.sendPostRequest(RETRIEVESTUD_URL, data);
         }
     }
@@ -203,7 +211,7 @@ public class ProfileFragment extends BaseFragment {
                 student.setStud_course((jsonObject2.getString(KEY_COURSE)));
                 student.setStud_email(jsonObject2.getString(KEY_EMAIL));
 
-                Log.d("Profile",String.valueOf(mJsonArray.length()));
+                Log.d("Profile", String.valueOf(mJsonArray.length()));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -276,6 +284,8 @@ public class ProfileFragment extends BaseFragment {
                 account.setUser_name((jsonObject.getString(KEY_USER_NAME)));
                 account.setAcc_balance(Double.parseDouble(jsonObject.getString(KEY_ACCBALANCE)));
                 account.setRegister_date(mySqlDateTimeFormat.parse(jsonObject.getString(KEY_REGISTERDATE)));
+                account.setProfile_image_path(jsonObject.getString(KEY_PROFILE_IMAGE_PATH));
+                Log.d("Account image path", jsonObject.getString(KEY_PROFILE_IMAGE_PATH));
 
             } catch (JSONException e) {
                 e.printStackTrace();

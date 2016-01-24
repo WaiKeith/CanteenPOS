@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -12,6 +13,10 @@ import android.util.Base64;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
@@ -62,6 +67,15 @@ public class BaseActivity extends AppCompatActivity {
     public Calendar calendar;
 
     public static final String OBJECT_OFFLINE_LOGIN = "OfflineLogin";
+    protected ImageLoader imageLoader = ImageLoader.getInstance();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onCreate(savedInstanceState);
+
+        imageLoader.init(ImageLoaderConfiguration.createDefault(this));
+    }
 
     public static void shortToast(Context a, String message) {
         Toast.makeText(a, message, Toast.LENGTH_SHORT).show();
@@ -70,6 +84,13 @@ public class BaseActivity extends AppCompatActivity {
     public void longToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+
+    public DisplayImageOptions options = new DisplayImageOptions.Builder()
+            .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+            .cacheInMemory(true)
+            .cacheOnDisk(true)
+            .considerExifParams(true)
+            .build();
 
     @Nullable
     public Intent createCameraIntent() {

@@ -65,7 +65,7 @@ public class EditProfile extends BaseActivity implements View.OnClickListener {
     private Bitmap mBitmapImage1;
     private Uri mCameraImageUri = null;
     private int mLoadImageNo;
-    private Accounts account = new Accounts();
+    private Accounts account;
     private Integer acc_id;
 
     @Override
@@ -116,8 +116,8 @@ public class EditProfile extends BaseActivity implements View.OnClickListener {
 //        user_password = editTextPW.getText().toString();
 
         //DisplayImageOptions options = null;
-        if(!(account.getProfile_image_path() == null)){
-            ImageLoader.getInstance().displayImage(account.getProfile_image_path(), mImageProfile);}
+        if(account.getProfile_image_path() != ""){
+            ImageLoader.getInstance().displayImage(account.getProfile_image_path(), mImageProfile, options);}
 
         calendar = Calendar.getInstance();
     }
@@ -146,7 +146,7 @@ public class EditProfile extends BaseActivity implements View.OnClickListener {
     }
 
 
-    private void updateAccount(){
+    private void updateAccount() {
         account.setUser_name(editTextName.getText().toString());
         account.setAcc_password(editTextPW.getText().toString());
         account.setProfileImageBitmap(mBitmapImage1);
@@ -189,9 +189,11 @@ public class EditProfile extends BaseActivity implements View.OnClickListener {
             data.put(KEY_USERNAME, accounts.getUser_name());
             data.put(KEY_PASSWORD, accounts.getAcc_password());
             data.put(KEY_IMAGE_PATH, accounts.getProfile_image_path());
-            data.put(KEY_BITMAP,getStringImage(accounts.getProfileImageBitmap()));
+            if(accounts.getProfileImageBitmap() != null)
+                data.put(KEY_BITMAP,getStringImage(accounts.getProfileImageBitmap()));
+            else
+                data.put(KEY_BITMAP,"");
 
-            Log.d("imagepath", String.valueOf(accounts.getProfile_image_path()));
             return requestHandler.sendPostRequest(UPDATE_URL, data);
         }
     }
