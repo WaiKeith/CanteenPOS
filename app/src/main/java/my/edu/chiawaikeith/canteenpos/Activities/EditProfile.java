@@ -13,7 +13,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -91,7 +90,7 @@ public class EditProfile extends BaseActivity implements View.OnClickListener {
         btnCancel = (Button)findViewById(R.id.buttonCancel);
         btnCancel.setOnClickListener(this);
 
-        textView = (TextView) findViewById(R.id.textView1);
+        //textView = (TextView) findViewById(R.id.textView1);
         mImageProfile = (ImageView)findViewById(R.id.image_1);
         mImageProfile.setOnClickListener(this);
 
@@ -102,6 +101,12 @@ public class EditProfile extends BaseActivity implements View.OnClickListener {
         actionButton = (ActionButton) findViewById(R.id.action_button);
 
         account = (Accounts) getIntent().getSerializableExtra(ProfileFragment.KEY_ACCOUNT);
+
+//        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+//                .defaultDisplayImageOptions(defaultOptions)
+//                .denyCacheImageMultipleSizesInMemory()
+//                .build();
+//        ImageLoader.getInstance().init(config);
 
         initValues();
     }

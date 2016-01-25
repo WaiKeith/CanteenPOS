@@ -2,27 +2,23 @@ package my.edu.chiawaikeith.canteenpos.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-import my.edu.chiawaikeith.canteenpos.Domains.Accounts;
 import my.edu.chiawaikeith.canteenpos.R;
 
-public class ForgotPassword extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class ForgotPassword extends BaseActivity implements View.OnClickListener {
 
         private Toolbar toolBar;
-        String mText;
+        private String mText;
         private String spinnerSelected = "Pet name";
-        private String userID = "";
-        private String answer = "";
+        private String userID = "",email = "";
+        private Button btnProceed,btnReset;
 
 @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +33,15 @@ public class ForgotPassword extends AppCompatActivity implements AdapterView.OnI
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Spinner spinnerPassword = (Spinner) findViewById(R.id.spinnerQues);
-        spinnerPassword.setOnItemSelectedListener(this);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-        R.array.ques, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerPassword.setAdapter(adapter);
+        btnProceed = (Button)findViewById(R.id.buttonProceed);
+        btnReset = (Button)findViewById(R.id.buttonReset);
 
-        Intent intent = getIntent();
+       // Spinner spinnerPassword = (Spinner) findViewById(R.id.spinnerQues);
+//        spinnerPassword.setOnItemSelectedListener(this);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+//        R.array.ques, android.R.layout.simple_spinner_item);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinnerPassword.setAdapter(adapter);
     }
 
 
@@ -70,50 +67,33 @@ public class ForgotPassword extends AppCompatActivity implements AdapterView.OnI
         return super.onOptionsItemSelected(item);
         }
 
-@Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        spinnerSelected = parent.getItemAtPosition(position).toString();
-        mText = spinnerSelected;
-        }
-
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-        }
-
     public void confirmAns(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         EditText editText1 = (EditText) findViewById(R.id.editID);
-        EditText editText2 = (EditText) findViewById(R.id.editAnswer);
 
         userID = editText1.getText().toString();
-        answer = editText2.getText().toString();
-        //passwordagn = editText3.getText().toString();
 
-
-        if (userID.isEmpty() || answer.isEmpty()) {
+        if (userID.isEmpty() || email.isEmpty()) {
         Toast.makeText(getApplicationContext(), "Please fill in all required fields!", Toast.LENGTH_LONG).show();
         } else {
 
-        Accounts userRecord = new Accounts();
-
-        //UserDataSource userDataSource = new UserDataSource(this);
-        //userDataSource.insertUser(userRecord);
-
-        //intent.putExtras(bundle);
-        //startActivity(getIntent());
         startActivity(intent);
         }
      }
 
 public void reset(View view){
         EditText editText1 = (EditText) findViewById(R.id.editID);
-        EditText editText2 = (EditText) findViewById(R.id.editAnswer);
+        EditText editText2 = (EditText) findViewById(R.id.editEmail);
         //EditText editText3 = (EditText) findViewById(R.id.editPW);
 
         editText1.setText(null);
         editText2.setText(null);
         //editText3.setText(null);
         }
+
+    @Override
+    public void onClick(View v) {
+
+
+    }
 }

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -38,15 +39,14 @@ public class RegisterAccount extends BaseActivity implements AdapterView.OnItemS
     final static String KEY_REGISTER_DATE = "register_date";
 
     Date registerDate;
-    private String custID = "";
-    private String username = "";
-    private String password="";
-    Button btnRegister;
+    private String custID = "",username = "",password="";
+    private Button btnRegister;
 
     private ArrayList<Accounts> accountItems;
     private int layout;
     private Context context;
-    Toolbar toolBar;
+    private Toolbar toolBar;
+    private CheckBox checkTerm;
     private OfflineLogin offlineLogin;
 
 //    private JSONArray mJsonArray;
@@ -70,29 +70,10 @@ public class RegisterAccount extends BaseActivity implements AdapterView.OnItemS
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-//        try {
-//            // Create the Mobile Service Client instance, using the provided
-//            // Mobile Service URL and key
-//            mClient = new MobileServiceClient(
-//                    "https://androidcanteenpos.azure-mobile.net/",
-//                    "hoOMoroPlSmQBPMzdUODawrWbJqmVP19",
-//                    this).withFilter(new ProgressFilter());
-//
-//            //Get the Mobile Service Table instance to use
-//            accTable = mClient.getTable(Accounts.class);
-//        } catch (MalformedURLException e) {
-//            createAndShowDialog(new Exception("There was an error creating the Mobile Service. Verify the URL"), "Error");
-//        }
-
-
         editCustId = (EditText) findViewById(R.id.custId);
         editUserName = (EditText) findViewById(R.id.editUsername);
         editPw = (EditText) findViewById(R.id.accPassword);
-        //editCode = (EditText)findViewById(R.id.editSecurityCode);
-        //editImage = (EditText)findViewById(R.id.editImagePath);
-        //editbalance = (EditText)findViewById(R.id.editBalance);
-        //editdate = (EditText)findViewById(R.id.editDate);
+        checkTerm = (CheckBox)findViewById(R.id.checkbox_sign_up_terms);
 
         final Intent intent1 = new Intent(this, LoginActivity.class);
         btnRegister = (Button)findViewById(R.id.button_sign_up);
@@ -107,46 +88,24 @@ public class RegisterAccount extends BaseActivity implements AdapterView.OnItemS
                 username = editUserName.getText().toString();
                 password = editPw.getText().toString();
                 registerDate = calendar.getTime();
-//                code = editCode.getText().toString();
-//                path = editImage.getText().toString();
-//                balance = editbalance.getText().toString();
-//                date = editdate.getText().toString();
 
-                if (custID.isEmpty() || username.isEmpty() || password.isEmpty() ) {
+                if (custID.isEmpty() || username.isEmpty() || password.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Please fill in all required fields!", Toast.LENGTH_LONG).show();
+                } else if (checkTerm.isChecked() == false){
+                    Toast.makeText(getApplicationContext(), "Please agree to our term & conditions", Toast.LENGTH_LONG).show();
                 } else {
 
-//                    final Accounts userRecord = new Accounts();
-//
-//                    userRecord.setCustId(name);
-//                    userRecord.setaPw(password);
-//                    userRecord.setmComplete(false);
-//                    accTable.insert(userRecord);
                     new createAccount().execute(
-                            //editAccId.getText().toString(),
                             editCustId.getText().toString(),
                             editUserName.getText().toString(),
                             editPw.getText().toString(),
                             registerDate.toString());
-//                            editCode.getText().toString(),
-//                            editImage.getText().toString(),
-//                            editbalance.getText().toString(),
-//                            editdate.getText().toString());
-
 
                     startActivity(intent1);
 
                 }
             }
         });
-
-
-        //EditText editText1 = (EditText) findViewById(R.id.editName);
-        //EditText editText2 = (EditText) findViewById(R.id.editPassword);
-        //mProgressBar = (ProgressBar)findViewById(R.id.loadingProgressBar);
-        //accountItems = new ArrayList<Accounts>();
-
-        //refreshItemsFromTable();
     }
 
 
@@ -159,9 +118,6 @@ public class RegisterAccount extends BaseActivity implements AdapterView.OnItemS
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -216,101 +172,13 @@ public class RegisterAccount extends BaseActivity implements AdapterView.OnItemS
 
         editText1.setText(null);
         editText2.setText(null);
-        //editText3.setText(null);
+        checkTerm.setChecked(false);
     }
-
-//    public void saveLoginDetail(OfflineLogin offlineLogin) {
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-//        SharedPreferences.Editor prefsEditor = prefs.edit();
-//        Gson gson = new Gson();
-//        String json = gson.toJson(offlineLogin);
-//        prefsEditor.putString(OBJECT_OFFLINE_LOGIN, json);
-//        prefsEditor.commit();
-//    }
-
-//    private void refreshItemsFromTable() {
-//
-////		TODO Uncomment the the following code when using a mobile service
-////		// Get the items that weren't marked as completed and add them in the adapter
-//        new AsyncTask<Void, Void, Void>() {
-//
-//            @Override
-//            protected Void doInBackground(Void... params) {
-//                try {
-//                    final MobileServiceList<Accounts> result = accTable.where().field("complete").eq(false).execute().get();
-//                    runOnUiThread(new Runnable() {
-//
-//                        @Override
-//                        public void run() {
-//                            //userAdapter.clear();
-//
-//                            for (Accounts item : result) {
-//                                //userAdapter.add(item);
-//                            }
-//                        }
-//                    });
-//                } catch (Exception exception) {
-//                    createAndShowDialog(exception, "Error");
-//                }
-//                return null;
-//            }
-//        }.execute();
-//    }
-//
-//    private void createAndShowDialog(Exception exception, String title) {
-//        createAndShowDialog(exception.toString(), title);
-//    }
 
     @Override
     public void onClick(View v) {
 
     }
-
-
-//    private class ProgressFilter implements ServiceFilter {
-//
-//        @Override
-//        public ListenableFuture<ServiceFilterResponse> handleRequest(
-//                ServiceFilterRequest request, NextServiceFilterCallback next) {
-//
-//            runOnUiThread(new Runnable() {
-//
-//                @Override
-//                public void run() {
-//                    if (mProgressBar != null) mProgressBar.setVisibility(ProgressBar.VISIBLE);
-//                }
-//            });
-//
-//            SettableFuture<ServiceFilterResponse> result = SettableFuture.create();
-//            try {
-//                ServiceFilterResponse response = next.onNext(request).get();
-//                result.set(response);
-//            } catch (Exception exc) {
-//                result.setException(exc);
-//            }
-//
-//            dismissProgressBar();
-//            return result;
-//        }
-//
-//        private void dismissProgressBar() {
-//            runOnUiThread(new Runnable() {
-//
-//                @Override
-//                public void run() {
-//                    if (mProgressBar != null) mProgressBar.setVisibility(ProgressBar.GONE);
-//                }
-//            });
-//        }
-//    }
-
-//    private void createAndShowDialog(String message, String title) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//
-//        builder.setMessage(message);
-//        builder.setTitle(title);
-//        builder.create().show();
-//    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

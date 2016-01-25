@@ -87,7 +87,7 @@
         <LinearLayout
             android:id="@+id/layout_images"
             android:layout_width="fill_parent"
-            android:layout_height="100dp"
+            android:layout_height="160dp"
             android:layout_below="@+id/RLpassword"
             android:orientation="horizontal"
             android:layout_marginTop="10dp">
@@ -103,27 +103,11 @@
 
             <ImageView
                 android:id="@+id/image_1"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:src="@drawable/ic_file_image_box_grey600_48dp" />
 
-
-            <!--<ImageView-->
-                <!--android:id="@+id/image_2"-->
-                <!--android:layout_width="80dp"-->
-                <!--android:layout_height="80dp"-->
-                <!--android:layout_marginLeft="@dimen/activity_vertical_margin"-->
-                <!--android:visibility="gone"-->
-                <!--android:src="@drawable/ic_file_image_box_grey600_48dp" />-->
-
-            <!--<ImageView-->
-                <!--android:id="@+id/image_3"-->
-                <!--android:layout_width="80dp"-->
-                <!--android:layout_height="80dp"-->
-                <!--android:layout_marginLeft="@dimen/activity_vertical_margin"-->
-                <!--android:visibility="gone"-->
-                <!--android:src="@drawable/ic_file_image_box_grey600_48dp" />-->
 
         </LinearLayout>
 
@@ -131,7 +115,7 @@
             android:layout_width="fill_parent"
             android:layout_height="80dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="150dp">
+            android:layout_marginTop="100dp">
 
 
             <Button

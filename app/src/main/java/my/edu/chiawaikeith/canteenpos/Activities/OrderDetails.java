@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.software.shell.fab.ActionButton;
@@ -40,7 +39,6 @@ public class OrderDetails extends BaseActivity implements View.OnClickListener {
     private ActionButton actionButton;
     private ArrayList<OrderLines> orderList = new ArrayList<>();
     Transactions transaction = new Transactions();
-    private Button buttonFlatDelete,buttonFlatCancel;
     final static String KEY_TRANSAC_ID = "transac_id";
     final static String KEY_FOOD_ID = "food_id";
     final static String KEY_ORDERLINE_ID = "order_line_id";
@@ -52,8 +50,6 @@ public class OrderDetails extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details);
 
-        buttonFlatDelete = (Button) findViewById(R.id.buttonDelete);
-        buttonFlatCancel = (Button) findViewById(R.id.buttonCancel);
         tvTransacID = (TextView) findViewById(R.id.transacID);
         tvPayment = (TextView)findViewById(R.id.paymentAmt);
         tvTotalGST = (TextView)findViewById(R.id.totalGST);
@@ -69,9 +65,6 @@ public class OrderDetails extends BaseActivity implements View.OnClickListener {
 
         recyclerView = (RecyclerView) findViewById(R.id.order_line_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        buttonFlatDelete.setOnClickListener(this);
-        buttonFlatCancel.setOnClickListener(this);
 
         transaction = (Transactions) getIntent().getSerializableExtra(HistoryAdapter.KEY_HISTORY);
 

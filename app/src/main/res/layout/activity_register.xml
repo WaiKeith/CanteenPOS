@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffb6c1"
     tools:context="my.edu.chiawaikeith.canteenpos.Activities.RegisterAccount">
 
     <include
@@ -53,7 +53,7 @@
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:layout_marginRight="@dimen/margin_small"
-                android:hint="@string/enterCustId"
+                android:hint="@string/enterStudId"
                 android:singleLine="true"
                 android:inputType="text" />
 
@@ -139,16 +139,15 @@
 
         <Button
             android:id="@+id/button_sign_up"
-            android:background="@color/red"
+            android:background="@color/green"
             android:layout_width="250dp"
             android:layout_height="@dimen/button_height"
-            android:layout_marginTop="@dimen/margin_small"
-            android:text="@string/confirm"
-            android:onClick="signUp"/>
+            android:layout_marginTop="20dp"
+            android:text="@string/proceed"/>
 
         <Button
             android:id="@+id/button_reset"
-            android:background="@color/red"
+            android:background="@android:color/transparent"
             android:layout_width="250dp"
             android:layout_height="@dimen/button_height"
             android:layout_marginTop="@dimen/margin_small"

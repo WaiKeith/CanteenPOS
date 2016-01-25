@@ -13,9 +13,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import my.edu.chiawaikeith.canteenpos.Domains.Accounts;
 import my.edu.chiawaikeith.canteenpos.Domains.OfflineLogin;
 import my.edu.chiawaikeith.canteenpos.Fragments.AboutUsFragment;
+import my.edu.chiawaikeith.canteenpos.Fragments.ChartFragment;
 import my.edu.chiawaikeith.canteenpos.Fragments.HistoryFragment;
 import my.edu.chiawaikeith.canteenpos.Fragments.HomeFragment;
 import my.edu.chiawaikeith.canteenpos.Fragments.OrderFragment;
@@ -30,10 +33,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle drawerToggle;
     NavigationView navigation;
-    ImageView profilePic;
+    private ImageView profilePic;
     private Accounts account;
     private OfflineLogin offlineLogin;
-    TextView textUsername;
+    private TextView textUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +47,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setSupportActionBar(toolbar);
 
         textUsername = (TextView)findViewById(R.id.name);
-
+        profilePic = (ImageView)findViewById(R.id.image_profile);
 
         HomeFragment fragmentHome = new HomeFragment();
         getSupportFragmentManager().beginTransaction().replace(frame, fragmentHome).commit();
@@ -97,9 +100,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         fragmentTransaction.commit();
                         return true;
                     case R.id.navigation_item_6:
-                        getSupportActionBar().setTitle(R.string.reminders_fragment);
-                        //Fragment reminderFragment = new ReminderFragment();
-                        //fragmentTransaction.replace(R.id.frame, reminderFragment);
+                        getSupportActionBar().setTitle(R.string.charts_fragment);
+                        ChartFragment chartrFragment = new ChartFragment();
+                        fragmentTransaction.replace(R.id.frame, chartrFragment);
                         fragmentTransaction.commit();
                         return true;
                     case R.id.navigation_item_7:
@@ -136,14 +139,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         //Setting the actionbarToggle to drawer layout
         drawerLayout.setDrawerListener(mActionBarDrawerToggle);
 
-        initValue();
+        onDestroy();
+        //initValue();
 
         //calling sync state is necessay or else your hamburger icon wont show up
         mActionBarDrawerToggle.syncState();
     }
 
     private void initValue() {
-        //textUsername.setText(new BaseActivity().getLoginDetail(this).getUser_name());
+        textUsername.setText(new BaseActivity().getLoginDetail(this).getUser_name());
+        if(new BaseActivity().getLoginDetail(this).getProfile_image_path() != ""){
+            ImageLoader.getInstance().displayImage(new BaseActivity().getLoginDetail(this).getProfile_image_path(), profilePic, options);}
+    }
+
+    protected void onDestroy() {
+        ImageLoader.getInstance().destroy();
     }
 
     private void goToLogin(){
@@ -207,7 +217,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //                //case R.id.text_name:
 //                OfflineLogin offlineLogin = getLoginDetail();
 //                if (offlineLogin != null) {
-//                    Log.d("MainActivity","a");
+//                    Log.d("MainActivity", "a");
 //                    // pass news data to view college news activity
 //                    ProfileFragment profileFragment = new ProfileFragment();
 ////                    details.setArguments(getIntent().getExtras());

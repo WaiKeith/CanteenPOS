@@ -155,70 +155,70 @@ public class ProfileFragment extends BaseFragment {
 //
 //    }
 
-    private void loadStudent() {
-        new getStudent().execute();
-    }
+//    private void loadStudent() {
+//        new getStudent().execute();
+//    }
 
-    public class getStudent extends AsyncTask<String, Void, String> {
-        ProgressDialog loading;
-        RequestHandler rh = new RequestHandler();
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            //loading = ProgressDialog.show(getActivity(), "Loading...", "Please Wait...", true, true);
-        }
-
-
-        @Override
-        protected void onPostExecute(String json2) {
-            super.onPostExecute(json2);
-            //loading.dismiss();
-            Log.d("ProfileFragment", json2);
-            convertjson(json2);
-            extractjsonData();
-
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            HashMap<String, String> data = new HashMap<>();
-            data.put(KEY_STUD_ID, account.getCust_id());
-            Log.d("studid", String.valueOf(account.getCust_id()));
-            return rh.sendPostRequest(RETRIEVESTUD_URL, data);
-        }
-    }
-
-    // parse JSON data into JSON array
-    private void convertjson(String json) {
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            mJsonArray = jsonObject.getJSONArray(BaseActivity.JSON_ARRAY);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void extractjsonData() {
-
-        for (int i = 0; i < mJsonArray.length(); i++) {
-            try {
-
-                JSONObject jsonObject2 = mJsonArray.getJSONObject(i);
-
-
-                student.setStud_name((jsonObject2.getString(KEY_STUD_NAME)));
-                student.setStud_course((jsonObject2.getString(KEY_COURSE)));
-                student.setStud_email(jsonObject2.getString(KEY_EMAIL));
-
-                Log.d("Profile", String.valueOf(mJsonArray.length()));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            loadStudentView();
-
-        }
-    }
+//    public class getStudent extends AsyncTask<String, Void, String> {
+//        ProgressDialog loading;
+//        RequestHandler rh = new RequestHandler();
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            //loading = ProgressDialog.show(getActivity(), "Loading...", "Please Wait...", true, true);
+//        }
+//
+//
+//        @Override
+//        protected void onPostExecute(String json2) {
+//            super.onPostExecute(json2);
+//            //loading.dismiss();
+//            Log.d("ProfileFragment", json2);
+//            convertjson(json2);
+//            extractjsonData();
+//
+//        }
+//
+//        @Override
+//        protected String doInBackground(String... strings) {
+//            HashMap<String, String> data = new HashMap<>();
+//            data.put(KEY_STUD_ID, account.getCust_id());
+//            Log.d("studid", String.valueOf(account.getCust_id()));
+//            return rh.sendPostRequest(RETRIEVESTUD_URL, data);
+//        }
+//    }
+//
+//    // parse JSON data into JSON array
+//    private void convertjson(String json) {
+//        try {
+//            JSONObject jsonObject = new JSONObject(json);
+//            mJsonArray = jsonObject.getJSONArray(BaseActivity.JSON_ARRAY);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    private void extractjsonData() {
+//
+//        for (int i = 0; i < mJsonArray.length(); i++) {
+//            try {
+//
+//                JSONObject jsonObject2 = mJsonArray.getJSONObject(i);
+//
+//
+//                student.setStud_name((jsonObject2.getString(KEY_STUD_NAME)));
+//                student.setStud_course((jsonObject2.getString(KEY_COURSE)));
+//                student.setStud_email(jsonObject2.getString(KEY_EMAIL));
+//
+//                Log.d("Profile", String.valueOf(mJsonArray.length()));
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//            loadStudentView();
+//
+//        }
+//    }
 
     public void loadAccount() {
         new getAccount(acc_id).execute();

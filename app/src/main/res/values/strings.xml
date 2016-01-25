@@ -25,6 +25,7 @@
     <string name="submitPW">Enter your password</string>
     <string name="resubmitPW">Resubmit your password</string>
     <string name="confirm">Confirm</string>
+    <string name="proceed">Proceed to login</string>
     <string name="reset">Reset</string>
     <string name="titleReload">Account Reload</string>
     <string name="amtreload">Choose amount to reload</string>
@@ -95,7 +96,7 @@
     <string name="reminder">Reminder</string>
     <string name="hint_date">Pick Date</string>
     <string name="hint_time">Pick Time</string>
-    <string name="enterCustId">Enter customer ID</string>
+    <string name="enterStudId">Enter student ID</string>
     <string name="enterAccId">Enter account ID</string>
     <string name="totalGST">GST(6%)</string>
     <string name="developerInfo">Hi, I am a third year of Bachelor Degree student from Tunku Abdul Rahman University College and
