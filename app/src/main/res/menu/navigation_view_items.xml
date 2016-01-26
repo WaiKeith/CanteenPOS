@@ -27,7 +27,7 @@
             android:icon="@drawable/ic_drawer5"
             android:title="@string/charts_fragment" />
 
-        <View
+        <Item
             android:id="@+id/separator2"
             android:layout_width="fill_parent"
             android:layout_height="1dp"

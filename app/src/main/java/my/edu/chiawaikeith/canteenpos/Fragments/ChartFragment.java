@@ -1,23 +1,38 @@
 package my.edu.chiawaikeith.canteenpos.Fragments;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.HashMap;
+
+import my.edu.chiawaikeith.canteenpos.Activities.BaseActivity;
+import my.edu.chiawaikeith.canteenpos.Domains.OrderLines;
 import my.edu.chiawaikeith.canteenpos.R;
+import my.edu.chiawaikeith.canteenpos.RequestHandler;
 
 
 public class ChartFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private final static String KEY_FOOD_ID = "O.food_id";
+    private final static String KEY_TOTAL_QTY = "O.total_qty";
     private static final String REPORT_URL = "http://canteenpos.comxa.com/Reports/report.php";
+    private JSONArray jsonArray;
+    OrderLines orderLines;
 
     private String mParam1;
     private String mParam2;
@@ -61,6 +76,7 @@ public class ChartFragment extends Fragment {
         mPieChart.addPieSlice(new PieModel("Chinese Food", c, Color.parseColor("#CDA67F")));
         mPieChart.addPieSlice(new PieModel("Mamak", d, Color.parseColor("#FED70E")));
 
+        getChart();
         mPieChart.startAnimation();
         return view;
     }
@@ -69,82 +85,76 @@ public class ChartFragment extends Fragment {
         acc_id = new BaseFragment().getLoginDetail(getActivity()).getAcc_id();
     }
 
-//    public void loadInfo() {
-//        new getInfo(acc_id).execute();
-//    }
-//
-//    // this one is get json
-//    public class getInfo extends AsyncTask<String, Void, String> {
-//        ProgressDialog loading;
-//        RequestHandler rh = new RequestHandler();
-//        Integer acc_ID;
-//
-//        public getInfo(Integer accountId) {
-//            this.acc_ID = accountId;
-//        }
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            //loading = ProgressDialog.show(getActivity(), "Loading...", "Please Wait...", true, true);
-//        }
-//
-//
-//        @Override
-//        protected void onPostExecute(String json) {
-//            super.onPostExecute(json);
-//            //loading.dismiss();
-//            Log.d("ProfileFragment", json);
-//            convertJson(json);
-//            extractJsonData();
-//
-//        }
-//
-//        @Override
-//        protected String doInBackground(String... strings) {
-//            HashMap<String, String> data = new HashMap<>();
-//            data.put("acc_id", String.valueOf(acc_ID));
-//            return rh.sendPostRequest(RETRIEVEINFO_URL, data);
-//        }
-//    }
-//
-//    // parse JSON data into JSON array
-//    private void convertJson(String json) {
-//        try {
-//            JSONObject jsonObject = new JSONObject(json);
-//            mJsonArray = jsonObject.getJSONArray(BaseActivity.JSON_ARRAY);
-//            Log.d("length",String.valueOf(mJsonArray.length()));
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
-//
-//    private void extractJsonData() {
-//
-//        for (int i = 0; i < mJsonArray.length(); i++) {
-//            try {
-//                JSONObject jsonObject = mJsonArray.getJSONObject(i);
-//
-//                student.setStud_name(jsonObject.getString(KEY_STUD_NAME));
-//                student.setStud_course(jsonObject.getString(KEY_COURSE));
-//                student.setStud_email(jsonObject.getString(KEY_EMAIL));
-//                account.setCust_id((jsonObject.getString(KEY_CUST_ID)));
-//                account.setUser_name((jsonObject.getString(KEY_USER_NAME)));
-//                account.setAcc_balance(Double.parseDouble(jsonObject.getString(KEY_ACCBALANCE)));
-//                account.setRegister_date(mySqlDateTimeFormat.parse(jsonObject.getString(KEY_REGISTERDATE)));
-//                account.setProfile_image_path(jsonObject.getString(KEY_PROFILE_IMAGE_PATH));
-//                Log.d("Account image path", jsonObject.getString(KEY_PROFILE_IMAGE_PATH));
-//
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//            loadInfoView();
-//
-//        }
-//    }
+    public void getChart() {
+        new getChart(acc_id).execute();
+    }
+
+    // this one is get json
+    public class getChart extends AsyncTask<String, Void, String> {
+        ProgressDialog loading;
+        RequestHandler rh = new RequestHandler();
+        Integer acc_ID;
+
+        public getChart(Integer accountId) {
+            this.acc_ID = accountId;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //loading = ProgressDialog.show(getActivity(), "Loading...", "Please Wait...", true, true);
+        }
+
+
+        @Override
+        protected void onPostExecute(String json) {
+            super.onPostExecute(json);
+            //loading.dismiss();
+            Log.d("ChartFragment", json);
+            convertJson(json);
+            extractJsonData();
+
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            HashMap<String, String> data = new HashMap<>();
+            data.put("acc_id", String.valueOf(acc_ID));
+            return rh.sendPostRequest(REPORT_URL, data);
+        }
+    }
+
+    // parse JSON data into JSON array
+    private void convertJson(String json) {
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            jsonArray = jsonObject.getJSONArray(BaseActivity.JSON_ARRAY);
+            Log.d("length",String.valueOf(jsonArray.length()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void extractJsonData() {
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            try {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                orderLines.setTotal_qty(jsonObject.getInt(KEY_TOTAL_QTY));
+                orderLines.setFood_id(jsonObject.getInt(KEY_FOOD_ID));
+
+                //Log.d("Account image path", jsonObject.getString(KEY_PROFILE_IMAGE_PATH));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            //loadA();
+
+        }
+    }
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
