@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import my.edu.chiawaikeith.canteenpos.Domains.Accounts;
 import my.edu.chiawaikeith.canteenpos.Domains.OfflineLogin;
@@ -45,9 +46,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        textUsername = (TextView)findViewById(R.id.name);
-        profilePic = (ImageView)findViewById(R.id.image_profile);
 
         HomeFragment fragmentHome = new HomeFragment();
         getSupportFragmentManager().beginTransaction().replace(frame, fragmentHome).commit();
@@ -101,8 +99,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         return true;
                     case R.id.navigation_item_6:
                         getSupportActionBar().setTitle(R.string.charts_fragment);
-                        ChartFragment chartrFragment = new ChartFragment();
-                        fragmentTransaction.replace(R.id.frame, chartrFragment);
+                        ChartFragment chartFragment = new ChartFragment();
+                        fragmentTransaction.replace(R.id.frame, chartFragment);
                         fragmentTransaction.commit();
                         return true;
                     case R.id.navigation_item_7:
@@ -139,8 +137,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         //Setting the actionbarToggle to drawer layout
         drawerLayout.setDrawerListener(mActionBarDrawerToggle);
 
-        onDestroy();
-        //initValue();
+        View headerView = navigation.inflateHeaderView(R.layout.navigation_header);
+
+        textUsername = (TextView) headerView.findViewById(R.id.name);
+        profilePic = (ImageView) headerView.findViewById(R.id.image_profile);
+        textUsername.setOnClickListener(this);
+        profilePic.setOnClickListener(this);
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
+        ImageLoader.getInstance().init(config);
+
+        initValue();
 
         //calling sync state is necessay or else your hamburger icon wont show up
         mActionBarDrawerToggle.syncState();
@@ -152,9 +159,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             ImageLoader.getInstance().displayImage(new BaseActivity().getLoginDetail(this).getProfile_image_path(), profilePic, options);}
     }
 
-    protected void onDestroy() {
-        ImageLoader.getInstance().destroy();
-    }
 
     private void goToLogin(){
         Intent intent = new Intent(this,LoginActivity.class);
@@ -172,10 +176,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (drawerToggle.onOptionsItemSelected(item))
             return true;
-
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -208,35 +208,4 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         }
     }
-
-
-//    @Override
-//    public void onClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.image_profile:
-//                //case R.id.text_name:
-//                OfflineLogin offlineLogin = getLoginDetail();
-//                if (offlineLogin != null) {
-//                    Log.d("MainActivity", "a");
-//                    // pass news data to view college news activity
-//                    ProfileFragment profileFragment = new ProfileFragment();
-////                    details.setArguments(getIntent().getExtras());
-////                    getSupportFragmentManager().beginTransaction().add(
-////                            android.R.id.content, details).commit();
-//                    Bundle bundle = new Bundle();
-//                    accID = String.valueOf(offlineLogin.getAcc_id());
-//                    bundle.putString("KEY_ACCOUNT_ID",accID);
-//
-//                    profileFragment.setArguments(bundle);
-////                    Intent intent = new Intent(this, ProfileFragment.class);
-////                    intent.putExtra();
-////                    startActivity(intent);
-//                } else {
-//                    drawerLayout.closeDrawers();
-//                    break;
-//                }
-//                drawerLayout.closeDrawers();
-//                break;
-//        }
-//    }
 }

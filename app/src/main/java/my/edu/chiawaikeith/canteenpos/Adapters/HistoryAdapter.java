@@ -54,8 +54,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         CardView cv;
         TextView paymentAmt,orderDate;
 
-//        ImageView personPhoto;
-
         public ViewHolder(View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.cv);
@@ -64,7 +62,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             orderDate = (TextView)itemView.findViewById(R.id.orderDateTime);
 
             itemView.setOnClickListener(this);
-            //personPhoto = (ImageView)itemView.findViewById(R.id.person_photo);
         }
 
         @Override
@@ -87,5 +84,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     @Override
     public int getItemCount() {
         return orders.size();
+    }
+
+    public void clearAdapter() {
+        orders.clear();
+        notifyDataSetChanged();
     }
 }

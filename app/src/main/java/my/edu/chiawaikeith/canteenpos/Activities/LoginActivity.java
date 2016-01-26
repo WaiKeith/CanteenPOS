@@ -107,34 +107,6 @@ public class LoginActivity extends BaseActivity{
         startActivity(intent);
     }
 
-//    public void login(View view) {
-//        userName = editTextUsername.getText().toString();
-//        password = editTextPassword.getText().toString();
-//        UserDataSource userDataSource = new UserDataSource(this);
-//        Accounts userRecord = userDataSource.getUserDetails(userName, password);
-//        //String name = userRecord.name;
-//        //int id= userRecord.user_ID;
-//
-//
-//        if (userName.isEmpty() || password.isEmpty()) {
-//            Toast.makeText(getApplicationContext(), "Please Enter Your Username and Password!!", Toast.LENGTH_LONG).show();
-//        }
-//        else {
-//
-//            SharedPreferences userDetails = getSharedPreferences("userDetails", 0);
-//            SharedPreferences.Editor edit = userDetails.edit();
-//            edit.putString("username", name);
-//            edit.putInt("id", id);
-//
-//            edit.commit();
-//            Intent intent = new Intent(this, MainActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
-//
-//    }
-
-
     public class Login extends AsyncTask<String, Void, String> {
         String user_name, acc_password;
         RequestHandler rh = new RequestHandler();

@@ -26,12 +26,24 @@
             android:id="@+id/navigation_item_6"
             android:icon="@drawable/ic_drawer5"
             android:title="@string/charts_fragment" />
+
+        <View
+            android:id="@+id/separator2"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#90909090"
+            />
         <item
             android:id="@+id/navigation_item_7"
             android:icon="@drawable/ic_drawer6"
             android:title="@string/about_us_fragment" />
         <item
             android:id="@+id/navigation_item_8"
+            android:icon="@drawable/ic_drawer7"
             android:title="Sign Out" />
     </group>
 </menu>

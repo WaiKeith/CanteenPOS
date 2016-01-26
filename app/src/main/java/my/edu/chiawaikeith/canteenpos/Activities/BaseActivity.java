@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
@@ -26,14 +27,6 @@ import my.edu.chiawaikeith.canteenpos.Domains.OfflineLogin;
 
 public class BaseActivity extends AppCompatActivity {
 
-    // This class use to share variables for reuse purpose
-
-    public static final int REQUEST_DATE = 1;
-    public static final int REQUEST_CANCEL_DATE = 2;
-    public static final int REQUEST_REPLACEMENT_DATE = 3;
-    public static final int REQUEST_START_TIME = 4;
-    public static final int REQUEST_END_TIME = 5;
-
     public static final int RESPONSE_404 = 0;
     public static final int RESPONSE_SUCCESS = 1;
     public static final int RESPONSE_PASSWORD_INCORRECT = 2;
@@ -49,19 +42,13 @@ public class BaseActivity extends AppCompatActivity {
     public static final int REQUEST_IMAGE = 1;
     public static final int REQUEST_FIRST_IMAGE = 1;
     public static final int REQUEST_SECOND_IMAGE = REQUEST_FIRST_IMAGE + 1;
-    public static final int REQUEST_THIRD_IMAGE = REQUEST_SECOND_IMAGE + 1;
 
     public final static String KEY_IMAGE_URLS = "ImageUrls";
-
-    public static final String KEY_CURRENT_PASSWORD = "currentPassword";
-    public static final String KEY_CONFIRM_PASSWORD = "confirmPassword";
     public static final String KEY_RESPONSE = "response";
-    public static final String KEY_ACCOUNT = "Account";
 
     public SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
     public SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     public SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-    public SimpleDateFormat defaultDateFormat = new SimpleDateFormat("dd MMM yyyy");
     public SimpleDateFormat mySqlDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     public SimpleDateFormat mySqlDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     public Calendar calendar;
@@ -71,7 +58,6 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
 
         imageLoader.init(ImageLoaderConfiguration.createDefault(this));
@@ -151,6 +137,11 @@ public class BaseActivity extends AppCompatActivity {
         SharedPreferences.Editor prefsEditor = prefs.edit();
         prefsEditor.clear();
         prefsEditor.commit();
+    }
+
+    public boolean checkNetworkConnectivity(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
 }

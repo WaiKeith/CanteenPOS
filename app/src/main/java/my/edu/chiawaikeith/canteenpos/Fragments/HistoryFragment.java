@@ -25,7 +25,7 @@ import my.edu.chiawaikeith.canteenpos.Domains.Transactions;
 import my.edu.chiawaikeith.canteenpos.R;
 import my.edu.chiawaikeith.canteenpos.RequestHandler;
 
-public class HistoryFragment extends BaseFragment implements RecyclerView.RecyclerListener{
+public class HistoryFragment extends BaseFragment implements RecyclerView.RecyclerListener,View.OnClickListener{
     private static final String RETRIEVEHISTORY_URL = "http://canteenpos.comxa.com/Transactions/retrieve_transaction.php";
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -39,6 +39,7 @@ public class HistoryFragment extends BaseFragment implements RecyclerView.Recycl
     private final static String KEY_ORDER_DATETIME = "order_date_time";
     private final static String KEY_ORDER_STATUS = "order_status";
 
+    HistoryAdapter historyAdapter;
     private OnFragmentInteractionListener mListener;
     private RecyclerView rv;
     private int acc_id;
@@ -85,7 +86,7 @@ public class HistoryFragment extends BaseFragment implements RecyclerView.Recycl
     }
 
     public void initValues(){
-        acc_id = new BaseActivity().getLoginDetail(getActivity()).getAcc_id();
+        acc_id = new BaseFragment().getLoginDetail(getActivity()).getAcc_id();
     }
 
     public void startView() {
@@ -98,6 +99,16 @@ public class HistoryFragment extends BaseFragment implements RecyclerView.Recycl
 
     public void loadHistory() {
         new getHistory().execute();
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.buttonClear:
+                historyAdapter.clearAdapter();
+        }
+
     }
 
     public class getHistory extends AsyncTask<String, Void, String> {
@@ -175,6 +186,8 @@ public class HistoryFragment extends BaseFragment implements RecyclerView.Recycl
         }
         if(mJsonArray.length() > 0) {
             startView();
+        }else {
+            shortToast(getActivity(),"No records found.");
         }
     }
 

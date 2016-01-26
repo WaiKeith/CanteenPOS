@@ -10,8 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.software.shell.fab.ActionButton;
 
 import org.json.JSONArray;
@@ -20,7 +23,6 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import my.edu.chiawaikeith.canteenpos.Activities.BaseActivity;
@@ -44,17 +46,16 @@ public class ProfileFragment extends BaseFragment {
     final static String KEY_STUD_ID = "S.stud_id";
 
     private TextView profileName,custID,userName,accountBalance,registerDate,studName,studCourse,studEmail;
-
     private int acc_id;
+    private ImageView profilePic;
     JSONArray mJsonArray;
     public SimpleDateFormat mySqlDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-    private ArrayList<Accounts> accountList = new ArrayList<>();
     public Accounts account = new Accounts();
     public Students student = new Students();
 
-    private static final String RETRIEVESTUD_URL = "http://canteenpos.comxa.com/Accounts/Students/retrieve_student.php";
-    private static final String RETRIEVEACC_URL = "http://canteenpos.comxa.com/Accounts/Students/retrieve_account.php";
+//    private static final String RETRIEVESTUD_URL = "http://canteenpos.comxa.com/Accounts/Students/retrieve_student.php";
+//    private static final String RETRIEVEACC_URL = "http://canteenpos.comxa.com/Accounts/Students/retrieve_account.php";
     private static final String RETRIEVEINFO_URL = "http://canteenpos.comxa.com/Accounts/Students/retrieve_info.php";
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -81,8 +82,11 @@ public class ProfileFragment extends BaseFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getActivity()).build();
+        ImageLoader.getInstance().init(config);
         initValues();
-        loadAccount();
+        loadInfo();
         //loadStudent();
     }
 
@@ -102,6 +106,7 @@ public class ProfileFragment extends BaseFragment {
         studName = (TextView)view.findViewById(R.id.stud_name);
         studCourse = (TextView)view.findViewById(R.id.courseStudy);
         studEmail = (TextView)view.findViewById(R.id.studemail);
+        profilePic = (ImageView)view.findViewById(R.id.image_profile);
 
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,25 +139,6 @@ public class ProfileFragment extends BaseFragment {
 
 //    private void loadAccount() {
 //        new getAccount(RETRIEVEACC_URL).execute();
-//    }
-
-//    @Override
-//    public void onRefresh() {
-//        SharedPreferences accountList = getActivity().getSharedPreferences("accountList", 0);
-//        acc_id = accountList.getInt("id", 0);
-//        AccountDataSource accountDataSource = new AccountDataSource(getActivity());
-//        Accounts accRecord = accountDataSource.getUserDetailsByID(acc_id);
-//        cust_ID = accRecord.cust_id;
-//        user_name =accRecord.user_name;
-//        acc_balance = accRecord.acc_balance;
-//        register_Date = accRecord.register_date;
-////        user_gender = userRecord.gender;
-////        user_age = userRecord.age;
-////        user_weight = userRecord.weight;
-////        user_height = userRecord.height;
-//
-//        textViewName.setText(user_name);
-//
 //    }
 
 //    private void loadStudent() {
@@ -220,17 +206,17 @@ public class ProfileFragment extends BaseFragment {
 //        }
 //    }
 
-    public void loadAccount() {
-        new getAccount(acc_id).execute();
+    public void loadInfo() {
+        new getInfo(acc_id).execute();
     }
 
     // this one is get json
-    public class getAccount extends AsyncTask<String, Void, String> {
+    public class getInfo extends AsyncTask<String, Void, String> {
         ProgressDialog loading;
         RequestHandler rh = new RequestHandler();
         Integer acc_ID;
 
-        public getAccount(Integer accountId) {
+        public getInfo(Integer accountId) {
             this.acc_ID = accountId;
         }
 
@@ -292,12 +278,12 @@ public class ProfileFragment extends BaseFragment {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            loadAccountView();
+            loadInfoView();
 
         }
     }
 
-    private void loadAccountView() {
+    private void loadInfoView() {
         profileName.setText(account.getUser_name());
         userName.setText(account.getUser_name());
         custID.setText(account.getCust_id());
@@ -306,13 +292,15 @@ public class ProfileFragment extends BaseFragment {
         studName.setText(student.getStud_name());
         studCourse.setText(student.getStud_course());
         studEmail.setText(student.getStud_email());
+        if(account.getProfile_image_path() != ""){
+            ImageLoader.getInstance().displayImage(account.getProfile_image_path(), profilePic, options);}
     }
 
-    private void loadStudentView() {
-        studName.setText(student.getStud_name());
-        studCourse.setText(student.getStud_course());
-        studEmail.setText(student.getStud_email());
-    }
+//    private void loadStudentView() {
+//        studName.setText(student.getStud_name());
+//        studCourse.setText(student.getStud_course());
+//        studEmail.setText(student.getStud_email());
+//    }
 
 
     public interface OnFragmentInteractionListener {

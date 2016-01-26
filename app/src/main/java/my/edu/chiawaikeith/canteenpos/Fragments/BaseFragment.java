@@ -4,13 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Base64;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
@@ -32,14 +36,8 @@ public class BaseFragment extends Fragment {
     public SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
     public SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     public SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-    public SimpleDateFormat defaultDateFormat = new SimpleDateFormat("dd MMM yyyy");
     public SimpleDateFormat mySqlDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     public SimpleDateFormat mySqlDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-    public static final String KEY_SELECTED_TYPE = "KEY_SELECTED_TYPE";
-    public static final String KEY_FROM_NORMAL = "Normal";
-    public static final String KEY_FROM_UPDATE_REQUEST = "Update Request";
-    public static final String KEY_FROM_UPLOAD_REQUEST = "Upload Request";
 
     public static final String KEY_RESPONSE = "response";
     public int response;
@@ -47,12 +45,12 @@ public class BaseFragment extends Fragment {
     public static final String KEY_ACCOUNT = "Account";
     public static final String JSON_ARRAY = "result";
 
-//    public DisplayImageOptions options = new DisplayImageOptions.Builder()
-//            .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-//            .cacheInMemory(true)
-//            .cacheOnDisk(true)
-//            .considerExifParams(true)
-//            .build();
+    public DisplayImageOptions options = new DisplayImageOptions.Builder()
+            .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+            .cacheInMemory(true)
+            .cacheOnDisk(true)
+            .considerExifParams(true)
+            .build();
 
     public String getStringImage(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -88,5 +86,14 @@ public class BaseFragment extends Fragment {
         } else {
             return null;
         }
+    }
+
+    public boolean checkNetworkConnectivity(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
+
+    public static void shortToast(Context a, String message) {
+        Toast.makeText(a, message, Toast.LENGTH_SHORT).show();
     }
 }

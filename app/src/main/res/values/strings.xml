@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Canteen POS</string>
+    <string name="app_name">DINPOS</string>
     <string name="hello_world">Welcome to Canteen POS</string>
     <string name="action_settings">Settings</string>
     <string name="home_fragment">Home</string>
