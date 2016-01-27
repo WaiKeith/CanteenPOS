@@ -53,8 +53,8 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
     private Date orderDate;
     private Spinner spinnerQuantity;
     NfcAdapter nfcAdapter;
-    private TextView price,totalPrice,qty,aPrice,sub1,sub2,totalGST,foodID;
-    private Button write,cal,order,start,addCart;
+    private TextView price,totalPrice,qty,aPrice,sub1,sub2,totalGST,foodID,foodID2;
+    private Button write,cal,order,start,addCart1,addCart2;
     ImageView d,e;
     JSONArray mJsonArray;
     Transactions transaction = new Transactions();
@@ -164,8 +164,11 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
         cal = (Button)view.findViewById(R.id.btnCal);
         cal.setOnClickListener(this);
 
-        addCart = (Button)view.findViewById(R.id.btnAddcart);
-        addCart.setOnClickListener(this);
+        addCart1 = (Button)view.findViewById(R.id.btnAddcart1);
+        addCart1.setOnClickListener(this);
+
+        addCart2 = (Button)view.findViewById(R.id.btnAddcart2);
+        addCart2.setOnClickListener(this);
 
         order = (Button)view.findViewById(R.id.btnConfirm);
         order.setOnClickListener(this);
@@ -194,8 +197,9 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
         f = Integer.parseInt(qty.getText().toString());
 
         foodID = (TextView)view.findViewById(R.id.tvFoodID);
+        foodID2 = (TextView)view.findViewById(R.id.textView9);
 
-        //mText = spinnerQuantity.getSelectedItem().toString();
+        mText = spinnerQuantity.getSelectedItem().toString();
         nfcAdapter = NfcAdapter.getDefaultAdapter(getActivity());
 
         return view;
@@ -271,13 +275,20 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
                 startActivity(intent);
                 break;
 
-            case R.id.btnAddcart:
+            case R.id.btnAddcart1:
                 Log.d("newid",String.valueOf(newTransac_id));
 
                 new insertOrderLine().execute(
                         String.valueOf(newTransac_id),
                         foodID.getText().toString(),
                         qty.getText().toString());
+                break;
+
+            case R.id.btnAddcart2:
+                new insertOrderLine().execute(
+                        String.valueOf(newTransac_id),
+                        foodID2.getText().toString(),
+                        mText.toString());
                 break;
 
             case R.id.btnStart:

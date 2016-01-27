@@ -17,12 +17,14 @@ import my.edu.chiawaikeith.canteenpos.R;
  */
 public class OrderLinesAdapter extends RecyclerView.Adapter<OrderLinesAdapter.ViewHolder>{
     private List<OrderLines> orderLines;
+    //private List<Foods> foods;
     private Context context;
     private int itemLayout;
 
-    public OrderLinesAdapter(Context context, List<OrderLines> orderLines, int itemLayout){
+    public OrderLinesAdapter(Context context, List<OrderLines> orderLines,int itemLayout){
         this.context = context;
         this.orderLines = orderLines;
+        //this.foods = foods;
         this.itemLayout = itemLayout;
     }
 
@@ -41,11 +43,12 @@ public class OrderLinesAdapter extends RecyclerView.Adapter<OrderLinesAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.foodId.setText(String.valueOf(orderLines.get(position).getFood_id()));
+        //holder.foodName.setText(foods.get(position).getFood_name());
         holder.itemqty.setText(String.valueOf(orderLines.get(position).getItem_qty()));
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        TextView foodId,itemqty;
+        TextView foodId,itemqty,foodName;
 
 //        ImageView personPhoto;
 
@@ -54,6 +57,7 @@ public class OrderLinesAdapter extends RecyclerView.Adapter<OrderLinesAdapter.Vi
 
             foodId = (TextView)itemView.findViewById(R.id.foodID);
             itemqty = (TextView)itemView.findViewById(R.id.itemQty);
+            //foodName = (TextView)itemView.findViewById(R.id.foodName);
 
             //personPhoto = (ImageView)itemView.findViewById(R.id.person_photo);
         }

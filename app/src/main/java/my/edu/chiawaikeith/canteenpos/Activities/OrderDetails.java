@@ -23,6 +23,7 @@ import java.util.HashMap;
 
 import my.edu.chiawaikeith.canteenpos.Adapters.HistoryAdapter;
 import my.edu.chiawaikeith.canteenpos.Adapters.OrderLinesAdapter;
+import my.edu.chiawaikeith.canteenpos.Domains.Foods;
 import my.edu.chiawaikeith.canteenpos.Domains.OrderLines;
 import my.edu.chiawaikeith.canteenpos.Domains.Transactions;
 import my.edu.chiawaikeith.canteenpos.R;
@@ -38,11 +39,13 @@ public class OrderDetails extends BaseActivity implements View.OnClickListener {
     JSONArray mJsonArray;
     private ActionButton actionButton;
     private ArrayList<OrderLines> orderList = new ArrayList<>();
+    private ArrayList<Foods> foodList = new ArrayList<>();
     Transactions transaction = new Transactions();
     final static String KEY_TRANSAC_ID = "transac_id";
     final static String KEY_FOOD_ID = "food_id";
     final static String KEY_ORDERLINE_ID = "order_line_id";
     final static String KEY_ITEM_QTY = "item_qty";
+    final static String KEY_FOOD_NAME = "F.food_name";
     final static String GET_URL = "http://canteenpos.comxa.com/OrderLines/retrieve_order_line.php";
 
     @Override
@@ -119,14 +122,17 @@ public class OrderDetails extends BaseActivity implements View.OnClickListener {
             try {
                 JSONObject jsonObject = mJsonArray.getJSONObject(i);
                 OrderLines orderLine = new OrderLines();
+                //Foods food = new Foods();
 
             try{
                 orderLine.setTransac_id(jsonObject.getInt(KEY_TRANSAC_ID));
                 orderLine.setFood_id(jsonObject.getInt(KEY_FOOD_ID));
                 orderLine.setOrder_line_id(jsonObject.getInt(KEY_ORDERLINE_ID));
                 orderLine.setItem_qty(jsonObject.getInt(KEY_ITEM_QTY));
+                //food.setFood_name(jsonObject.getString(KEY_FOOD_NAME));
 
                 orderList.add(orderLine);
+                //foodList.add(food);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
