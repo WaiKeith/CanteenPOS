@@ -70,35 +70,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editTextEvent2"
-        android:layout_marginLeft="60dp"
+        android:layout_marginLeft="70dp"
         android:paddingTop="80dp"
         android:orientation="horizontal">
-
-    <Button
-        android:id="@+id/buttonflatDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:text="Delete"
-        android:textColor="@color/blue"
-        style="?android:attr/borderlessButtonStyle"/>
 
     <Button
         android:id="@+id/buttonflatSave"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
-        android:text="Save"
+        android:text="Save changes"
         android:textColor="@color/blue"
         style="?android:attr/borderlessButtonStyle"/>
 
-    <Button
-        android:id="@+id/buttonflatCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:text="Cancel"
-        android:textColor="@color/blue"
-        android:layout_marginBottom="160dp"
-        style="?android:attr/borderlessButtonStyle" />
-
+        <Button
+            android:id="@+id/buttonflatDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Delete"
+            android:textColor="@color/blue"
+            style="?android:attr/borderlessButtonStyle"/>
     </LinearLayout>
 
 </RelativeLayout>

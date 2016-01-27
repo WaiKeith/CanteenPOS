@@ -24,7 +24,7 @@
     <TextView
         android:layout_width="19dp"
         android:layout_height="wrap_content"
-        android:text="B"
+        android:text="2"
         android:id="@+id/textView9"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -195,10 +195,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add to cart"
-        android:id="@+id/btnAddcart"
+        android:id="@+id/btnAddcart1"
         android:layout_alignParentTop="true"
         android:layout_alignEnd="@+id/linearLayout1"
         style="?android:attr/borderlessButtonStyle"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add to cart"
+        android:id="@+id/btnAddcart2"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_alignTop="@+id/textView9"
+        android:layout_alignEnd="@+id/linearLayout1" />
 
 </RelativeLayout>

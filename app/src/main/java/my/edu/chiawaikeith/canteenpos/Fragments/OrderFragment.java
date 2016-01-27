@@ -251,11 +251,6 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
 
             case R.id.btnConfirm:
                 Intent intent = new Intent(getActivity(), OrderList.class);
-//                OrderRe orderRecord = new OrderRe();
-//                //orderRecord.setNumber(tPrice);
-//
-//                OrderDataSource orderDataSource = new OrderDataSource(getActivity());
-//                orderDataSource.insertOrder(orderRecord);
 
                 Calendar calendar;
                 calendar = Calendar.getInstance();

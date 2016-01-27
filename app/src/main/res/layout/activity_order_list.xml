@@ -29,8 +29,7 @@
             android:layout_below="@+id/linearLayout1">
             <Button
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_toLeftOf="@+id/buttonClear"
-                android:id="@+id/buttonSave"
+                android:id="@+id/buttonClear"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
                 android:textColor="@color/blue"

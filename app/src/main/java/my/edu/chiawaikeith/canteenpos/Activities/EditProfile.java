@@ -60,7 +60,7 @@ public class EditProfile extends BaseActivity implements View.OnClickListener {
 
     ImageView pImage,mImageProfile,ImageView2,ImageView3;
     BottomSheetLayout mBottomSheetImage;
-    private Button btnSave,btnCancel;
+    private Button btnSave;
     private Bitmap mBitmapImage1;
     private Uri mCameraImageUri = null;
     private int mLoadImageNo;
@@ -86,9 +86,6 @@ public class EditProfile extends BaseActivity implements View.OnClickListener {
 
         btnSave = (Button)findViewById(R.id.buttonSave);
         btnSave.setOnClickListener(this);
-
-        btnCancel = (Button)findViewById(R.id.buttonCancel);
-        btnCancel.setOnClickListener(this);
 
         //textView = (TextView) findViewById(R.id.textView1);
         mImageProfile = (ImageView)findViewById(R.id.image_1);
@@ -143,10 +140,6 @@ public class EditProfile extends BaseActivity implements View.OnClickListener {
                 Intent intent = new Intent(this,MainActivity.class);
                 startActivity(intent);
                 break;
-
-            case R.id.buttonCancel:
-                Intent intent2 = new Intent(this, MainActivity.class);
-                startActivity(intent2);
         }
     }
 

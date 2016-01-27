@@ -48,9 +48,7 @@ public class EditReminder extends BaseActivity implements View.OnClickListener
 
     Context context;
     private ActionButton actionButton;
-    Button buttonFlatCancel;
-    Button buttonFlatSave;
-    Button buttonFlatDelete;
+    Button buttonFlatSave,buttonFlatDelete;
     private Reminders reminder = new Reminders();
 
     @Override
@@ -68,7 +66,6 @@ public class EditReminder extends BaseActivity implements View.OnClickListener
 
         buttonFlatSave = (Button) findViewById(R.id.buttonflatSave);
         buttonFlatDelete = (Button) findViewById(R.id.buttonflatDelete);
-        buttonFlatCancel = (Button) findViewById(R.id.buttonflatCancel);
 
         editTextDate = (EditText) findViewById(R.id.date_textview);
         editTextDate.setOnTouchListener(this);
@@ -76,10 +73,9 @@ public class EditReminder extends BaseActivity implements View.OnClickListener
         editTextTime.setOnTouchListener(this);
         editTextDesc = (EditText)findViewById(R.id.editDesc);
         editTextTitle = (EditText)findViewById(R.id.editTitle);
-
         buttonFlatSave.setOnClickListener(this);
         buttonFlatDelete.setOnClickListener(this);
-        buttonFlatCancel.setOnClickListener(this);
+
 
         reminder = (Reminders) getIntent().getSerializableExtra(ReminderAdapter.KEY_REMINDER);
         initValues();
@@ -152,11 +148,6 @@ public class EditReminder extends BaseActivity implements View.OnClickListener
                         editTextDate.getText().toString(),
                         editTextTime.getText().toString());
 
-                startActivity(intent);
-
-                break;
-
-            case R.id.buttonflatCancel:
                 startActivity(intent);
 
                 break;

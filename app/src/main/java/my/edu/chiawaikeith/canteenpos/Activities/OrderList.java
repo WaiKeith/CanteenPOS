@@ -39,6 +39,7 @@ public class OrderList extends BaseActivity implements View.OnClickListener {
     private JSONArray mJsonArray;
     private ArrayList<Transactions> transactionsList = new ArrayList<>();
     private Toolbar toolBar;
+    HistoryAdapter historyAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,6 +177,9 @@ public class OrderList extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.buttonClear:
+                historyAdapter.clearAdapter();
+        }
     }
 }

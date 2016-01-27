@@ -40,6 +40,7 @@ public class ReminderList extends BaseActivity implements View.OnClickListener{
     private JSONArray mJsonArray;
     private ArrayList<Reminders> reminderList = new ArrayList<>();
     private Toolbar toolBar;
+    ReminderAdapter reminderAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,6 +177,9 @@ public class ReminderList extends BaseActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.buttonClear:
+                reminderAdapter.clearAdapter();
+        }
     }
 }

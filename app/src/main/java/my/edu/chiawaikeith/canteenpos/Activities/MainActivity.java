@@ -1,12 +1,15 @@
 package my.edu.chiawaikeith.canteenpos.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +18,12 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 import my.edu.chiawaikeith.canteenpos.Domains.Accounts;
 import my.edu.chiawaikeith.canteenpos.Domains.OfflineLogin;
@@ -26,6 +35,7 @@ import my.edu.chiawaikeith.canteenpos.Fragments.OrderFragment;
 import my.edu.chiawaikeith.canteenpos.Fragments.ProfileFragment;
 import my.edu.chiawaikeith.canteenpos.Fragments.ReminderFragment;
 import my.edu.chiawaikeith.canteenpos.R;
+import my.edu.chiawaikeith.canteenpos.RequestHandler;
 
 import static my.edu.chiawaikeith.canteenpos.R.id.frame;
 
@@ -35,9 +45,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     ActionBarDrawerToggle drawerToggle;
     NavigationView navigation;
     private ImageView profilePic;
-    private Accounts account;
+    Accounts account;
     private OfflineLogin offlineLogin;
     private TextView textUsername;
+    private int acc_id;
+    private JSONArray jsonArray;
+    final static String KEY_USER_NAME = "user_name";
+    final static String KEY_PROFILE_IMAGE_PATH = "profile_image_path";
+    private static final String RETRIEVEACC_URL = "http://canteenpos.comxa.com/Accounts/Students/retrieve_account.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,18 +162,93 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
         ImageLoader.getInstance().init(config);
 
-        initValue();
+        initValues();
+        loadAccount();
 
         //calling sync state is necessay or else your hamburger icon wont show up
         mActionBarDrawerToggle.syncState();
     }
 
-    private void initValue() {
+    private void initValues() {
+        acc_id = new BaseActivity().getLoginDetail(this).getAcc_id();
         textUsername.setText(new BaseActivity().getLoginDetail(this).getUser_name());
         if(new BaseActivity().getLoginDetail(this).getProfile_image_path() != ""){
             ImageLoader.getInstance().displayImage(new BaseActivity().getLoginDetail(this).getProfile_image_path(), profilePic, options);}
     }
 
+    public void loadAccount() {
+        new getAccount(acc_id).execute();
+    }
+
+    // this one is get json
+    public class getAccount extends AsyncTask<String, Void, String> {
+        ProgressDialog loading;
+        RequestHandler rh = new RequestHandler();
+        Integer acc_ID;
+
+        public getAccount(Integer accountId) {
+            this.acc_ID = accountId;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //loading = ProgressDialog.show(getActivity(), "Loading...", "Please Wait...", true, true);
+        }
+
+
+        @Override
+        protected void onPostExecute(String json) {
+            super.onPostExecute(json);
+            //loading.dismiss();
+            Log.d("MainActivity", json);
+            convertJson(json);
+            extractJsonData();
+
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            HashMap<String, String> data = new HashMap<>();
+            data.put("acc_id", String.valueOf(acc_ID));
+            return rh.sendPostRequest(RETRIEVEACC_URL, data);
+        }
+    }
+
+    // parse JSON data into JSON array
+    private void convertJson(String json) {
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            jsonArray = jsonObject.getJSONArray(BaseActivity.JSON_ARRAY);
+            Log.d("length",String.valueOf(jsonArray.length()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void extractJsonData() {
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            try {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                account.setUser_name((jsonObject.getString(KEY_USER_NAME)));
+                account.setProfile_image_path(jsonObject.getString(KEY_PROFILE_IMAGE_PATH));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            loadAccountView();
+
+        }
+    }
+
+    private void loadAccountView() {
+        textUsername.setText(account.getUser_name());
+        if(account.getProfile_image_path() != ""){
+            ImageLoader.getInstance().displayImage(account.getProfile_image_path(), profilePic, options);}
+    }
 
     private void goToLogin(){
         Intent intent = new Intent(this,LoginActivity.class);
