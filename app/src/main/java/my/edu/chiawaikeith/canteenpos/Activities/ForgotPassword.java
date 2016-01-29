@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import my.edu.chiawaikeith.canteenpos.Domains.Accounts;
+import my.edu.chiawaikeith.canteenpos.Domains.Students;
+import my.edu.chiawaikeith.canteenpos.Mail;
 import my.edu.chiawaikeith.canteenpos.R;
 import my.edu.chiawaikeith.canteenpos.RequestHandler;
 
@@ -27,8 +30,10 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
 
         private JSONArray jsonArray;
         Accounts account = new Accounts();
+        Students student = new Students();
         private Toolbar toolBar;
         private TextView aText;
+        private Button btnProceed,btnRetrieve;
         private EditText editText1,editText2;
         private String userID = "",email = "";
         final static String VERIFY_URL = "http://canteenpos.comxa.com/Accounts/Students/get_password.php";
@@ -46,6 +51,10 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
         aText = (TextView)findViewById(R.id.textviewHidden);
         editText1 = (EditText) findViewById(R.id.editID);
         editText2 = (EditText)findViewById(R.id.editEmail);
+        btnProceed = (Button)findViewById(R.id.buttonProceed);
+        btnProceed.setOnClickListener(this);
+        btnRetrieve = (Button)findViewById(R.id.buttonRetrieve);
+        btnRetrieve.setOnClickListener(this);
 
         setSupportActionBar(toolBar);
         assert getSupportActionBar() != null;
@@ -91,12 +100,36 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
                             userID.toString(),
                             email.toString());
 
-                    startActivity(intent);
+                    //startActivity(intent);
                 }
 
             case R.id.buttonReset:
-                editText1.setText(null);
-                editText2.setText(null);
+//                editText1.setText(null);
+//                editText2.setText(null);
+
+                final Mail m = new Mail("your email address!! I suggest put at cloud then retrieve from it, remember add encrytion! =D TC", "email password");
+                new AsyncTask<Void, Void, Void>() {
+                    @Override public Void doInBackground(Void... arg) {
+                        String[] toArr = {email,email};
+                        m.setTo(toArr);
+                        m.setFrom("keith_513345@hotmail.com");
+                        m.setSubject("Password Recovery");
+                        m.setBody(aText.getText().toString());
+
+                        Log.d("here","here");
+                        try {
+                            if(m.send()) {
+                                Toast.makeText(ForgotPassword.this, "Email was sent successfully.", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(ForgotPassword.this, "Email was not sent.", Toast.LENGTH_LONG).show();
+                            }
+                        } catch(Exception e) {
+                            //Toast.makeText(MailApp.this, "There was a problem sending the email.", Toast.LENGTH_LONG).show();
+                            Log.e("MailApp", "Could not send email", e);
+                        }
+                        return null;
+                    }
+                }.execute();
         }
     }
 
@@ -109,7 +142,7 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            loading = ProgressDialog.show(ForgotPassword.this, "Verifying...", null, true, true);
+            //loading = ProgressDialog.show(ForgotPassword.this, "Verifying...", null, true, true);
         }
 
         @Override
@@ -142,21 +175,25 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
 
     private void extractJsonData() {
 
+        for (int i = 0; i < jsonArray.length(); i++) {
             try {
-                JSONObject jsonObject = jsonArray.getJSONObject(0);
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                account.setAcc_password((jsonObject.getString(KEY_ACC_PW)));
-                Log.d("pw",account.getAcc_password());
+                account.setAcc_password(jsonObject.getString(KEY_ACC_PW));
+                //student.setStud_email(jsonObject.getString(KEY_EMAIL));
+                Log.d("pw", account.getAcc_password());
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
 
-        loadPasswordView();
+        loadPassword();
 
         }
 
-    private void loadPasswordView() {
+    private void loadPassword() {
         aText.setText(account.getAcc_password());
+        email = editText2.getText().toString();
     }
 }

@@ -122,7 +122,7 @@ public class OrderDetails extends BaseActivity implements View.OnClickListener {
             try {
                 JSONObject jsonObject = mJsonArray.getJSONObject(i);
                 OrderLines orderLine = new OrderLines();
-                //Foods food = new Foods();
+                Foods food = new Foods();
 
             try{
                 orderLine.setTransac_id(jsonObject.getInt(KEY_TRANSAC_ID));
@@ -133,6 +133,7 @@ public class OrderDetails extends BaseActivity implements View.OnClickListener {
 
                 orderList.add(orderLine);
                 //foodList.add(food);
+                //Log.d("foodname", food.getFood_name());
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -20,6 +20,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import my.edu.chiawaikeith.canteenpos.Activities.BaseActivity;
+import my.edu.chiawaikeith.canteenpos.Domains.CategoryRecord;
+import my.edu.chiawaikeith.canteenpos.Domains.Foods;
 import my.edu.chiawaikeith.canteenpos.Domains.OrderLines;
 import my.edu.chiawaikeith.canteenpos.R;
 import my.edu.chiawaikeith.canteenpos.RequestHandler;
@@ -29,14 +31,16 @@ public class ChartFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private final static String KEY_FOOD_ID = "O.food_id";
-    private final static String KEY_TOTAL_QTY = "O.total_qty";
-    private static final String REPORT_URL = "http://canteenpos.comxa.com/Reports/report.php";
+    private final static String KEY_ITEM_QTY = "O.item_qty";
+    private final static String KEY_FOOD_CATEGORY = "F.food_category";
+    private static final String REPORT_URL = "http://canteenpos.comxa.com/Reports/reportv1.php";
     private JSONArray jsonArray;
-    OrderLines orderLines;
-
-    private String mParam1;
+    OrderLines orderLines = new OrderLines();
+    CategoryRecord categoryRecord = new CategoryRecord();
+    Foods foods = new Foods();
+    private String mParam1,category;
     private String mParam2;
-    private int a=35,b=25,c=35,d=5,acc_id;
+    private int a=35,b=25,c=35,d=5,acc_id,riceQty=0,noodleQty=0,total1,total2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -62,6 +66,7 @@ public class ChartFragment extends Fragment {
         }
 
         initValues();
+        getChart();
     }
 
     @Override
@@ -71,12 +76,11 @@ public class ChartFragment extends Fragment {
 
         PieChart mPieChart = (PieChart)view. findViewById(R.id.piechart);
 
-        mPieChart.addPieSlice(new PieModel("Fast Food", a, Color.parseColor("#FE6DA8")));
-        mPieChart.addPieSlice(new PieModel("Malay Food", b, Color.parseColor("#56B7F1")));
+        mPieChart.addPieSlice(new PieModel("rice", total1, Color.parseColor("#FE6DA8")));
+        mPieChart.addPieSlice(new PieModel("noodle", total2, Color.parseColor("#56B7F1")));
         mPieChart.addPieSlice(new PieModel("Chinese Food", c, Color.parseColor("#CDA67F")));
         mPieChart.addPieSlice(new PieModel("Mamak", d, Color.parseColor("#FED70E")));
 
-        getChart();
         mPieChart.startAnimation();
         return view;
     }
@@ -142,19 +146,36 @@ public class ChartFragment extends Fragment {
             try {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                orderLines.setTotal_qty(jsonObject.getInt(KEY_TOTAL_QTY));
+                orderLines.setItem_qty(jsonObject.getInt(KEY_ITEM_QTY));
                 orderLines.setFood_id(jsonObject.getInt(KEY_FOOD_ID));
-
-                //Log.d("Account image path", jsonObject.getString(KEY_PROFILE_IMAGE_PATH));
-
+                foods.setFood_category(jsonObject.getString(KEY_FOOD_CATEGORY));
+                Log.d("c",foods.getFood_category());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            //loadA();
+            //loadView();
 
         }
+
+        if(foods.getFood_category().equals("rice")){
+            riceQty = orderLines.getItem_qty();
+            total1 = total1 + riceQty;
+            categoryRecord.setRice(total1);
+            Log.d("total1",String.valueOf(categoryRecord.getRice()));
+        }else if (foods.getFood_category().equals("noodle")){
+            noodleQty = orderLines.getItem_qty();
+            total2 = total2 + noodleQty;
+            categoryRecord.setNoodle(total2);
+            Log.d("total2",String.valueOf(categoryRecord.getNoodle()));
+        }
     }
+
+    private void loadView() {
+
+
+    }
+
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
