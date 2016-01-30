@@ -107,7 +107,7 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
 //                editText1.setText(null);
 //                editText2.setText(null);
 
-                final Mail m = new Mail("your email address!! I suggest put at cloud then retrieve from it, remember add encrytion! =D TC", "email password");
+                final Mail m = new Mail("keith_513345@hotmail.com", "chia513345");
                 new AsyncTask<Void, Void, Void>() {
                     @Override public Void doInBackground(Void... arg) {
                         String[] toArr = {email,email};
@@ -121,7 +121,7 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
                             if(m.send()) {
                                 Toast.makeText(ForgotPassword.this, "Email was sent successfully.", Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(ForgotPassword.this, "Email was not sent.", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(ForgotPassword.this, "Email was not sent.", Toast.LENGTH_LONG).show();
                             }
                         } catch(Exception e) {
                             //Toast.makeText(MailApp.this, "There was a problem sending the email.", Toast.LENGTH_LONG).show();

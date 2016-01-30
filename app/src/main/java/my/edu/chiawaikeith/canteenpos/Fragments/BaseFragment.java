@@ -71,10 +71,14 @@ public class BaseFragment extends Fragment {
     }
 
     public OfflineLogin getLoginDetail(Context context) {
+        OfflineLogin offlineLogin = null;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
-        String json = prefs.getString(OBJECT_OFFLINE_LOGIN, "");
-        OfflineLogin offlineLogin = gson.fromJson(json, OfflineLogin.class);
+        if(prefs.getString(OBJECT_OFFLINE_LOGIN, "") != null)
+        {
+            String json = prefs.getString(OBJECT_OFFLINE_LOGIN, "");
+            offlineLogin = gson.fromJson(json, OfflineLogin.class);
+        }
         return offlineLogin;
     }
 

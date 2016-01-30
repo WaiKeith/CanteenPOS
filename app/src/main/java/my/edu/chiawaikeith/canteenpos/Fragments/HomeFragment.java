@@ -73,7 +73,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_chart, container, false);
+        View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
         PieChart mPieChart = (PieChart)view. findViewById(R.id.piechart);
         custID = (TextView)view.findViewById(R.id.cust_Id);
@@ -93,6 +93,7 @@ public class HomeFragment extends BaseFragment {
 
     public void initValues(){
         acc_id = new BaseFragment().getLoginDetail(getActivity()).getAcc_id();
+        Log.d("id",String.valueOf(acc_id));
     }
 
     public void loadAccount() {
@@ -169,6 +170,7 @@ public class HomeFragment extends BaseFragment {
 
     private void loadAccountView() {
         userName.setText(account.getUser_name());
+        Log.d("name",account.getUser_name());
         custID.setText(account.getCust_id());
         accountBalance.setText(String.valueOf(account.getAcc_balance()));
         registerDate.setText(mySqlDateFormat.format(account.getRegister_date()));

@@ -45,7 +45,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     ActionBarDrawerToggle drawerToggle;
     NavigationView navigation;
     private ImageView profilePic;
-    Accounts account;
+    Accounts account = new Accounts();
     private OfflineLogin offlineLogin;
     private TextView textUsername;
     private int acc_id;
@@ -234,6 +234,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                 account.setUser_name((jsonObject.getString(KEY_USER_NAME)));
+                Log.d("name",account.getUser_name());
                 account.setProfile_image_path(jsonObject.getString(KEY_PROFILE_IMAGE_PATH));
 
             } catch (JSONException e) {

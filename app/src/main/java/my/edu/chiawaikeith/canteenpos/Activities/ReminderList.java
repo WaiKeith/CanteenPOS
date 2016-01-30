@@ -150,7 +150,8 @@ public class ReminderList extends BaseActivity implements View.OnClickListener{
         }
         if(mJsonArray.length() > 0) {
             startView();
-        }
+        }else {
+            shortToast(this,"No records found.");}
     }
 
     @Override

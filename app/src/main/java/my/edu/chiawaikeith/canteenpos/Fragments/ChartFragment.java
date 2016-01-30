@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +26,7 @@ import my.edu.chiawaikeith.canteenpos.R;
 import my.edu.chiawaikeith.canteenpos.RequestHandler;
 
 
-public class ChartFragment extends Fragment {
+public class ChartFragment extends BaseFragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private final static String KEY_FOOD_ID = "O.food_id";
@@ -36,11 +35,13 @@ public class ChartFragment extends Fragment {
     private static final String REPORT_URL = "http://canteenpos.comxa.com/Reports/reportv1.php";
     private JSONArray jsonArray;
     OrderLines orderLines = new OrderLines();
-    CategoryRecord categoryRecord = new CategoryRecord();
+    CategoryRecord categoryRecord;
     Foods foods = new Foods();
-    private String mParam1,category;
+    private String mParam1;
     private String mParam2;
-    private int a=35,b=25,c=35,d=5,acc_id,riceQty=0,noodleQty=0,total1,total2;
+    private int a=35,b=25,c=35,d=5,acc_id;
+    public int rice=0,noodle=0;
+    PieChart pieChart;
 
     private OnFragmentInteractionListener mListener;
 
@@ -74,14 +75,7 @@ public class ChartFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_chart, container, false);
 
-        PieChart mPieChart = (PieChart)view. findViewById(R.id.piechart);
-
-        mPieChart.addPieSlice(new PieModel("rice", total1, Color.parseColor("#FE6DA8")));
-        mPieChart.addPieSlice(new PieModel("noodle", total2, Color.parseColor("#56B7F1")));
-        mPieChart.addPieSlice(new PieModel("Chinese Food", c, Color.parseColor("#CDA67F")));
-        mPieChart.addPieSlice(new PieModel("Mamak", d, Color.parseColor("#FED70E")));
-
-        mPieChart.startAnimation();
+        pieChart = (PieChart)view. findViewById(R.id.piechart);
         return view;
     }
 
@@ -141,7 +135,8 @@ public class ChartFragment extends Fragment {
     }
 
     private void extractJsonData() {
-
+        categoryRecord = new CategoryRecord();
+        int total1=0,total2=0;
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -149,33 +144,51 @@ public class ChartFragment extends Fragment {
                 orderLines.setItem_qty(jsonObject.getInt(KEY_ITEM_QTY));
                 orderLines.setFood_id(jsonObject.getInt(KEY_FOOD_ID));
                 foods.setFood_category(jsonObject.getString(KEY_FOOD_CATEGORY));
-                Log.d("c",foods.getFood_category());
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            //loadView();
+            String foodCategory;
+            int riceQty=0,noodleQty=0;
+            foodCategory = foods.getFood_category();
+            switch (foodCategory){
+                case "rice":
+                    riceQty = orderLines.getItem_qty();
+                    Log.d("total1",String.valueOf(categoryRecord.getRice()));
+                    break;
 
-        }
+                case "noodle":
+                    noodleQty = orderLines.getItem_qty();
+                    break;
+            }
 
-        if(foods.getFood_category().equals("rice")){
-            riceQty = orderLines.getItem_qty();
-            total1 = total1 + riceQty;
+            total1 += riceQty;
             categoryRecord.setRice(total1);
-            Log.d("total1",String.valueOf(categoryRecord.getRice()));
-        }else if (foods.getFood_category().equals("noodle")){
-            noodleQty = orderLines.getItem_qty();
-            total2 = total2 + noodleQty;
+            total2 += noodleQty;
             categoryRecord.setNoodle(total2);
-            Log.d("total2",String.valueOf(categoryRecord.getNoodle()));
+
+        }
+
+        if(jsonArray.length() > 0) {
+            startView();
+        }else {
+            shortToast(getActivity(),"No records analysis.");
         }
     }
 
-    private void loadView() {
+    private void startView(){
+        rice = categoryRecord.getRice();
+        Log.d("rice",String.valueOf(rice));
+        noodle = categoryRecord.getNoodle();
 
+        pieChart.addPieSlice(new PieModel("Rice", rice, Color.parseColor("#FE6DA8")));
+        pieChart.addPieSlice(new PieModel("Noodle", noodle, Color.parseColor("#56B7F1")));
+        //mPieChart.addPieSlice(new PieModel("Chinese Food", c, Color.parseColor("#CDA67F")));
+        //mPieChart.addPieSlice(new PieModel("Mamak", d, Color.parseColor("#FED70E")));
 
+        pieChart.startAnimation();
     }
-
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
