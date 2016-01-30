@@ -97,13 +97,13 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
                     Toast.makeText(getApplicationContext(), "Please fill in all required fields!", Toast.LENGTH_LONG).show();
                 } else {
                     new getPassword().execute(
-                            userID.toString(),
-                            email.toString());
+                            editText1.getText().toString(),
+                            editText2.getText().toString());
 
                     //startActivity(intent);
                 }
 
-            case R.id.buttonReset:
+            case R.id.buttonRetrieve:
 //                editText1.setText(null);
 //                editText2.setText(null);
 
@@ -115,8 +115,8 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
                         m.setFrom("keith_513345@hotmail.com");
                         m.setSubject("Password Recovery");
                         m.setBody(aText.getText().toString());
+                        Log.d("password",aText.getText().toString());
 
-                        Log.d("here","here");
                         try {
                             if(m.send()) {
                                 Toast.makeText(ForgotPassword.this, "Email was sent successfully.", Toast.LENGTH_LONG).show();
@@ -148,6 +148,7 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
         @Override
         protected void onPostExecute(String json) {
             super.onPostExecute(json);
+            Log.d("here","here");
             convertJson(json);
             extractJsonData();
         }
@@ -194,6 +195,6 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
 
     private void loadPassword() {
         aText.setText(account.getAcc_password());
-        email = editText2.getText().toString();
+        //email = editText2.getText().toString();
     }
 }

@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -25,6 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import my.edu.chiawaikeith.canteenpos.Activities.BaseActivity;
 import my.edu.chiawaikeith.canteenpos.Activities.EditProfile;
 import my.edu.chiawaikeith.canteenpos.Domains.Accounts;
@@ -47,7 +47,8 @@ public class ProfileFragment extends BaseFragment {
 
     private TextView profileName,custID,userName,accountBalance,registerDate,studName,studCourse,studEmail;
     private int acc_id;
-    private ImageView profilePic;
+    //private ImageView profilePic;
+    private CircleImageView profilePic;
     JSONArray mJsonArray;
     public SimpleDateFormat mySqlDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -106,7 +107,7 @@ public class ProfileFragment extends BaseFragment {
         studName = (TextView)view.findViewById(R.id.stud_name);
         studCourse = (TextView)view.findViewById(R.id.courseStudy);
         studEmail = (TextView)view.findViewById(R.id.studemail);
-        profilePic = (ImageView)view.findViewById(R.id.image_profile);
+        profilePic = (CircleImageView)view.findViewById(R.id.image_profile);
 
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
