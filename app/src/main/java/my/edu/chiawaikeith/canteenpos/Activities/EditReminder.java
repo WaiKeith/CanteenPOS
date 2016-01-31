@@ -92,7 +92,6 @@ public class EditReminder extends BaseActivity implements View.OnClickListener
         // initiate current date and time into views
         editTextDate.setHint(mySqlDateFormat.format(reminder.getReminder_date()));
         editTextTime.setHint(reminder.getReminder_time());
-        //DisplayImageOptions options = null;
 
         acc_id = reminder.getAcc_id();
         reminder_id = reminder.getReminder_id();
@@ -115,7 +114,6 @@ public class EditReminder extends BaseActivity implements View.OnClickListener
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_edit_event, menu);
         return true;
     }
@@ -125,7 +123,6 @@ public class EditReminder extends BaseActivity implements View.OnClickListener
 
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }

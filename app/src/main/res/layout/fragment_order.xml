@@ -110,8 +110,22 @@
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout1"
         android:layout_below="@+id/subtotal2"
-        android:paddingTop="220dp"
-        android:paddingLeft="200dp">
+        android:layout_marginTop="220dp"
+        android:layout_marginLeft="200dp"
+        android:orientation="vertical">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnNextPage"
+            android:text="Next"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_marginLeft="200dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -131,9 +145,9 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout2"
-        android:layout_below="@+id/linearLayout1"
-        android:paddingLeft="200dp">
+        android:id="@+id/linearLayout3"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_marginLeft="200dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -156,7 +170,7 @@
         android:layout_below="@+id/linearLayout2"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="120dp"
-        android:id="@+id/linearLayout3">
+        android:id="@+id/linearLayout4">
 
     <Button
         android:layout_width="wrap_content"

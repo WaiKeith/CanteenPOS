@@ -65,14 +65,13 @@ public class EditProfile extends BaseActivity implements View.OnClickListener {
     private Uri mCameraImageUri = null;
     private int mLoadImageNo;
     private Accounts account;
-    private Integer acc_id;
+    private int acc_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        //refreshDatabase();
         Bitmap bm = BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_profile_pic);
 
@@ -87,7 +86,6 @@ public class EditProfile extends BaseActivity implements View.OnClickListener {
         btnSave = (Button)findViewById(R.id.buttonSave);
         btnSave.setOnClickListener(this);
 
-        //textView = (TextView) findViewById(R.id.textView1);
         mImageProfile = (ImageView)findViewById(R.id.image_1);
         mImageProfile.setOnClickListener(this);
 
@@ -112,12 +110,8 @@ public class EditProfile extends BaseActivity implements View.OnClickListener {
 
         acc_id = account.getAcc_id();
         editTextName.setHint(account.getUser_name());
-//        Log.d("name",account.getUser_name());
-//        user_name = editTextName.getText().toString();
         editTextPW.setHint(account.getAcc_password());
-//        user_password = editTextPW.getText().toString();
 
-        //DisplayImageOptions options = null;
         if(account.getProfile_image_path() != ""){
             ImageLoader.getInstance().displayImage(account.getProfile_image_path(), mImageProfile, options);}
 

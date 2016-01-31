@@ -34,10 +34,11 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
         private Toolbar toolBar;
         private TextView aText;
         private Button btnProceed,btnRetrieve;
-        private EditText editText1,editText2;
-        private String userID = "",email = "";
-        final static String VERIFY_URL = "http://canteenpos.comxa.com/Accounts/Students/get_password.php";
+        private EditText editText1,editText2,editText3;
+        private String userID = "",email = "",code="";
+        final static String VERIFY_URL = "http://canteenpos.comxa.com/Accounts/Students/get_passwordv1.php";
 
+        final static String KEY_CODE = "acc_security_code";
         final static String KEY_EMAIL = "stud_email";
         final static String KEY_CUSTOMER_ID = "cust_id";
         final static String KEY_ACC_PW = "acc_password";
@@ -50,7 +51,8 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
         toolBar = (Toolbar)findViewById(R.id.toolbar);
         aText = (TextView)findViewById(R.id.textviewHidden);
         editText1 = (EditText) findViewById(R.id.editID);
-        editText2 = (EditText)findViewById(R.id.editEmail);
+        editText2 = (EditText)findViewById(R.id.editSecurityCode);
+        editText3 = (EditText)findViewById(R.id.editEmail);
         btnProceed = (Button)findViewById(R.id.buttonProceed);
         btnProceed.setOnClickListener(this);
         btnRetrieve = (Button)findViewById(R.id.buttonRetrieve);
@@ -91,37 +93,44 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
                 Intent intent = new Intent(this, LoginActivity.class);
 
                 userID = editText1.getText().toString();
-                email = editText2.getText().toString();
+                code = editText2.getText().toString();
+                email = editText3.getText().toString();
 
-                if (userID.isEmpty() || email.isEmpty()) {
+                if (userID.isEmpty() || email.isEmpty() || code.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Please fill in all required fields!", Toast.LENGTH_LONG).show();
                 } else {
                     new getPassword().execute(
                             editText1.getText().toString(),
-                            editText2.getText().toString());
-
+                            editText2.getText().toString(),
+                            editText3.getText().toString());
                     //startActivity(intent);
                 }
+                break;
 
             case R.id.buttonRetrieve:
 //                editText1.setText(null);
 //                editText2.setText(null);
 
-                final Mail m = new Mail("keith_513345@hotmail.com", "chia513345");
+                final Mail m = new Mail(email, "keith@110733");
                 new AsyncTask<Void, Void, Void>() {
                     @Override public Void doInBackground(Void... arg) {
-                        String[] toArr = {email,email};
+                        String[] toArr = {"keith_513345@hotmail.com"};
                         m.setTo(toArr);
-                        m.setFrom("keith_513345@hotmail.com");
+                        m.setFrom(email);
                         m.setSubject("Password Recovery");
                         m.setBody(aText.getText().toString());
-                        Log.d("password",aText.getText().toString());
 
                         try {
                             if(m.send()) {
-                                Toast.makeText(ForgotPassword.this, "Email was sent successfully.", Toast.LENGTH_LONG).show();
+                                ForgotPassword.this.runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        longToast("Email was sent successfully");}
+                                });
                             } else {
-                                //Toast.makeText(ForgotPassword.this, "Email was not sent.", Toast.LENGTH_LONG).show();
+                                ForgotPassword.this.runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        longToast("Email was not sent successfully");}
+                                });
                             }
                         } catch(Exception e) {
                             //Toast.makeText(MailApp.this, "There was a problem sending the email.", Toast.LENGTH_LONG).show();
@@ -130,7 +139,9 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
                         return null;
                     }
                 }.execute();
+                break;
         }
+
     }
 
     public class getPassword extends AsyncTask<String, Void, String> {
@@ -148,7 +159,6 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
         @Override
         protected void onPostExecute(String json) {
             super.onPostExecute(json);
-            Log.d("here","here");
             convertJson(json);
             extractJsonData();
         }
@@ -156,9 +166,11 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
         @Override
         protected String doInBackground(String... params) {
             HashMap<String, String> data = new HashMap<>();
-            data.put(KEY_CUSTOMER_ID, params[0]);
-            data.put(KEY_EMAIL, params[1]);
+            data.put(KEY_CUSTOMER_ID, editText1.getText().toString());
+            data.put(KEY_CODE, editText2.getText().toString());
+            data.put(KEY_EMAIL,  editText3.getText().toString());
 
+            //Log.d("id",editText1.getText().toString());
             return rh.sendPostRequest(VERIFY_URL, data);
         }
     }

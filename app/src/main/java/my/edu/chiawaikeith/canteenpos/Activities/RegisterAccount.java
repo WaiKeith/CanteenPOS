@@ -49,9 +49,6 @@ public class RegisterAccount extends BaseActivity implements AdapterView.OnItemS
     private CheckBox checkTerm;
     private OfflineLogin offlineLogin;
 
-//    private JSONArray mJsonArray;
-//    private ArrayList<Accounts> accountList = new ArrayList<>();
-
     EditText editCustId;
     EditText editUserName,editPw;
 
@@ -83,7 +80,7 @@ public class RegisterAccount extends BaseActivity implements AdapterView.OnItemS
 
                 Calendar calendar;
                 calendar = Calendar.getInstance();
-                //accID = editAccId.getText().toString();
+
                 custID = editCustId.getText().toString();
                 username = editUserName.getText().toString();
                 password = editPw.getText().toString();
@@ -151,15 +148,10 @@ public class RegisterAccount extends BaseActivity implements AdapterView.OnItemS
         protected String doInBackground(String... params) {
             HashMap<String, String> data = new HashMap<>();
 
-            //data.put(KEY_ACCOUNT_ID, params[0]);
             data.put(KEY_CUSTOMER_ID, params[0]);
             data.put(KEY_USERNAME, params[1]);
             data.put(KEY_PASSWORD, params[2]);
-            //data.put(KEY_SECURITY_CODE, params[4]);
-            //data.put(KEY_PROFILEIMAGE_PATH, params[5]);
-            //data.put(KEY_ACCOUNT_BALANCE, params[6]);
             data.put(KEY_REGISTER_DATE, params[3]);
-            //data.put(KEY_LOGIN_ID, params[0]);
 
             return rh.sendPostRequest(INSERT_URL, data);
         }
@@ -168,7 +160,6 @@ public class RegisterAccount extends BaseActivity implements AdapterView.OnItemS
     public void reset(View view){
         EditText editText1 = (EditText) findViewById(R.id.editName);
         EditText editText2 = (EditText) findViewById(R.id.editPassword);
-        //EditText editText3 = (EditText) findViewById(R.id.editPW);
 
         editText1.setText(null);
         editText2.setText(null);

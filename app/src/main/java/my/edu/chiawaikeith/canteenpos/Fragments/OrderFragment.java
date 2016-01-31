@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import my.edu.chiawaikeith.canteenpos.Activities.BaseActivity;
+import my.edu.chiawaikeith.canteenpos.Activities.NFCActivity;
 import my.edu.chiawaikeith.canteenpos.Activities.OrderList;
 import my.edu.chiawaikeith.canteenpos.Domains.Transactions;
 import my.edu.chiawaikeith.canteenpos.R;
@@ -54,10 +55,11 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
     private Spinner spinnerQuantity;
     NfcAdapter nfcAdapter;
     private TextView price,totalPrice,qty,aPrice,sub1,sub2,totalGST,foodID,foodID2;
-    private Button write,cal,order,start,addCart1,addCart2;
+    private Button write,cal,order,start,addCart1,addCart2,next;
     ImageView d,e;
     JSONArray mJsonArray;
     Transactions transaction = new Transactions();
+    boolean mAndroidBeamAvailable  = false;
 
     final static String INSERT_URL1 = "http://canteenpos.comxa.com/Transactions/insert_transaction.php";
     final static String INSERT_URL2 = "http://canteenpos.comxa.com/OrderLines/insert_order_line.php";
@@ -200,7 +202,10 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
         foodID2 = (TextView)view.findViewById(R.id.textView9);
 
         mText = spinnerQuantity.getSelectedItem().toString();
+
         nfcAdapter = NfcAdapter.getDefaultAdapter(getActivity());
+        next = (Button)view.findViewById(R.id.btnNextPage);
+        next.setOnClickListener(this);
 
         return view;
     }
@@ -305,6 +310,10 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
                         String.valueOf(acc_id)
                 );
                 break;
+
+            case R.id.btnNextPage:
+                Intent intent1 = new Intent(getActivity(), NFCActivity.class);
+                startActivity(intent1);
         }
 
         s1 = f * g;
@@ -612,5 +621,4 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
     public interface OnFragmentInteractionListener {
         public void onFragmentInteraction(Uri uri);
     }
-
 }
