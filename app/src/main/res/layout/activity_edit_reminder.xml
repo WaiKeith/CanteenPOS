@@ -74,21 +74,97 @@
         android:paddingTop="80dp"
         android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/buttonflatSave"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:text="Save changes"
-        android:textColor="@color/blue"
-        style="?android:attr/borderlessButtonStyle"/>
+    <!--<Button-->
+        <!--android:id="@+id/buttonflatSave"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="36dp"-->
+        <!--android:text="Save changes"-->
+        <!--android:textColor="@color/blue"-->
+        <!--style="?android:attr/borderlessButtonStyle"/>-->
 
-        <Button
-            android:id="@+id/buttonflatDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:text="Delete"
-            android:textColor="@color/blue"
-            style="?android:attr/borderlessButtonStyle"/>
+        <!--<Button-->
+            <!--android:id="@+id/buttonflatDelete"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="36dp"-->
+            <!--android:text="Delete"-->
+            <!--android:textColor="@color/blue"-->
+            <!--style="?android:attr/borderlessButtonStyle"/>-->
     </LinearLayout>
+
+    <my.edu.chiawaikeith.canteenpos.Fab
+        android:id="@+id/fab"
+        style="@style/Widget.MaterialSheetFab.Fab"
+        android:layout_margin="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true" />
+
+    <!-- Overlay that dims the screen -->
+    <com.gordonwong.materialsheetfab.DimOverlayFrameLayout
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Circular reveal container for the sheet -->
+    <io.codetail.widget.RevealLinearLayout
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="end|bottom"
+        android:orientation="vertical">
+
+        <!-- Sheet that contains your items -->
+        <android.support.v7.widget.CardView
+            android:id="@+id/fab_sheet"
+            style="@style/Widget.MaterialSheetFab.Sheet">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/sheetImage1"
+                        android:layout_width="45dp"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/ic_save_black" />
+                    <!-- Recording -->
+                    <TextView
+                        android:id="@+id/fab_sheet_item_save"
+                        style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                        android:text="SAVE CHANGES" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/sheetImage2"
+                        android:layout_width="45dp"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/ic_delete_black" />
+
+                    <TextView
+                        android:id="@+id/fab_sheet_item_delete"
+                        style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                        android:text="DELETE" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </io.codetail.widget.RevealLinearLayout>
 
 </RelativeLayout>

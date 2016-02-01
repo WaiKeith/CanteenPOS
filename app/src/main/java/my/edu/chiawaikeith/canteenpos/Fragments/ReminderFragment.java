@@ -7,16 +7,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.gordonwong.materialsheetfab.MaterialSheetFab;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -25,6 +27,7 @@ import my.edu.chiawaikeith.canteenpos.Activities.BaseActivity;
 import my.edu.chiawaikeith.canteenpos.Activities.ReminderList;
 import my.edu.chiawaikeith.canteenpos.Activities.ScheduleClient;
 import my.edu.chiawaikeith.canteenpos.Domains.Reminders;
+import my.edu.chiawaikeith.canteenpos.Fab;
 import my.edu.chiawaikeith.canteenpos.R;
 import my.edu.chiawaikeith.canteenpos.RequestHandler;
 
@@ -48,7 +51,7 @@ public class ReminderFragment extends BaseFragment implements
     private Reminders reminder = new Reminders();
     private ScheduleClient scheduleClient;
     private EditText editDesc,timeTextView,dateTextView,editTitle;
-    private Button confirm,notify,chk;
+    private FloatingActionButton fabAdd,fabChk;
     private int day;
     private int month;
     private int Year;
@@ -56,6 +59,7 @@ public class ReminderFragment extends BaseFragment implements
     private int min;
     private int acc_id;
     public Calendar calendar;
+    private MaterialSheetFab materialSheetFab;
 
     private OnFragmentInteractionListener mListener;
 
@@ -93,15 +97,22 @@ public class ReminderFragment extends BaseFragment implements
         dateTextView.setOnTouchListener(this);
         editDesc = (EditText)view.findViewById(R.id.editDesc);
         editTitle = (EditText)view.findViewById(R.id.editTitle);
-        confirm = (Button)view.findViewById(R.id.btnConfirm);
-        confirm.setOnClickListener(this);
-        notify = (Button)view.findViewById(R.id.btnSelect);
-        notify.setOnClickListener(this);
-        chk = (Button)view.findViewById(R.id.btnChk);
-        chk.setOnClickListener(this);
 
         scheduleClient = new ScheduleClient(getActivity());
         scheduleClient.doBindService();
+
+        Fab fab = (Fab) view.findViewById(R.id.fab);
+        View sheetView = view.findViewById(R.id.fab_sheet);
+        View overlay = view.findViewById(R.id.overlay);
+        int sheetColor = getResources().getColor(R.color.cardview_light_background);
+        int fabColor = getResources().getColor(R.color.accentColor);
+
+        // Create material sheet FAB
+        materialSheetFab = new MaterialSheetFab<>(fab, sheetView, overlay, sheetColor, fabColor);
+
+        // Set material sheet item click listeners
+        view.findViewById(R.id.fab_sheet_item_add).setOnClickListener(this);
+        view.findViewById(R.id.fab_sheet_item_check).setOnClickListener(this);
 
         initValues();
         return view;
@@ -207,7 +218,7 @@ public class ReminderFragment extends BaseFragment implements
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnConfirm:
+            case R.id.fab_sheet_item_add:
                 Intent intent = new Intent(getActivity(),ReminderList.class);
 //                Reminders eventRecord = new Reminders();
 //                eventRecord.date = dateTextView.getText().toString();
@@ -240,7 +251,7 @@ public class ReminderFragment extends BaseFragment implements
                         + " ," + hr + ":" + min, Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.btnChk:
+            case R.id.fab_sheet_item_check:
                 Intent intent2 = new Intent(getActivity(),ReminderList.class);
                 startActivity(intent2);
                 break;

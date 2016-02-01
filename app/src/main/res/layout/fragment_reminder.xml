@@ -65,15 +65,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="120dp">
 
-        <Button
-            android:id="@+id/btnConfirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/confirm"
-            android:layout_above="@+id/btnSelect"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/blue"
-            style="?android:attr/borderlessButtonStyle"/>
+        <!--<Button-->
+            <!--android:id="@+id/btnConfirm"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/confirm"-->
+            <!--android:layout_above="@+id/btnSelect"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:textColor="@color/blue"-->
+            <!--style="?android:attr/borderlessButtonStyle"/>-->
 
         <Button
             android:id="@+id/btnSelect"
@@ -85,16 +85,91 @@
             android:textColor="@color/blue"
             style="?android:attr/borderlessButtonStyle"/>
 
-        <Button
-            android:id="@+id/btnChk"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Check List"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/btnSelect"
-            android:textColor="@color/blue"
-            style="?android:attr/borderlessButtonStyle"/>
-
+        <!--<Button-->
+            <!--android:id="@+id/btnChk"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Check List"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_below="@+id/btnSelect"-->
+            <!--android:textColor="@color/blue"-->
+            <!--style="?android:attr/borderlessButtonStyle"/>-->
     </LinearLayout>
+
+    <my.edu.chiawaikeith.canteenpos.Fab
+        android:id="@+id/fab"
+        style="@style/Widget.MaterialSheetFab.Fab"
+        android:layout_margin="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true" />
+
+    <!-- Overlay that dims the screen -->
+    <com.gordonwong.materialsheetfab.DimOverlayFrameLayout
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Circular reveal container for the sheet -->
+    <io.codetail.widget.RevealLinearLayout
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="end|bottom"
+        android:orientation="vertical">
+
+        <!-- Sheet that contains your items -->
+        <android.support.v7.widget.CardView
+            android:id="@+id/fab_sheet"
+            style="@style/Widget.MaterialSheetFab.Sheet">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/sheetImage1"
+                    android:layout_width="45dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_add_black" />
+                <!-- Recording -->
+                <TextView
+                    android:id="@+id/fab_sheet_item_add"
+                    style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                    android:text="ADD NEW REMINDER" />
+
+             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/sheetImage2"
+                    android:layout_width="45dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_history_black" />
+
+                <TextView
+                    android:id="@+id/fab_sheet_item_check"
+                    style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                    android:text="CHECK LIST" />
+
+            </LinearLayout>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </io.codetail.widget.RevealLinearLayout>
 </RelativeLayout>

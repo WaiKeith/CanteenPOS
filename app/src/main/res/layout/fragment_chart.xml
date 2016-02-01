@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textSize="15dp"
-            android:text="@string/chartTitle"
+            android:text="@string/pieTitle"
             android:id="@+id/tvStatus"
             android:textStyle="bold"
             android:gravity="center"
@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:textSize="15dp"
-                    android:text="@string/chartTitle"
+                    android:text="@string/barTitle"
                     android:id="@+id/tvTitle"
                     android:textStyle="bold"
                     android:gravity="center"
@@ -82,6 +82,34 @@
                     app:egLegendHeight="0dp"
                     app:egShowValues="true"
                     app:egShowDecimal="true"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:text="Previous"
+                        android:id="@+id/tv1"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:layout_centerVertical="true"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:text="Latest"
+                        android:id="@+id/tv2"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:layout_marginLeft="180dp"
+                        android:layout_centerVertical="true"/>
+                    </LinearLayout>
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>

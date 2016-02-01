@@ -13,7 +13,8 @@
     <string name="about_us_fragment">About Us</string>
     <string name="navigation_view_category_2">Navigation View Category</string>
     <string name="contentDescription">Come join us now!</string>
-    <string name="chartTitle">Total quantity ordered sort by food category</string>
+    <string name="pieTitle">Total quantity ordered sort by food category</string>
+    <string name="barTitle">Daily expenses within 7 days (RM)</string>
     <string name="username">USERNAME</string>
     <string name="password">PASSWORD</string>
     <string name="firstGreet">LETS GET STARTED</string>

@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.software.shell.fab.ActionButton;
 
 import java.util.Calendar;
@@ -25,6 +26,7 @@ import java.util.HashMap;
 
 import my.edu.chiawaikeith.canteenpos.Adapters.ReminderAdapter;
 import my.edu.chiawaikeith.canteenpos.Domains.Reminders;
+import my.edu.chiawaikeith.canteenpos.Fab;
 import my.edu.chiawaikeith.canteenpos.R;
 import my.edu.chiawaikeith.canteenpos.RequestHandler;
 
@@ -48,6 +50,7 @@ public class EditReminder extends BaseActivity implements View.OnClickListener
 
     Context context;
     private ActionButton actionButton;
+    private MaterialSheetFab materialSheetFab;
     Button buttonFlatSave,buttonFlatDelete;
     private Reminders reminder = new Reminders();
 
@@ -64,8 +67,8 @@ public class EditReminder extends BaseActivity implements View.OnClickListener
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        buttonFlatSave = (Button) findViewById(R.id.buttonflatSave);
-        buttonFlatDelete = (Button) findViewById(R.id.buttonflatDelete);
+//        buttonFlatSave = (Button) findViewById(R.id.buttonflatSave);
+//        buttonFlatDelete = (Button) findViewById(R.id.buttonflatDelete);
 
         editTextDate = (EditText) findViewById(R.id.date_textview);
         editTextDate.setOnTouchListener(this);
@@ -73,9 +76,21 @@ public class EditReminder extends BaseActivity implements View.OnClickListener
         editTextTime.setOnTouchListener(this);
         editTextDesc = (EditText)findViewById(R.id.editDesc);
         editTextTitle = (EditText)findViewById(R.id.editTitle);
-        buttonFlatSave.setOnClickListener(this);
-        buttonFlatDelete.setOnClickListener(this);
+//        buttonFlatSave.setOnClickListener(this);
+//        buttonFlatDelete.setOnClickListener(this);
 
+        Fab fab = (Fab)findViewById(R.id.fab);
+        View sheetView = findViewById(R.id.fab_sheet);
+        View overlay = findViewById(R.id.overlay);
+        int sheetColor = getResources().getColor(R.color.cardview_light_background);
+        int fabColor = getResources().getColor(R.color.accentColor);
+
+        // Create material sheet FAB
+        materialSheetFab = new MaterialSheetFab<>(fab, sheetView, overlay, sheetColor, fabColor);
+
+        // Set material sheet item click listeners
+        findViewById(R.id.fab_sheet_item_save).setOnClickListener(this);
+        findViewById(R.id.fab_sheet_item_delete).setOnClickListener(this);
 
         reminder = (Reminders) getIntent().getSerializableExtra(ReminderAdapter.KEY_REMINDER);
         initValues();
@@ -135,7 +150,7 @@ public class EditReminder extends BaseActivity implements View.OnClickListener
         Intent intent = new Intent(this, ReminderList.class);
 
         switch (v.getId()) {
-            case R.id.buttonflatSave:
+            case R.id.fab_sheet_item_save:
 
                 new updateReminder().execute(
                         String.valueOf(reminder_id),
@@ -149,7 +164,7 @@ public class EditReminder extends BaseActivity implements View.OnClickListener
 
                 break;
 
-            case R.id.buttonflatDelete:
+            case R.id.fab_sheet_item_delete:
                 new deleteReminder().execute(
                     String.valueOf(reminder_id));
 
