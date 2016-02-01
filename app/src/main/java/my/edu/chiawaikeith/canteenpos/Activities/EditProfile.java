@@ -12,11 +12,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -60,7 +60,7 @@ public class EditProfile extends BaseActivity implements View.OnClickListener {
 
     ImageView pImage,mImageProfile,ImageView2,ImageView3;
     BottomSheetLayout mBottomSheetImage;
-    private Button btnSave;
+    private FloatingActionButton fabSave;
     private Bitmap mBitmapImage1;
     private Uri mCameraImageUri = null;
     private int mLoadImageNo;
@@ -83,8 +83,8 @@ public class EditProfile extends BaseActivity implements View.OnClickListener {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        btnSave = (Button)findViewById(R.id.buttonSave);
-        btnSave.setOnClickListener(this);
+        fabSave = (FloatingActionButton)findViewById(R.id.fab_save);
+        fabSave.setOnClickListener(this);
 
         mImageProfile = (ImageView)findViewById(R.id.image_1);
         mImageProfile.setOnClickListener(this);
@@ -128,7 +128,7 @@ public class EditProfile extends BaseActivity implements View.OnClickListener {
                 showSheetView();
                 break;
 
-            case R.id.buttonSave:
+            case R.id.fab_save:
                 updateAccount();
 
                 Intent intent = new Intent(this,MainActivity.class);

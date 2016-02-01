@@ -26,7 +26,7 @@ import my.edu.chiawaikeith.canteenpos.Domains.Accounts;
 import my.edu.chiawaikeith.canteenpos.R;
 import my.edu.chiawaikeith.canteenpos.RequestHandler;
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements View.OnClickListener{
     private int a=35,b=25,c=35,d=5,acc_id;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -42,7 +42,6 @@ public class HomeFragment extends BaseFragment {
     private TextView custID,userName,accountBalance,registerDate;
     JSONArray mJsonArray;
     public SimpleDateFormat mySqlDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd");
-
     private OnFragmentInteractionListener mListener;
 
     public static HomeFragment newInstance(String param1, String param2) {
@@ -98,6 +97,16 @@ public class HomeFragment extends BaseFragment {
 
     public void loadAccount() {
         new getAccount(acc_id).execute();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+
+
+
+        }
+
     }
 
     // this one is get json

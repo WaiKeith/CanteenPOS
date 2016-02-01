@@ -27,6 +27,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gordonwong.materialsheetfab.MaterialSheetFab;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +44,7 @@ import my.edu.chiawaikeith.canteenpos.Activities.BaseActivity;
 import my.edu.chiawaikeith.canteenpos.Activities.NFCActivity;
 import my.edu.chiawaikeith.canteenpos.Activities.OrderList;
 import my.edu.chiawaikeith.canteenpos.Domains.Transactions;
+import my.edu.chiawaikeith.canteenpos.Fab;
 import my.edu.chiawaikeith.canteenpos.R;
 import my.edu.chiawaikeith.canteenpos.RequestHandler;
 
@@ -56,9 +59,12 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
     NfcAdapter nfcAdapter;
     private TextView price,totalPrice,qty,aPrice,sub1,sub2,totalGST,foodID,foodID2;
     private Button write,cal,order,start,addCart1,addCart2,next;
-    ImageView d,e;
-    JSONArray mJsonArray;
+    private ImageView d,e;
+    private JSONArray mJsonArray;
+    Calendar calendar;
     Transactions transaction = new Transactions();
+    //private FloatingActionButton fabAdd,fabList;
+    private MaterialSheetFab materialSheetFab;
     boolean mAndroidBeamAvailable  = false;
 
     final static String INSERT_URL1 = "http://canteenpos.comxa.com/Transactions/insert_transaction.php";
@@ -149,12 +155,6 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
         Qtyadapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinnerQuantity.setAdapter(Qtyadapter);
 
-//        Integer[] value =
-//                {1, 2, 3, 4, 5};
-//        ArrayAdapter<Integer> qtyadapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, value);
-//        qtyadapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-//        spinnerqty.setAdapter(qtyadapter);
-
         d = (ImageView)view.findViewById(R.id.imagePlus);
         d.setOnClickListener(this);
         e = (ImageView)view.findViewById(R.id.imageMinus);
@@ -207,6 +207,19 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
         next = (Button)view.findViewById(R.id.btnNextPage);
         next.setOnClickListener(this);
 
+        Fab fab = (Fab) view.findViewById(R.id.fab);
+        View sheetView = view.findViewById(R.id.fab_sheet);
+        View overlay = view.findViewById(R.id.overlay);
+        int sheetColor = getResources().getColor(R.color.cardview_light_background);
+        int fabColor = getResources().getColor(R.color.accentColor);
+
+        // Create material sheet FAB
+        materialSheetFab = new MaterialSheetFab<>(fab, sheetView, overlay, sheetColor, fabColor);
+
+        // Set material sheet item click listeners
+        view.findViewById(R.id.fab_sheet_item_calculate).setOnClickListener(this);
+        view.findViewById(R.id.fab_sheet_item_confirm).setOnClickListener(this);
+        view.findViewById(R.id.fab_sheet_item_start).setOnClickListener(this);
         return view;
     }
 
@@ -261,7 +274,7 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
             case R.id.btnConfirm:
                 Intent intent = new Intent(getActivity(), OrderList.class);
 
-                Calendar calendar;
+
                 calendar = Calendar.getInstance();
                 orderDate = calendar.getTime();
 
@@ -314,6 +327,53 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
             case R.id.btnNextPage:
                 Intent intent1 = new Intent(getActivity(), NFCActivity.class);
                 startActivity(intent1);
+                break;
+
+            case R.id.fab_sheet_item_calculate:
+                tPrice = s1 + s2;
+                totalPrice.setText(tPrice.toString());
+
+                totalgst = tPrice * gst;
+                totalGST.setText(totalgst.toString());
+                break;
+
+            case R.id.fab_sheet_item_start:
+                transac_id = transaction.getTransac_id();
+
+                Log.d("tranid",String.valueOf(transac_id));
+                newTransac_id = transac_id + 1;
+                transaction.setTransac_id(newTransac_id);
+
+                Log.d("transac_id2",String.valueOf(transac_id));
+
+                new newTransaction().execute(
+                        String.valueOf(newTransac_id),
+                        String.valueOf(acc_id)
+                );
+                break;
+
+            case R.id.fab_sheet_item_confirm:
+                Intent intent2 = new Intent(getActivity(), OrderList.class);
+
+
+                calendar = Calendar.getInstance();
+                orderDate = calendar.getTime();
+
+                new insertOrder().execute(
+                        String.valueOf(transaction.getTransac_id()),
+                        String.valueOf(acc_id),
+                        totalPrice.getText().toString(),
+                        totalGST.getText().toString(),
+                        orderDate.toString(),
+                        status.toString());
+
+                //Log.d("transacid3",String.valueOf(transaction.getTransac_id()));
+
+                //transaction.setTransac_id(transac_id);
+
+                startActivity(intent2);
+                break;
+
         }
 
         s1 = f * g;

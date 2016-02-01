@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,6 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.software.shell.fab.ActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +34,7 @@ import my.edu.chiawaikeith.canteenpos.RequestHandler;
 
 public class ProfileFragment extends BaseFragment {
     Context context;
-    private ActionButton actionButton;
+    private FloatingActionButton fabEdit;
     final static String KEY_CUST_ID = "A.cust_id";
     final static String KEY_USER_NAME = "A.user_name";
     final static String KEY_ACCBALANCE = "A.acc_balance";
@@ -97,9 +97,8 @@ public class ProfileFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        actionButton = (ActionButton)view.findViewById(R.id.action_button);
+        fabEdit = (FloatingActionButton)view.findViewById(R.id.fab_edit);
         profileName = (TextView)view.findViewById(R.id.profile_name);
-        actionButton.setImageResource(R.drawable.ic_edit);
         custID = (TextView)view.findViewById(R.id.cust_Id);
         userName = (TextView)view.findViewById(R.id.user_Name);
         accountBalance = (TextView)view.findViewById(R.id.acc_Balance);
@@ -109,7 +108,7 @@ public class ProfileFragment extends BaseFragment {
         studEmail = (TextView)view.findViewById(R.id.studemail);
         profilePic = (CircleImageView)view.findViewById(R.id.image_profile);
 
-        actionButton.setOnClickListener(new View.OnClickListener() {
+        fabEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), EditProfile.class);

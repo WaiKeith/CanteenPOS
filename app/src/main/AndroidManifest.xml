@@ -102,6 +102,15 @@
             android:name=".Activities.NFCActivity"
             android:label="@string/title_activity_nfc" >
         </activity>
+        <activity
+            android:name=".Activities.NFCDisplayActivity"
+            android:label="@string/title_activity_nfcdisplay" >
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

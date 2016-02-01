@@ -34,7 +34,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:padding="6dp"
-                android:src="@drawable/ic_age" />
+                android:src="@drawable/ic_profile_pic" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -117,16 +117,25 @@
             android:layout_alignParentBottom="true"
             android:layout_marginTop="100dp">
 
-            <Button
-                style="?android:attr/borderlessButtonStyle"
-                android:id="@+id/buttonSave"
+            <!--<Button-->
+                <!--style="?android:attr/borderlessButtonStyle"-->
+                <!--android:id="@+id/buttonSave"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="36dp"-->
+                <!--android:textColor="@color/blue"-->
+                <!--android:layout_marginBottom="25dp"-->
+                <!--android:layout_marginLeft="125dp"-->
+                <!--android:layout_alignParentBottom="true"-->
+                <!--android:text="Save changes" />-->
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_save"
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:textColor="@color/blue"
-                android:layout_marginBottom="25dp"
-                android:layout_marginLeft="125dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_save_change"
                 android:layout_alignParentBottom="true"
-                android:text="Save changes" />
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/fab_margin" />
 
         </RelativeLayout>
 
