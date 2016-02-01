@@ -111,7 +111,7 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
         initValues();
         getTransaction();
 
-        //beginTransaction();
+        beginTransaction();
     }
 
     private void initValues() {
@@ -123,20 +123,33 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private void beginTransaction(){
-        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
         alertDialog.setTitle("Begin Transaction");
         alertDialog.setMessage("Confirm to start transaction?");
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "YES",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getActivity().getApplicationContext(), "", Toast.LENGTH_LONG).show();
-                        dialog.dismiss();
-                        //new newTransaction(transaction).execute();
-                    }
-                });
+        alertDialog.setButton("YES", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getActivity().getApplicationContext(), "", Toast.LENGTH_LONG).show();
+                dialog.dismiss();
+                transac_id = transaction.getTransac_id();
+
+                Log.d("tranid", String.valueOf(transac_id));
+                newTransac_id = transac_id + 1;
+                transaction.setTransac_id(newTransac_id);
+
+                Log.d("transac_id2", String.valueOf(transac_id));
+
+                new newTransaction().execute(
+                        String.valueOf(newTransac_id),
+                        String.valueOf(acc_id)
+                );
+            }
+        });
+        alertDialog.setButton("CANCEL",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.cancel();
+            }
+        });
         alertDialog.show();
-
-
     }
 
 
@@ -163,8 +176,8 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
         write = (Button)view.findViewById(R.id.btnWrite);
         write.setOnClickListener(this);
 
-        cal = (Button)view.findViewById(R.id.btnCal);
-        cal.setOnClickListener(this);
+        //cal = (Button)view.findViewById(R.id.btnCal);
+        //cal.setOnClickListener(this);
 
         addCart1 = (Button)view.findViewById(R.id.btnAddcart1);
         addCart1.setOnClickListener(this);
@@ -172,11 +185,11 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
         addCart2 = (Button)view.findViewById(R.id.btnAddcart2);
         addCart2.setOnClickListener(this);
 
-        order = (Button)view.findViewById(R.id.btnConfirm);
-        order.setOnClickListener(this);
+//        order = (Button)view.findViewById(R.id.btnConfirm);
+//        order.setOnClickListener(this);
 
-        start = (Button)view.findViewById(R.id.btnStart);
-        start.setOnClickListener(this);
+        //start = (Button)view.findViewById(R.id.btnStart);
+        //start.setOnClickListener(this);
 
         price = (TextView)view.findViewById(R.id.tvPrice);
         sText = price.getText().toString();
@@ -263,35 +276,35 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
 
                 break;
 
-            case R.id.btnCal:
-                tPrice = s1 + s2;
-                totalPrice.setText(tPrice.toString());
+//            case R.id.btnCal:
+//                tPrice = s1 + s2;
+//                totalPrice.setText(tPrice.toString());
+//
+//                totalgst = tPrice * gst;
+//                totalGST.setText(totalgst.toString());
+//                break;
 
-                totalgst = tPrice * gst;
-                totalGST.setText(totalgst.toString());
-                break;
-
-            case R.id.btnConfirm:
-                Intent intent = new Intent(getActivity(), OrderList.class);
-
-
-                calendar = Calendar.getInstance();
-                orderDate = calendar.getTime();
-
-                new insertOrder().execute(
-                        String.valueOf(transaction.getTransac_id()),
-                        String.valueOf(acc_id),
-                        totalPrice.getText().toString(),
-                        totalGST.getText().toString(),
-                        orderDate.toString(),
-                        status.toString());
-
-                //Log.d("transacid3",String.valueOf(transaction.getTransac_id()));
-
-                //transaction.setTransac_id(transac_id);
-
-                startActivity(intent);
-                break;
+//            case R.id.btnConfirm:
+//                Intent intent = new Intent(getActivity(), OrderList.class);
+//
+//
+//                calendar = Calendar.getInstance();
+//                orderDate = calendar.getTime();
+//
+//                new insertOrder().execute(
+//                        String.valueOf(transaction.getTransac_id()),
+//                        String.valueOf(acc_id),
+//                        totalPrice.getText().toString(),
+//                        totalGST.getText().toString(),
+//                        orderDate.toString(),
+//                        status.toString());
+//
+//                //Log.d("transacid3",String.valueOf(transaction.getTransac_id()));
+//
+//                //transaction.setTransac_id(transac_id);
+//
+//                startActivity(intent);
+//                break;
 
             case R.id.btnAddcart1:
                 Log.d("newid",String.valueOf(newTransac_id));
@@ -309,20 +322,20 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
                         mText.toString());
                 break;
 
-            case R.id.btnStart:
-                transac_id = transaction.getTransac_id();
-
-                Log.d("tranid",String.valueOf(transac_id));
-                newTransac_id = transac_id + 1;
-                transaction.setTransac_id(newTransac_id);
-
-                Log.d("transac_id2",String.valueOf(transac_id));
-
-                new newTransaction().execute(
-                        String.valueOf(newTransac_id),
-                        String.valueOf(acc_id)
-                );
-                break;
+//            case R.id.btnStart:
+//                transac_id = transaction.getTransac_id();
+//
+//                Log.d("tranid",String.valueOf(transac_id));
+//                newTransac_id = transac_id + 1;
+//                transaction.setTransac_id(newTransac_id);
+//
+//                Log.d("transac_id2",String.valueOf(transac_id));
+//
+//                new newTransaction().execute(
+//                        String.valueOf(newTransac_id),
+//                        String.valueOf(acc_id)
+//                );
+//                break;
 
             case R.id.btnNextPage:
                 Intent intent1 = new Intent(getActivity(), NFCActivity.class);

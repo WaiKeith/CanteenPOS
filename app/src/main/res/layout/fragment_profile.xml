@@ -5,7 +5,13 @@
     android:layout_height="match_parent"
     tools:context="my.edu.chiawaikeith.canteenpos.Fragments.ProfileFragment">
 
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <RelativeLayout
         android:background="@drawable/content_bg"
         android:layout_width="fill_parent"
@@ -122,6 +128,78 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
+                android:id="@+id/ic">
+
+                <TextView
+                    android:id="@+id/tvICNo"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:padding="6dp"
+                    android:layout_centerVertical="true"
+                    android:text="NRIC"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/ic_no"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:text=""
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:id="@+id/dateBorn">
+
+                <TextView
+                    android:id="@+id/tvDOB"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:padding="6dp"
+                    android:layout_centerVertical="true"
+                    android:text="Date of Birth"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/date_born"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:text=""
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:id="@+id/contactNo">
+
+                <TextView
+                    android:id="@+id/tvContactNo"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:padding="6dp"
+                    android:layout_centerVertical="true"
+                    android:text="Contact Number"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/contact_no"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:text=""
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
                 android:id="@+id/course">
 
                 <TextView
@@ -198,6 +276,7 @@
             android:layout_marginTop="@dimen/dimen_10"
             android:layout_marginLeft="@dimen/dimen_10"
             android:layout_marginRight="@dimen/dimen_10"
+            android:layout_marginBottom="@dimen/dimen_10"
             android:id="@+id/cv2"
             android:layout_below="@+id/separator1"
             >
@@ -303,7 +382,8 @@
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </RelativeLayout>
-
+    </LinearLayout>
+    </ScrollView>
 
     <com.software.shell.fab.ActionButton
         android:id="@+id/action_button"

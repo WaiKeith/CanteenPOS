@@ -43,9 +43,12 @@ public class ProfileFragment extends BaseFragment {
     final static String KEY_STUD_NAME = "S.stud_name";
     final static String KEY_COURSE = "S.stud_course";
     final static String KEY_EMAIL = "S.stud_email";
-    final static String KEY_STUD_ID = "S.stud_id";
+    final static String KEY_STUD_IC_NO = "S.stud_ic_no";
+    final static String KEY_STUD_DOB = "S.stud_DOB";
+    final static String KEY_STUD_CONTACT_NO = "S.stud_contact_no";
 
     private TextView profileName,custID,userName,accountBalance,registerDate,studName,studCourse,studEmail;
+    private TextView icNo,dateBorn,contactNo;
     private int acc_id;
     //private ImageView profilePic;
     private CircleImageView profilePic;
@@ -107,6 +110,9 @@ public class ProfileFragment extends BaseFragment {
         studCourse = (TextView)view.findViewById(R.id.courseStudy);
         studEmail = (TextView)view.findViewById(R.id.studemail);
         profilePic = (CircleImageView)view.findViewById(R.id.image_profile);
+        icNo = (TextView)view.findViewById(R.id.ic_no);
+        dateBorn = (TextView)view.findViewById(R.id.date_born);
+        contactNo = (TextView)view.findViewById(R.id.contact_no);
 
         fabEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -264,11 +270,14 @@ public class ProfileFragment extends BaseFragment {
                 JSONObject jsonObject = mJsonArray.getJSONObject(i);
 
                 student.setStud_name(jsonObject.getString(KEY_STUD_NAME));
+                student.setStud_ic_no(jsonObject.getString(KEY_STUD_IC_NO));
+                student.setStud_DOB(jsonObject.getString(KEY_STUD_DOB));
+                student.setStud_contact_no(jsonObject.getString(KEY_STUD_CONTACT_NO));
                 student.setStud_course(jsonObject.getString(KEY_COURSE));
                 student.setStud_email(jsonObject.getString(KEY_EMAIL));
                 account.setCust_id((jsonObject.getString(KEY_CUST_ID)));
                 account.setUser_name((jsonObject.getString(KEY_USER_NAME)));
-                account.setAcc_balance(Double.parseDouble(jsonObject.getString(KEY_ACCBALANCE)));
+                account.setAcc_balance(jsonObject.getDouble(KEY_ACCBALANCE));
                 account.setRegister_date(mySqlDateTimeFormat.parse(jsonObject.getString(KEY_REGISTERDATE)));
                 account.setProfile_image_path(jsonObject.getString(KEY_PROFILE_IMAGE_PATH));
                 Log.d("Account image path", jsonObject.getString(KEY_PROFILE_IMAGE_PATH));
@@ -292,6 +301,9 @@ public class ProfileFragment extends BaseFragment {
         studName.setText(student.getStud_name());
         studCourse.setText(student.getStud_course());
         studEmail.setText(student.getStud_email());
+        icNo.setText(student.getStud_ic_no());
+        dateBorn.setText(student.getStud_DOB());
+        contactNo.setText(student.getStud_contact_no());
         if(account.getProfile_image_path() != ""){
             ImageLoader.getInstance().displayImage(account.getProfile_image_path(), profilePic, options);}
     }
