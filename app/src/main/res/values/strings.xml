@@ -42,6 +42,7 @@
     <string name="title_order_list">Order List</string>
     <string name="title_reminder_list">Reminder List</string>
     <string name="title_register_account">Sign Up</string>
+    <string name="title_food_details">Food Details</string>
     <string name="enterName">Enter user name</string>
     <string name="write">Write</string>
     <string name="price">10</string>
@@ -112,5 +113,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_nfc">NFCActivity</string>
     <string name="title_activity_nfcdisplay">NFCDisplayActivity</string>
+    <string name="title_activity_food_details">FoodDetails</string>
+    <string name="title_activity_food_carts">FoodCarts</string>
 
 </resources>

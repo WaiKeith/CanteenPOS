@@ -31,8 +31,8 @@
 
         <activity
             android:name=".Activities.EditProfile"
-            android:label="@string/title_activity_update" >
-            android:parentActivityName=".MainActivity" >
+            android:label="@string/title_activity_update"
+            android:parentActivityName=".Activities.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activities.MainActivity" />
@@ -107,9 +107,27 @@
             android:label="@string/title_activity_nfcdisplay" >
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
-                <category android:name="android.intent.category.DEFAULT"/>
+
+                <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activities.FoodDetails"
+            android:label="@string/title_activity_food_details"
+            android:parentActivityName=".Activities.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Activities.FoodCarts"
+            android:label="@string/title_activity_food_carts"
+            android:parentActivityName=".Activities.FoodDetails" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="my.edu.chiawaikeith.canteenpos.Activities.FoodDetails" />
         </activity>
     </application>
 

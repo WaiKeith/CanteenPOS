@@ -15,12 +15,13 @@ import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -35,6 +36,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -43,6 +45,8 @@ import java.util.Locale;
 import my.edu.chiawaikeith.canteenpos.Activities.BaseActivity;
 import my.edu.chiawaikeith.canteenpos.Activities.NFCActivity;
 import my.edu.chiawaikeith.canteenpos.Activities.OrderList;
+import my.edu.chiawaikeith.canteenpos.Adapters.FoodAdapter;
+import my.edu.chiawaikeith.canteenpos.Domains.Foods;
 import my.edu.chiawaikeith.canteenpos.Domains.Transactions;
 import my.edu.chiawaikeith.canteenpos.Fab;
 import my.edu.chiawaikeith.canteenpos.R;
@@ -57,13 +61,15 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
     private Date orderDate;
     private Spinner spinnerQuantity;
     NfcAdapter nfcAdapter;
+    FoodAdapter foodAdapter;
     private TextView price,totalPrice,qty,aPrice,sub1,sub2,totalGST,foodID,foodID2;
     private Button write,cal,order,start,addCart1,addCart2,next;
     private ImageView d,e;
-    private JSONArray mJsonArray;
     Calendar calendar;
     Transactions transaction = new Transactions();
-    //private FloatingActionButton fabAdd,fabList;
+    private RecyclerView recyclerView;
+    private JSONArray mJsonArray;
+    private ArrayList<Foods> foodList = new ArrayList<>();
     private MaterialSheetFab materialSheetFab;
     boolean mAndroidBeamAvailable  = false;
 
@@ -71,6 +77,7 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
     final static String INSERT_URL2 = "http://canteenpos.comxa.com/OrderLines/insert_order_line.php";
     final static String INSERT_URL3 = "http://canteenpos.comxa.com/Transactions/start_transaction.php";
     final static String GET_URL = "http://canteenpos.comxa.com/Transactions/get_transaction.php";
+    final static String GETFOOD_URL = "http://canteenpos.comxa.com/Foods/retrieve_foods.php";
     final static String KEY_ACCOUNT_ID = "acc_id";
     final static String KEY_TRANSAC_ID = "transac_id";
     final static String KEY_FOOD_ID = "food_id";
@@ -79,6 +86,12 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
     final static String KEY_TOTAL_GST = "total_gst";
     final static String KEY_ORDER_STATUS = "order_status";
     final static String KEY_ITEMQTY = "item_qty";
+    final static String KEY_STALL_ID = "stall_id";
+    final static String KEY_FOOD_NAME = "food_name";
+    final static String KEY_FOOD_CATEGORY = "food_category";
+    final static String KEY_FOOD_PRICE = "food_price";
+    final static String KEY_FOOD_GSTPRICE = "food_gst_price";
+    final static String KEY_FOOD_IMAGE = "food_image_path";
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -109,9 +122,95 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
         }
 
         initValues();
-        getTransaction();
+        loadFoods();
+        //getTransaction();
+        //beginTransaction();
+    }
 
-        beginTransaction();
+    public void startView() {
+        FoodAdapter foodAdapter;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        foodAdapter = new FoodAdapter(getActivity(), foodList, R.layout.view_food_row);
+        recyclerView.setAdapter(foodAdapter);
+    }
+
+    public void loadFoods() {
+        new getFood().execute();
+    }
+
+    public class getFood extends AsyncTask<String, Void, String> {
+        ProgressDialog loading;
+        RequestHandler rh = new RequestHandler();
+//        Integer acc_ID;
+//
+//        private getReminder(Integer accountID){
+//            this.acc_ID = accountID;
+//        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //loading = ProgressDialog.show(getActivity(), "Loading...", "Please Wait...", true, true);
+        }
+
+
+        @Override
+        protected void onPostExecute(String json1) {
+            super.onPostExecute(json1);
+            Log.d("ReminderList", json1);
+            //loading.dismiss();
+            convertJson1(json1);
+            extractJsonData1();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            HashMap<String, String> data = new HashMap<>();
+            return rh.sendPostRequest(GETFOOD_URL, data);
+        }
+    }
+
+    // parse JSON data into JSON array
+    private void convertJson1(String json) {
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            mJsonArray = jsonObject.getJSONArray(BaseActivity.JSON_ARRAY);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void extractJsonData1() {
+
+        for (int i = 0; i < mJsonArray.length(); i++) {
+            try {
+
+                JSONObject jsonObject = mJsonArray.getJSONObject(i);
+                Foods foods = new Foods();
+
+                try {
+                    foods.setFood_id((jsonObject.getInt(KEY_FOOD_ID)));
+                    foods.setStall_id((jsonObject.getInt(KEY_STALL_ID)));
+                    foods.setFood_name(jsonObject.getString(KEY_FOOD_NAME));
+                    foods.setFood_category(jsonObject.getString(KEY_FOOD_CATEGORY));
+                    foods.setFood_price(jsonObject.getDouble(KEY_FOOD_PRICE));
+                    foods.setFood_gst_price(jsonObject.getDouble(KEY_FOOD_GSTPRICE));
+                    foods.setFood_image_path(jsonObject.getString(KEY_FOOD_IMAGE));
+
+                    foodList.add(foods);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+        if(mJsonArray.length() > 0) {
+            startView();
+        }else {
+            shortToast(getActivity(),"No records found.");}
     }
 
     private void initValues() {
@@ -123,13 +222,13 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private void beginTransaction(){
-        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-        alertDialog.setTitle("Begin Transaction");
-        alertDialog.setMessage("Confirm to start transaction?");
-        alertDialog.setButton("YES", new DialogInterface.OnClickListener() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Begin Transaction");
+        builder.setMessage("Confirm to start transaction?");
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getActivity().getApplicationContext(), "", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
+
                 transac_id = transaction.getTransac_id();
 
                 Log.d("tranid", String.valueOf(transac_id));
@@ -142,13 +241,15 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
                         String.valueOf(newTransac_id),
                         String.valueOf(acc_id)
                 );
+                dialog.dismiss();
             }
         });
-        alertDialog.setButton("CANCEL",new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                alertDialog.cancel();
+                dialog.cancel();
             }
         });
+        AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
 
@@ -159,66 +260,66 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_order, container, false);
 
-        spinnerQuantity = (Spinner)view.findViewById(R.id.spinnerQty);
-        //spinnerqty = (Spinner)view.findViewById(R.id.spinnerQty1);
-
-        Integer[] values =
-                {1, 2, 3, 4, 5};
-        ArrayAdapter<Integer> Qtyadapter = new ArrayAdapter<Integer>(getActivity(), android.R.layout.simple_spinner_item, values);
-        Qtyadapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spinnerQuantity.setAdapter(Qtyadapter);
-
-        d = (ImageView)view.findViewById(R.id.imagePlus);
-        d.setOnClickListener(this);
-        e = (ImageView)view.findViewById(R.id.imageMinus);
-        e.setOnClickListener(this);
-
-        write = (Button)view.findViewById(R.id.btnWrite);
-        write.setOnClickListener(this);
-
-        //cal = (Button)view.findViewById(R.id.btnCal);
-        //cal.setOnClickListener(this);
-
-        addCart1 = (Button)view.findViewById(R.id.btnAddcart1);
-        addCart1.setOnClickListener(this);
-
-        addCart2 = (Button)view.findViewById(R.id.btnAddcart2);
-        addCart2.setOnClickListener(this);
-
-//        order = (Button)view.findViewById(R.id.btnConfirm);
-//        order.setOnClickListener(this);
-
-        //start = (Button)view.findViewById(R.id.btnStart);
-        //start.setOnClickListener(this);
-
-        price = (TextView)view.findViewById(R.id.tvPrice);
-        sText = price.getText().toString();
-
-        totalPrice = (TextView)view.findViewById(R.id.textviewTotalPrice);
-        totalPrice.setText(tPrice.toString());
-
-        totalGST = (TextView)view.findViewById(R.id.textviewGSTPrice);
-        totalGST.setText(totalgst.toString());
-
-        sub1 = (TextView)view.findViewById(R.id.subtotal1);
-        //s1 = Integer.parseInt(sub1.getText().toString());
-        sub2 = (TextView)view.findViewById(R.id.subtotal2);
-        //s2 = Integer.parseInt(sub2.getText().toString());
-
-        aPrice = (TextView)view.findViewById(R.id.singlePrice);
-        g = Double.parseDouble(aPrice.getText().toString());
-
-        qty = (TextView)view.findViewById(R.id.textQty);
-        f = Integer.parseInt(qty.getText().toString());
-
-        foodID = (TextView)view.findViewById(R.id.tvFoodID);
-        foodID2 = (TextView)view.findViewById(R.id.textView9);
-
-        mText = spinnerQuantity.getSelectedItem().toString();
+//        spinnerQuantity = (Spinner)view.findViewById(R.id.spinnerQty);
+//        //spinnerqty = (Spinner)view.findViewById(R.id.spinnerQty1);
+//
+//        Integer[] values =
+//                {1, 2, 3, 4, 5};
+//        ArrayAdapter<Integer> Qtyadapter = new ArrayAdapter<Integer>(getActivity(), android.R.layout.simple_spinner_item, values);
+//        Qtyadapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+//        spinnerQuantity.setAdapter(Qtyadapter);
+//
+//        d = (ImageView)view.findViewById(R.id.imagePlus);
+//        d.setOnClickListener(this);
+//        e = (ImageView)view.findViewById(R.id.imageMinus);
+//        e.setOnClickListener(this);
+//
+//        write = (Button)view.findViewById(R.id.btnWrite);
+//        write.setOnClickListener(this);
+//
+//        //cal = (Button)view.findViewById(R.id.btnCal);
+//        //cal.setOnClickListener(this);
+//
+//        addCart1 = (Button)view.findViewById(R.id.btnAddcart1);
+//        addCart1.setOnClickListener(this);
+//
+//        addCart2 = (Button)view.findViewById(R.id.btnAddcart2);
+//        addCart2.setOnClickListener(this);
+//
+////        order = (Button)view.findViewById(R.id.btnConfirm);
+////        order.setOnClickListener(this);
+//
+//        //start = (Button)view.findViewById(R.id.btnStart);
+//        //start.setOnClickListener(this);
+//
+//        price = (TextView)view.findViewById(R.id.tvPrice);
+//        sText = price.getText().toString();
+//
+//        totalPrice = (TextView)view.findViewById(R.id.textviewTotalPrice);
+//        totalPrice.setText(tPrice.toString());
+//
+//        totalGST = (TextView)view.findViewById(R.id.textviewGSTPrice);
+//        totalGST.setText(totalgst.toString());
+//
+//        sub1 = (TextView)view.findViewById(R.id.subtotal1);
+//        //s1 = Integer.parseInt(sub1.getText().toString());
+//        sub2 = (TextView)view.findViewById(R.id.subtotal2);
+//        //s2 = Integer.parseInt(sub2.getText().toString());
+//
+//        aPrice = (TextView)view.findViewById(R.id.singlePrice);
+//        g = Double.parseDouble(aPrice.getText().toString());
+//
+//        qty = (TextView)view.findViewById(R.id.textQty);
+//        f = Integer.parseInt(qty.getText().toString());
+//
+//        foodID = (TextView)view.findViewById(R.id.tvFoodID);
+//        foodID2 = (TextView)view.findViewById(R.id.textView9);
+//
+//        mText = spinnerQuantity.getSelectedItem().toString();
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(getActivity());
-        next = (Button)view.findViewById(R.id.btnNextPage);
-        next.setOnClickListener(this);
+//        next = (Button)view.findViewById(R.id.btnNextPage);
+//        next.setOnClickListener(this);
 
         Fab fab = (Fab) view.findViewById(R.id.fab);
         View sheetView = view.findViewById(R.id.fab_sheet);
@@ -233,8 +334,13 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
         view.findViewById(R.id.fab_sheet_item_calculate).setOnClickListener(this);
         view.findViewById(R.id.fab_sheet_item_confirm).setOnClickListener(this);
         view.findViewById(R.id.fab_sheet_item_start).setOnClickListener(this);
+        view.findViewById(R.id.fab_sheet_item_next).setOnClickListener(this);
+
+        recyclerView = (RecyclerView)view. findViewById(R.id.food_recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;
     }
+
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -252,7 +358,7 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onResume() {
         super.onResume();
-        spinnerQuantity.setOnItemSelectedListener(new MyOnItemSelectedListener());
+        //spinnerQuantity.setOnItemSelectedListener(new MyOnItemSelectedListener());
 
         enableForegroundDispatchSystem();
     }
@@ -260,21 +366,21 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.imagePlus:
-                f++;
-                qty.setText(f.toString());
-                s1 = f * g;
-                sub1.setText(s1.toString());
-
-                break;
-
-            case R.id.imageMinus:
-                f--;
-                qty.setText(f.toString());
-                s1 = f * g;
-                sub1.setText(s1.toString());
-
-                break;
+//            case R.id.imagePlus:
+//                f++;
+//                qty.setText(f.toString());
+//                s1 = f * g;
+//                sub1.setText(s1.toString());
+//
+//                break;
+//
+//            case R.id.imageMinus:
+//                f--;
+//                qty.setText(f.toString());
+//                s1 = f * g;
+//                sub1.setText(s1.toString());
+//
+//                break;
 
 //            case R.id.btnCal:
 //                tPrice = s1 + s2;
@@ -306,21 +412,21 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
 //                startActivity(intent);
 //                break;
 
-            case R.id.btnAddcart1:
-                Log.d("newid",String.valueOf(newTransac_id));
-
-                new insertOrderLine().execute(
-                        String.valueOf(newTransac_id),
-                        foodID.getText().toString(),
-                        qty.getText().toString());
-                break;
-
-            case R.id.btnAddcart2:
-                new insertOrderLine().execute(
-                        String.valueOf(newTransac_id),
-                        foodID2.getText().toString(),
-                        mText.toString());
-                break;
+//            case R.id.btnAddcart1:
+//                Log.d("newid",String.valueOf(newTransac_id));
+//
+//                new insertOrderLine().execute(
+//                        String.valueOf(newTransac_id),
+//                        foodID.getText().toString(),
+//                        qty.getText().toString());
+//                break;
+//
+//            case R.id.btnAddcart2:
+//                new insertOrderLine().execute(
+//                        String.valueOf(newTransac_id),
+//                        foodID2.getText().toString(),
+//                        mText.toString());
+//                break;
 
 //            case R.id.btnStart:
 //                transac_id = transaction.getTransac_id();
@@ -337,7 +443,7 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
 //                );
 //                break;
 
-            case R.id.btnNextPage:
+            case R.id.fab_sheet_item_next:
                 Intent intent1 = new Intent(getActivity(), NFCActivity.class);
                 startActivity(intent1);
                 break;
@@ -389,8 +495,8 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
 
         }
 
-        s1 = f * g;
-        sub1.setText(s1.toString());
+//        s1 = f * g;
+//        sub1.setText(s1.toString());
     }
 
     protected void onNewIntent(Intent newIntent) {
@@ -539,7 +645,7 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
         }
     }
 
-    public class insertOrderLine extends AsyncTask<String, Void, String> {
+    public final class insertOrderLine extends AsyncTask<String, Void, String> {
 
         ProgressDialog loading;
         RequestHandler rh = new RequestHandler();
