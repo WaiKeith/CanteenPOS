@@ -44,6 +44,7 @@
     <string name="title_register_account">Sign Up</string>
     <string name="title_food_details">Food Details</string>
     <string name="title_nfc_activity">Transaction Transfer</string>
+    <string name="title_item_cart">Item Carts</string>
     <string name="enterName">Enter user name</string>
     <string name="write">Write</string>
     <string name="price">10</string>

@@ -89,6 +89,7 @@ public class ProfileFragment extends BaseFragment {
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getActivity()).build();
         ImageLoader.getInstance().init(config);
+
         initValues();
         loadInfo();
         //loadStudent();

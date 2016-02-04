@@ -159,7 +159,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         textUsername.setOnClickListener(this);
         profilePic.setOnClickListener(this);
 
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(MainActivity.this).build();
         ImageLoader.getInstance().init(config);
 
         initValues();
