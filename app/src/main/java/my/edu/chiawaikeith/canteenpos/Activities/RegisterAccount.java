@@ -27,7 +27,7 @@ import my.edu.chiawaikeith.canteenpos.RequestHandler;
 
 
 public class RegisterAccount extends BaseActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
-    final static String INSERT_URL = "http://canteenpos.comxa.com/Accounts/Students/create_account.php";
+    final static String INSERT_URL = "http://dinpos.comlu.com/Accounts/Students/create_account.php";
 
     final static String KEY_ACCOUNT_ID = "acc_id";
     final static String KEY_CUSTOMER_ID = "cust_id";

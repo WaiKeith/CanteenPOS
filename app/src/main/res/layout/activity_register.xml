@@ -53,7 +53,7 @@
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:layout_marginRight="@dimen/margin_small"
-                android:hint="@string/enterStudId"
+                android:text="14WAR12345"
                 android:singleLine="true"
                 android:inputType="text" />
 
@@ -67,7 +67,7 @@
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:layout_marginRight="@dimen/margin_small"
-                android:hint="@string/enterName"
+                android:text="yeeng"
                 android:singleLine="true"
                 android:inputType="text" />
 
@@ -81,7 +81,7 @@
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:layout_marginRight="@dimen/margin_small"
-                android:hint="@string/submitPW"
+                android:text="yeeng"
                 android:singleLine="true"
                 android:inputType="textEmailAddress" />
                 <!--android:drawableLeft="@drawable/ic_password"-->

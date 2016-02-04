@@ -41,7 +41,7 @@ public class ReminderFragment extends BaseFragment implements
     private String mParam1;
     private String mParam2;
 
-    final static String INSERT_URL = "http://canteenpos.comxa.com/Reminders/insert_reminder.php";
+    final static String INSERT_URL = "http://dinpos.comlu.com/Reminders/insert_reminder.php";
     final static String KEY_ACCOUNT_ID = "acc_id";
     final static String KEY_TITLE = "reminder_title";
     final static String KEY_DESC = "reminder_desc";

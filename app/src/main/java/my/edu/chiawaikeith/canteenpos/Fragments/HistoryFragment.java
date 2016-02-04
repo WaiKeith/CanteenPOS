@@ -26,7 +26,7 @@ import my.edu.chiawaikeith.canteenpos.R;
 import my.edu.chiawaikeith.canteenpos.RequestHandler;
 
 public class HistoryFragment extends BaseFragment implements RecyclerView.RecyclerListener,View.OnClickListener{
-    private static final String RETRIEVEHISTORY_URL = "http://canteenpos.comxa.com/Transactions/retrieve_transaction.php";
+    private static final String RETRIEVEHISTORY_URL = "http://dinpos.comlu.com/Transactions/retrieve_transaction.php";
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;

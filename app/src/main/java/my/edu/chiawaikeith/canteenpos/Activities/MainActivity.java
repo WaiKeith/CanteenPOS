@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private JSONArray jsonArray;
     final static String KEY_USER_NAME = "user_name";
     final static String KEY_PROFILE_IMAGE_PATH = "profile_image_path";
-    private static final String RETRIEVEACC_URL = "http://canteenpos.comxa.com/Accounts/Students/retrieve_account.php";
+    private static final String RETRIEVEACC_URL = "http://dinpos.comlu.com/Accounts/Students/retrieve_account.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

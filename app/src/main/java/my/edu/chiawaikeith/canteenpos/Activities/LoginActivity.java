@@ -36,7 +36,7 @@ public class LoginActivity extends BaseActivity{
     private String password = "";
     ImageView a;
 
-    private static final String LOGIN_URL = "http://canteenpos.comxa.com/Accounts/Students/login_account.php";
+    private static final String LOGIN_URL = "http://dinpos.comlu.com/Accounts/Students/login_account.php";
     final static String KEY_USERNAME = "user_name";
     final static String KEY_PASSWORD = "acc_password";
     private static final String KEY_URL = "Url";

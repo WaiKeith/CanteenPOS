@@ -100,7 +100,11 @@
         </activity>
         <activity
             android:name=".Activities.NFCActivity"
-            android:label="@string/title_activity_nfc" >
+            android:label="@string/title_activity_nfc"
+            android:parentActivityName=".Activities.FoodCarts" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.FoodCarts" />
         </activity>
         <activity
             android:name=".Activities.NFCDisplayActivity"

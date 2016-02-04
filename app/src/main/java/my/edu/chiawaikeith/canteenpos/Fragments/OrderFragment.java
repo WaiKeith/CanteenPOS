@@ -77,7 +77,7 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
     final static String INSERT_URL2 = "http://canteenpos.comxa.com/OrderLines/insert_order_line.php";
     final static String INSERT_URL3 = "http://canteenpos.comxa.com/Transactions/start_transaction.php";
     final static String GET_URL = "http://canteenpos.comxa.com/Transactions/get_transaction.php";
-    final static String GETFOOD_URL = "http://canteenpos.comxa.com/Foods/retrieve_foods.php";
+    final static String GETFOOD_URL = "http://dinpos.comlu.com/Foods/retrieve_foods.php";
     final static String KEY_ACCOUNT_ID = "acc_id";
     final static String KEY_TRANSAC_ID = "transac_id";
     final static String KEY_FOOD_ID = "food_id";

@@ -42,7 +42,7 @@ import my.edu.chiawaikeith.canteenpos.R;
 import my.edu.chiawaikeith.canteenpos.RequestHandler;
 
 public class EditProfile extends BaseActivity implements View.OnClickListener {
-    private static final String UPDATE_URL = "http://canteenpos.comxa.com/Accounts/Students/update_account.php";
+    private static final String UPDATE_URL = "http://dinpos.comlu.com/Accounts/Students/update_account.php";
     private static final String KEY_ACCOUNT_ID = "acc_id";
     private static final String KEY_USERNAME = "user_name";
     private static final String KEY_PASSWORD = "acc_password";

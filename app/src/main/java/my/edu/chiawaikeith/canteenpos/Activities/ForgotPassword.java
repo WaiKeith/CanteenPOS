@@ -36,7 +36,7 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
         private Button btnProceed,btnRetrieve;
         private EditText editText1,editText2,editText3;
         private String userID = "",email = "",code="";
-        final static String VERIFY_URL = "http://canteenpos.comxa.com/Accounts/Students/get_passwordv1.php";
+        final static String VERIFY_URL = "http://dinpos.comlu.com/Accounts/Students/get_password.php";
 
         final static String KEY_CODE = "acc_security_code";
         final static String KEY_EMAIL = "stud_email";
@@ -55,8 +55,8 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
         editText3 = (EditText)findViewById(R.id.editEmail);
         btnProceed = (Button)findViewById(R.id.buttonProceed);
         btnProceed.setOnClickListener(this);
-        btnRetrieve = (Button)findViewById(R.id.buttonRetrieve);
-        btnRetrieve.setOnClickListener(this);
+//        btnRetrieve = (Button)findViewById(R.id.buttonRetrieve);
+//        btnRetrieve.setOnClickListener(this);
 
         setSupportActionBar(toolBar);
         assert getSupportActionBar() != null;
@@ -107,39 +107,39 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
                 }
                 break;
 
-            case R.id.buttonRetrieve:
-//                editText1.setText(null);
-//                editText2.setText(null);
-
-                final Mail m = new Mail(email, "keith@110733");
-                new AsyncTask<Void, Void, Void>() {
-                    @Override public Void doInBackground(Void... arg) {
-                        String[] toArr = {"keith_513345@hotmail.com"};
-                        m.setTo(toArr);
-                        m.setFrom(email);
-                        m.setSubject("Password Recovery");
-                        m.setBody(aText.getText().toString());
-
-                        try {
-                            if(m.send()) {
-                                ForgotPassword.this.runOnUiThread(new Runnable() {
-                                    public void run() {
-                                        longToast("Email was sent successfully");}
-                                });
-                            } else {
-                                ForgotPassword.this.runOnUiThread(new Runnable() {
-                                    public void run() {
-                                        longToast("Email was not sent successfully");}
-                                });
-                            }
-                        } catch(Exception e) {
-                            //Toast.makeText(MailApp.this, "There was a problem sending the email.", Toast.LENGTH_LONG).show();
-                            Log.e("MailApp", "Could not send email", e);
-                        }
-                        return null;
-                    }
-                }.execute();
-                break;
+//            case R.id.buttonRetrieve:
+////                editText1.setText(null);
+////                editText2.setText(null);
+//
+//                final Mail m = new Mail(email, "keith@110733");
+//                new AsyncTask<Void, Void, Void>() {
+//                    @Override public Void doInBackground(Void... arg) {
+//                        String[] toArr = {"keith_513345@hotmail.com"};
+//                        m.setTo(toArr);
+//                        m.setFrom(email);
+//                        m.setSubject("Password Recovery");
+//                        m.setBody(aText.getText().toString());
+//
+//                        try {
+//                            if(m.send()) {
+//                                ForgotPassword.this.runOnUiThread(new Runnable() {
+//                                    public void run() {
+//                                        longToast("Email was sent successfully");}
+//                                });
+//                            } else {
+//                                ForgotPassword.this.runOnUiThread(new Runnable() {
+//                                    public void run() {
+//                                        longToast("Email was not sent successfully");}
+//                                });
+//                            }
+//                        } catch(Exception e) {
+//                            //Toast.makeText(MailApp.this, "There was a problem sending the email.", Toast.LENGTH_LONG).show();
+//                            Log.e("MailApp", "Could not send email", e);
+//                        }
+//                        return null;
+//                    }
+//                }.execute();
+//                break;
         }
 
     }
@@ -207,6 +207,35 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
 
     private void loadPassword() {
         aText.setText(account.getAcc_password());
-        //email = editText2.getText().toString();
+
+        final Mail m = new Mail(email, "keith@110733");
+        new AsyncTask<Void, Void, Void>() {
+            @Override public Void doInBackground(Void... arg) {
+                String[] toArr = {"keith_513345@hotmail.com"};
+                m.setTo(toArr);
+                m.setFrom(email);
+                m.setSubject("Password recovery for DINPOS account");
+                m.setBody("Your account password is " + aText.getText().toString() +
+                        ". Remember to save your personal password on somewhere else.");
+
+                try {
+                    if(m.send()) {
+                        ForgotPassword.this.runOnUiThread(new Runnable() {
+                            public void run() {
+                                longToast("Email with password was sent successfully to keith_513345@hotmail.com");}
+                        });
+                    } else {
+                        ForgotPassword.this.runOnUiThread(new Runnable() {
+                            public void run() {
+                                longToast("Email was not sent successfully");}
+                        });
+                    }
+                } catch(Exception e) {
+                    //Toast.makeText(MailApp.this, "There was a problem sending the email.", Toast.LENGTH_LONG).show();
+                    Log.e("MailApp", "Could not send email", e);
+                }
+                return null;
+            }
+        }.execute();
     }
 }

@@ -60,7 +60,7 @@ public class ProfileFragment extends BaseFragment {
 
 //    private static final String RETRIEVESTUD_URL = "http://canteenpos.comxa.com/Accounts/Students/retrieve_student.php";
 //    private static final String RETRIEVEACC_URL = "http://canteenpos.comxa.com/Accounts/Students/retrieve_account.php";
-    private static final String RETRIEVEINFO_URL = "http://canteenpos.comxa.com/Accounts/Students/retrieve_info.php";
+    private static final String RETRIEVEINFO_URL = "http://dinpos.comlu.com/Accounts/Students/retrieve_info.php";
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 

@@ -26,7 +26,7 @@ import my.edu.chiawaikeith.canteenpos.RequestHandler;
 
 
 public class OrderList extends BaseActivity implements View.OnClickListener {
-    private static final String RETRIEVEHISTORY_URL = "http://canteenpos.comxa.com/Transactions/retrieve_transaction.php";
+    private static final String RETRIEVEHISTORY_URL = "http://dinpos.comlu.com/Transactions/retrieve_transaction.php";
     private final static String KEY_TRANSAC_ID = "transac_id";
     private final static String KEY_ACC_ID = "acc_id";
     private final static String KEY_PAYMENT_AMOUNT = "payment_amount";

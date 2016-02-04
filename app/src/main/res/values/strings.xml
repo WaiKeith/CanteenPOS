@@ -38,11 +38,12 @@
     <string name="title_edit_reminder">Edit Reminder</string>
     <string name="title_forgot_password">Forgot Password</string>
     <string name="title_activity_register">Sign Up</string>
-    <string name="title_order_details">Order Details</string>
+    <string name="title_order_details">Transaction Details</string>
     <string name="title_order_list">Order List</string>
     <string name="title_reminder_list">Reminder List</string>
     <string name="title_register_account">Sign Up</string>
     <string name="title_food_details">Food Details</string>
+    <string name="title_nfc_activity">Transaction Transfer</string>
     <string name="enterName">Enter user name</string>
     <string name="write">Write</string>
     <string name="price">10</string>

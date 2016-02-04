@@ -46,7 +46,7 @@ public class OrderDetails extends BaseActivity implements View.OnClickListener {
     final static String KEY_ORDERLINE_ID = "order_line_id";
     final static String KEY_ITEM_QTY = "item_qty";
     final static String KEY_FOOD_NAME = "F.food_name";
-    final static String GET_URL = "http://canteenpos.comxa.com/OrderLines/retrieve_order_line.php";
+    final static String GET_URL = "http://dinpos.comlu.com/OrderLines/retrieve_order_line.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

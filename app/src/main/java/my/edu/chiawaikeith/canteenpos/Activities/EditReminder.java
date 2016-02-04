@@ -35,8 +35,8 @@ public class EditReminder extends BaseActivity implements View.OnClickListener
                                          ,TimePickerDialog.OnTimeSetListener,
                                         DatePickerDialog.OnDateSetListener, View.OnTouchListener{
 
-    final static String UPDATE_URL = "http://canteenpos.comxa.com/Reminders/update_reminder.php";
-    final static String DELETE_URL = "http://canteenpos.comxa.com/Reminders/delete_reminder.php";
+    final static String UPDATE_URL = "http://dinpos.comlu.com/Reminders/update_reminder.php";
+    final static String DELETE_URL = "http://dinpos.comlu.com/Reminders/delete_reminder.php";
     final static String KEY_REMINDER_ID = "reminder_id";
     final static String KEY_ACCOUNT_ID = "acc_id";
     final static String KEY_TITLE = "reminder_title";

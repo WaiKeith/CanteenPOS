@@ -41,8 +41,8 @@ public class ChartFragment extends BaseFragment {
     private final static String KEY_FOOD_CATEGORY = "F.food_category";
     private final static String KEY_PAYMENT_AMOUNT = "payment_amount";
     private final static String KEY_ORDER_DATETIME = "order_date_time";
-    private static final String REPORT1_URL = "http://canteenpos.comxa.com/Reports/reportv1.php";
-    private static final String REPORT2_URL = "http://canteenpos.comxa.com/Reports/reportv2.php";
+    private static final String REPORT1_URL = "http://dinpos.comlu.com/Reports/report1.php";
+    private static final String REPORT2_URL = "http://dinpos.comlu.com/Reports/report2.php";
     private JSONArray jsonArray;
     OrderLines orderLines = new OrderLines();
     Reports categoryRecord,expenseRecord;
@@ -245,7 +245,6 @@ public class ChartFragment extends BaseFragment {
         protected void onPostExecute(String Json) {
             super.onPostExecute(Json);
             //loading.dismiss();
-            Log.d("ChartFragment", Json);
             convertJson2(Json);
             extractJsonData2();
 

@@ -27,7 +27,7 @@ import my.edu.chiawaikeith.canteenpos.RequestHandler;
 
 public class ReminderList extends BaseActivity implements View.OnClickListener{
 
-    private static final String RETRIEVEREMINDER_URL = "http://canteenpos.comxa.com/Reminders/retrieve_reminder.php";
+    private static final String RETRIEVEREMINDER_URL = "http://dinpos.comlu.com/Reminders/retrieve_reminder.php";
     private final static String KEY_REMINDER_ID = "reminder_id";
     private final static String KEY_ACC_ID = "acc_id";
     private final static String KEY_REMINDER_TITLE = "reminder_title";
