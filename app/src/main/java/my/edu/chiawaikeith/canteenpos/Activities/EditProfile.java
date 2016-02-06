@@ -2,7 +2,6 @@ package my.edu.chiawaikeith.canteenpos.Activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -51,10 +49,8 @@ public class EditProfile extends BaseActivity implements View.OnClickListener {
     private static final String KEY_BITMAP = "profile_image_bitmap";
 
     private Toolbar toolBar;
-    Context context;
     private ActionButton actionButton;
     private EditText editTextName, editTextPW;
-    private TextView textView;
     String imgDecodableString;
     Uri selectedImageUri;
     private String selectedImagePath;

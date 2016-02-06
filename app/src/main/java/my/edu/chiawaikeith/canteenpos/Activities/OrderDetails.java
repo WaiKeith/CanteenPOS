@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -110,6 +111,7 @@ public class OrderDetails extends BaseActivity implements View.OnClickListener {
         try {
             JSONObject jsonObject = new JSONObject(json);
             mJsonArray = jsonObject.getJSONArray(BaseActivity.JSON_ARRAY);
+            Log.d("arraylength", String.valueOf(mJsonArray));
         } catch (JSONException e) {
             e.printStackTrace();
         }
