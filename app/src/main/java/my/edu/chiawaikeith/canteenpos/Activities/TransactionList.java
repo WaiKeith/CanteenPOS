@@ -25,7 +25,7 @@ import my.edu.chiawaikeith.canteenpos.R;
 import my.edu.chiawaikeith.canteenpos.RequestHandler;
 
 
-public class OrderList extends BaseActivity implements View.OnClickListener {
+public class TransactionList extends BaseActivity implements View.OnClickListener {
     private static final String RETRIEVEHISTORY_URL = "http://dinpos.comlu.com/Transactions/retrieve_transaction.php";
     private final static String KEY_TRANSAC_ID = "transac_id";
     private final static String KEY_ACC_ID = "acc_id";
@@ -68,7 +68,7 @@ public class OrderList extends BaseActivity implements View.OnClickListener {
     public void startView() {
         HistoryAdapter historyAdapter;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        historyAdapter = new HistoryAdapter(OrderList.this, transactionsList, R.layout.view_order_row);
+        historyAdapter = new HistoryAdapter(TransactionList.this, transactionsList, R.layout.view_order_row);
         recyclerView.setAdapter(historyAdapter);
     }
 

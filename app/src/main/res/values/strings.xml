@@ -117,5 +117,8 @@
     <string name="title_activity_nfcdisplay">NFCDisplayActivity</string>
     <string name="title_activity_food_details">FoodDetails</string>
     <string name="title_activity_food_carts">FoodCarts</string>
+    <string name="title_activity_food_list">FoodList</string>
+    <string name="title_activity_profile_details">ProfileDetails</string>
+    <string name="title_activity_add_reminder">AddReminder</string>
 
 </resources>

@@ -78,7 +78,7 @@
                     android:layout_height="256dp"
                     android:padding="10dp"
                     app:egFixedBarWidth="true"
-                    app:egBarWidth="20dp"
+                    app:egBarWidth="30dp"
                     app:egLegendHeight="0dp"
                     app:egShowValues="true"
                     app:egShowDecimal="true"/>
@@ -107,7 +107,7 @@
                         android:textStyle="bold"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:layout_marginLeft="180dp"
+                        android:layout_marginLeft="190dp"
                         android:layout_centerVertical="true"/>
                     </LinearLayout>
             </LinearLayout>

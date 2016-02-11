@@ -32,14 +32,14 @@
         <activity
             android:name=".Activities.EditProfile"
             android:label="@string/title_activity_update"
-            android:parentActivityName=".Activities.MainActivity" >
+            android:parentActivityName=".Activities.ProfileDetails" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.MainActivity" />
+                android:value=".Activities.ProfileDetails" />
         </activity>
         <activity
             android:name=".Activities.SplashScreen"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,7 +48,7 @@
         </activity>
         <activity
             android:name=".Activities.LoginActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".Activities.RegisterAccount"
@@ -59,7 +59,7 @@
                 android:value=".Activities.LoginActivity" />
         </activity>
         <activity
-            android:name=".Activities.OrderList"
+            android:name=".Activities.TransactionList"
             android:label="@string/orderHistory"
             android:parentActivityName=".Activities.MainActivity" >
             <meta-data
@@ -67,20 +67,20 @@
                 android:value=".Activities.MainActivity" />
         </activity>
         <activity
-            android:name=".Activities.OrderDetails"
+            android:name=".Activities.TransactionDetails"
             android:label="@string/orderDetails"
-            android:parentActivityName=".Activities.OrderList" >
+            android:parentActivityName=".Activities.TransactionList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.OrderList" />
+                android:value=".Activities.TransactionList" />
         </activity>
         <activity
             android:name=".Activities.ReminderList"
             android:label="@string/title_activity_event_history"
-            android:parentActivityName=".Activities.MainActivity" >
+            android:parentActivityName=".Activities.AddReminder" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.MainActivity" />
+                android:value=".Activities.AddReminder" />
         </activity>
         <activity
             android:name=".Activities.EditReminder"
@@ -120,14 +120,38 @@
         <activity
             android:name=".Activities.FoodDetails"
             android:label="@string/title_activity_food_details"
-            android:parentActivityName=".Activities.MainActivity" >
+            android:parentActivityName=".Activities.FoodList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.MainActivity" />
+                android:value=".Activities.FoodList" />
         </activity>
         <activity
             android:name=".Activities.FoodCarts"
             android:label="@string/title_activity_food_carts"
+            android:parentActivityName=".Activities.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="my.edu.chiawaikeith.canteenpos.Activities.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Activities.FoodList"
+            android:label="@string/title_activity_food_list"
+            android:parentActivityName=".Activities.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="my.edu.chiawaikeith.canteenpos.Activities.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Activities.ProfileDetails"
+            android:label="@string/title_activity_profile_details"
+            android:parentActivityName=".Activities.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="my.edu.chiawaikeith.canteenpos.Activities.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Activities.AddReminder"
+            android:label="@string/title_activity_add_reminder"
             android:parentActivityName=".Activities.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

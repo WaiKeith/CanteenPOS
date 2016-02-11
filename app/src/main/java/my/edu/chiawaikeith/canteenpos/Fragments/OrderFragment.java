@@ -44,7 +44,7 @@ import java.util.Locale;
 
 import my.edu.chiawaikeith.canteenpos.Activities.BaseActivity;
 import my.edu.chiawaikeith.canteenpos.Activities.NFCActivity;
-import my.edu.chiawaikeith.canteenpos.Activities.OrderList;
+import my.edu.chiawaikeith.canteenpos.Activities.TransactionList;
 import my.edu.chiawaikeith.canteenpos.Adapters.FoodAdapter;
 import my.edu.chiawaikeith.canteenpos.Domains.Foods;
 import my.edu.chiawaikeith.canteenpos.Domains.Transactions;
@@ -472,7 +472,7 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
                 break;
 
             case R.id.fab_sheet_item_confirm:
-                Intent intent2 = new Intent(getActivity(), OrderList.class);
+                Intent intent2 = new Intent(getActivity(), TransactionList.class);
 
 
                 calendar = Calendar.getInstance();

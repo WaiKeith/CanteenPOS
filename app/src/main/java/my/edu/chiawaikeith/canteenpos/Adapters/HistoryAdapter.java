@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import my.edu.chiawaikeith.canteenpos.Activities.OrderDetails;
+import my.edu.chiawaikeith.canteenpos.Activities.TransactionDetails;
 import my.edu.chiawaikeith.canteenpos.Domains.Transactions;
 import my.edu.chiawaikeith.canteenpos.R;
 
@@ -75,7 +75,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             transaction.setOrder_date_time(orders.get(getAdapterPosition()).getOrder_date_time());
             transaction.setOrder_status(orders.get(getAdapterPosition()).getOrder_status());
 
-            Intent intent = new Intent(context, OrderDetails.class);
+            Intent intent = new Intent(context, TransactionDetails.class);
             intent.putExtra(KEY_HISTORY, transaction);
             context.startActivity(intent);
         }
