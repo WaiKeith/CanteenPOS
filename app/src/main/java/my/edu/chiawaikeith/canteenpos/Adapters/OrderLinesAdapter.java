@@ -36,20 +36,27 @@ public class OrderLinesAdapter extends RecyclerView.Adapter<OrderLinesAdapter.Vi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_orderline_row, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_cart_line, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        double qty,single,sub;
+
+        qty = Double.parseDouble(String.valueOf(orderLines.get(position).getItem_qty()));
+        single = Double.parseDouble(String.valueOf(orderLines.get(position).getSingle_price()));
+        sub = qty * single;
+
         holder.foodId.setText(String.valueOf(orderLines.get(position).getFood_id()));
-        //holder.foodName.setText(foods.get(position).getFood_name());
+        holder.singleprice.setText("RM " + String.valueOf(orderLines.get(position).getSingle_price()));
         holder.itemqty.setText(String.valueOf(orderLines.get(position).getItem_qty()));
+        holder.subtotal.setText("RM " + String.valueOf(sub));
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        TextView foodId,itemqty,foodName;
+        TextView foodId,itemqty,singleprice,subtotal;
 
 //        ImageView personPhoto;
 
@@ -58,9 +65,8 @@ public class OrderLinesAdapter extends RecyclerView.Adapter<OrderLinesAdapter.Vi
 
             foodId = (TextView)itemView.findViewById(R.id.foodID);
             itemqty = (TextView)itemView.findViewById(R.id.itemQty);
-            //foodName = (TextView)itemView.findViewById(R.id.foodName);
-
-            //personPhoto = (ImageView)itemView.findViewById(R.id.person_photo);
+            singleprice = (TextView)itemView.findViewById(R.id.single);
+            subtotal = (TextView)itemView.findViewById(R.id.subTotal);
         }
     }
 
