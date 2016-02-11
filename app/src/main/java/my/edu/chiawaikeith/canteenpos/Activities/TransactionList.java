@@ -44,7 +44,7 @@ public class TransactionList extends BaseActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_list);
+        setContentView(R.layout.activity_transaction_list);
 
         toolBar = (Toolbar)findViewById(R.id.toolbar);
 
