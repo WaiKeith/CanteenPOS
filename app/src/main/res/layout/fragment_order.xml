@@ -274,9 +274,9 @@
                     android:text="START" />
 
                 <TextView
-                    android:id="@+id/fab_sheet_item_calculate"
+                    android:id="@+id/fab_sheet_item_view"
                     style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
-                    android:text="CALCULATE" />
+                    android:text="VIEW CART" />
 
                 <TextView
                     android:id="@+id/fab_sheet_item_confirm"

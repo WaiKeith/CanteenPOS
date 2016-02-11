@@ -1,0 +1,293 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="my.edu.chiawaikeith.canteenpos.Activities.FoodDetails">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar">
+    </include>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/toolbar">
+        <RelativeLayout
+            android:background="@drawable/content_bg"
+            android:layout_width="fill_parent"
+            android:layout_height="280dp"
+            android:id="@+id/profile_information">
+
+            <ImageView
+                android:id="@+id/cover_image"
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_profile"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="-50dp"
+                android:src="@drawable/ic_profile_pic"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_below="@+id/profile_information"
+            android:background="@drawable/content_bg"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:overScrollMode="always">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:text="Food Information"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:textSize="16dp"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/ProfileTitle"
+                />
+
+            <View
+                android:layout_below="@+id/ProfileTitle"
+                android:id="@+id/separator2"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#90909090"
+                />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_marginBottom="@dimen/dimen_10"
+                android:id="@+id/cv1"
+                android:layout_below="@+id/separator2"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:id="@+id/food">
+
+                        <TextView
+                            android:id="@+id/tvFoodID"
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="10dp"
+                            android:padding="6dp"
+                            android:layout_centerVertical="true"
+                            android:text="Food ID"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/food_id"
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            android:text=""
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:id="@+id/stall">
+
+                        <TextView
+                            android:id="@+id/tvStallID"
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="10dp"
+                            android:padding="6dp"
+                            android:layout_centerVertical="true"
+                            android:text="Stall ID"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/stall_id"
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            android:text=""
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:id="@+id/foodname">
+
+                        <TextView
+                            android:id="@+id/tvFoodName"
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="10dp"
+                            android:padding="6dp"
+                            android:layout_centerVertical="true"
+                            android:text="Food Name"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/food_name"
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            android:text=""
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:id="@+id/foodcategory">
+
+                        <TextView
+                            android:id="@+id/tvFoodCategory"
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="10dp"
+                            android:padding="6dp"
+                            android:layout_centerVertical="true"
+                            android:text="Food Category"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/food_category"
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            android:text=""
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:id="@+id/price">
+
+                        <TextView
+                            android:id="@+id/tvPrice"
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="10dp"
+                            android:padding="6dp"
+                            android:layout_centerVertical="true"
+                            android:text="Price (RM)"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/food_price"
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            android:text=""
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/qty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:visibility="invisible"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            </RelativeLayout>
+    </LinearLayout>
+
+    <my.edu.chiawaikeith.canteenpos.Fab
+        android:id="@+id/fab"
+        style="@style/Widget.MaterialSheetFab.Fab"
+        android:layout_margin="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true" />
+
+    <!-- Overlay that dims the screen -->
+    <com.gordonwong.materialsheetfab.DimOverlayFrameLayout
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Circular reveal container for the sheet -->
+    <io.codetail.widget.RevealLinearLayout
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="end|bottom"
+        android:orientation="vertical">
+
+        <!-- Sheet that contains your items -->
+        <android.support.v7.widget.CardView
+            android:id="@+id/fab_sheet"
+            style="@style/Widget.MaterialSheetFab.Sheet">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/sheetImage1"
+                        android:layout_width="45dp"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/ic_add_cart" />
+                    <!-- Recording -->
+                    <TextView
+                        android:id="@+id/fab_sheet_item_add"
+                        style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                        android:text="ADD TO CART" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/sheetImage2"
+                        android:layout_width="45dp"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/ic_cart" />
+
+                    <TextView
+                        android:id="@+id/fab_sheet_item_view"
+                        style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                        android:text="VIEW CART" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </io.codetail.widget.RevealLinearLayout>
+</RelativeLayout>
