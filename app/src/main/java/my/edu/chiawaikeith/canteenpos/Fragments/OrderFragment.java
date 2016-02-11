@@ -43,6 +43,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import my.edu.chiawaikeith.canteenpos.Activities.BaseActivity;
+import my.edu.chiawaikeith.canteenpos.Activities.FoodCarts;
 import my.edu.chiawaikeith.canteenpos.Activities.NFCActivity;
 import my.edu.chiawaikeith.canteenpos.Activities.TransactionList;
 import my.edu.chiawaikeith.canteenpos.Adapters.FoodAdapter;
@@ -54,7 +55,7 @@ import my.edu.chiawaikeith.canteenpos.RequestHandler;
 
 
 public class OrderFragment extends BaseFragment implements View.OnClickListener {
-    private String mText,sText,bText,status="Success";
+    private String mText,sText,bText,status="In Progress";
     private Double a,b,g,s1,s2;
     private Double gst = 0.06,tPrice=0.00,totalgst=0.00;
     private Integer acc_id,transac_id,newTransac_id,f;
@@ -123,8 +124,8 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
 
         initValues();
         loadFoods();
-        //getTransaction();
-        //beginTransaction();
+        getTransaction();
+        beginTransaction();
     }
 
     public void startView() {
@@ -239,7 +240,8 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
 
                 new newTransaction().execute(
                         String.valueOf(newTransac_id),
-                        String.valueOf(acc_id)
+                        String.valueOf(acc_id),
+                        status
                 );
                 dialog.dismiss();
             }
@@ -331,7 +333,7 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
         materialSheetFab = new MaterialSheetFab<>(fab, sheetView, overlay, sheetColor, fabColor);
 
         // Set material sheet item click listeners
-        view.findViewById(R.id.fab_sheet_item_calculate).setOnClickListener(this);
+        view.findViewById(R.id.fab_sheet_item_view).setOnClickListener(this);
         view.findViewById(R.id.fab_sheet_item_confirm).setOnClickListener(this);
         view.findViewById(R.id.fab_sheet_item_start).setOnClickListener(this);
         view.findViewById(R.id.fab_sheet_item_next).setOnClickListener(this);
@@ -448,12 +450,16 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
                 startActivity(intent1);
                 break;
 
-            case R.id.fab_sheet_item_calculate:
-                tPrice = s1 + s2;
-                totalPrice.setText(tPrice.toString());
+            case R.id.fab_sheet_item_view:
+//                tPrice = s1 + s2;
+//                totalPrice.setText(tPrice.toString());
+//
+//                totalgst = tPrice * gst;
+//                totalGST.setText(totalgst.toString());
 
-                totalgst = tPrice * gst;
-                totalGST.setText(totalgst.toString());
+                Intent intent = new Intent(getActivity(), FoodCarts.class);
+                intent.putExtra(KEY_TRANSAC_ID, newTransac_id);
+                startActivity(intent);
                 break;
 
             case R.id.fab_sheet_item_start:
@@ -562,7 +568,7 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
                 transaction.setTotal_gst(jsonObject.getDouble(KEY_TOTAL_GST));
                 transaction.setOrder_date_time(mySqlDateTimeFormat.parse(jsonObject.getString(KEY_ORDER_DATETIME)));
                 transaction.setOrder_status(jsonObject.getString(KEY_ORDER_STATUS));
-
+                Log.d("transacid",String.valueOf(jsonObject.getInt(KEY_TRANSAC_ID)));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -601,6 +607,7 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
 
             data.put(KEY_TRANSAC_ID, params[0]);
             data.put(KEY_ACCOUNT_ID, params[1]);
+            data.put(KEY_ORDER_STATUS, params[2]);
 
             return rh.sendPostRequest(INSERT_URL3, data);
         }
