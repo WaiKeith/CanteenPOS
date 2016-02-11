@@ -128,10 +128,10 @@
         <activity
             android:name=".Activities.FoodCarts"
             android:label="@string/title_activity_food_carts"
-            android:parentActivityName=".Activities.MainActivity" >
+            android:parentActivityName=".Activities.FoodList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="my.edu.chiawaikeith.canteenpos.Activities.MainActivity" />
+                android:value="my.edu.chiawaikeith.canteenpos.Activities.FoodList" />
         </activity>
         <activity
             android:name=".Activities.FoodList"

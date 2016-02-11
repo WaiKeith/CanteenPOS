@@ -215,7 +215,7 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private void initValues() {
-        acc_id = new BaseActivity().getLoginDetail(getActivity()).getAcc_id();
+        acc_id = new BaseFragment().getLoginDetail(getActivity()).getAcc_id();
     }
 
     public void getTransaction(){
@@ -236,7 +236,7 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
                 newTransac_id = transac_id + 1;
                 transaction.setTransac_id(newTransac_id);
 
-                Log.d("transac_id2", String.valueOf(transac_id));
+                Log.d("transac_id2", String.valueOf(newTransac_id));
 
                 new newTransaction().execute(
                         String.valueOf(newTransac_id),
@@ -465,11 +465,11 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
             case R.id.fab_sheet_item_start:
                 transac_id = transaction.getTransac_id();
 
-                Log.d("tranid",String.valueOf(transac_id));
+                //Log.d("tranid",String.valueOf(transac_id));
                 newTransac_id = transac_id + 1;
                 transaction.setTransac_id(newTransac_id);
 
-                Log.d("transac_id2",String.valueOf(transac_id));
+                //Log.d("transac_id2",String.valueOf(transac_id));
 
                 new newTransaction().execute(
                         String.valueOf(newTransac_id),
