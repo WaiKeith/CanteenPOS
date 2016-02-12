@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import my.edu.chiawaikeith.canteenpos.Domains.Foods;
 import my.edu.chiawaikeith.canteenpos.Domains.OrderLines;
 import my.edu.chiawaikeith.canteenpos.R;
 
@@ -18,7 +17,7 @@ import my.edu.chiawaikeith.canteenpos.R;
  */
 public class OrderLinesAdapter extends RecyclerView.Adapter<OrderLinesAdapter.ViewHolder>{
     private List<OrderLines> orderLines;
-    private List<Foods> foods;
+    //private List<Foods> foods;
     private Context context;
     private int itemLayout;
 
