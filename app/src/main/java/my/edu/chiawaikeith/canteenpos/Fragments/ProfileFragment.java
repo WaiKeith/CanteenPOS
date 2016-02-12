@@ -50,7 +50,6 @@ public class ProfileFragment extends BaseFragment {
     private TextView profileName,custID,userName,accountBalance,registerDate,studName,studCourse,studEmail;
     private TextView icNo,dateBorn,contactNo;
     private int acc_id;
-    //private ImageView profilePic;
     private CircleImageView profilePic;
     JSONArray mJsonArray;
     public SimpleDateFormat mySqlDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -238,7 +237,7 @@ public class ProfileFragment extends BaseFragment {
         protected void onPostExecute(String json) {
             super.onPostExecute(json);
             //loading.dismiss();
-            Log.d("ProfileFragment", json);
+            //Log.d("ProfileFragment", json);
             convertJson(json);
             extractJsonData();
 
@@ -257,7 +256,7 @@ public class ProfileFragment extends BaseFragment {
         try {
             JSONObject jsonObject = new JSONObject(json);
             mJsonArray = jsonObject.getJSONArray(BaseActivity.JSON_ARRAY);
-            Log.d("length",String.valueOf(mJsonArray.length()));
+            //Log.d("length",String.valueOf(mJsonArray.length()));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -281,7 +280,6 @@ public class ProfileFragment extends BaseFragment {
                 account.setAcc_balance(jsonObject.getDouble(KEY_ACCBALANCE));
                 account.setRegister_date(mySqlDateTimeFormat.parse(jsonObject.getString(KEY_REGISTERDATE)));
                 account.setProfile_image_path(jsonObject.getString(KEY_PROFILE_IMAGE_PATH));
-                Log.d("Account image path", jsonObject.getString(KEY_PROFILE_IMAGE_PATH));
 
             } catch (JSONException e) {
                 e.printStackTrace();

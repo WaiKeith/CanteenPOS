@@ -458,7 +458,7 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
 //                totalGST.setText(totalgst.toString());
 
                 Intent intent = new Intent(getActivity(), FoodCarts.class);
-                intent.putExtra(KEY_TRANSAC_ID, newTransac_id);
+                intent.putExtra(KEY_TRANSAC, transaction);
                 startActivity(intent);
                 break;
 
@@ -577,7 +577,6 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
         for (int i = 0; i < mJsonArray.length(); i++) {
             try {
                 JSONObject jsonObject = mJsonArray.getJSONObject(i);
-                //Transactions transactions = new Transactions();
 
                 transaction.setTransac_id(jsonObject.getInt(KEY_TRANSAC_ID));
                 transaction.setAcc_id(jsonObject.getInt(KEY_ACCOUNT_ID));
@@ -585,7 +584,7 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
                 transaction.setTotal_gst(jsonObject.getDouble(KEY_TOTAL_GST));
                 transaction.setOrder_date_time(mySqlDateTimeFormat.parse(jsonObject.getString(KEY_ORDER_DATETIME)));
                 transaction.setOrder_status(jsonObject.getString(KEY_ORDER_STATUS));
-                Log.d("transacid",String.valueOf(jsonObject.getInt(KEY_TRANSAC_ID)));
+                //Log.d("transacid",String.valueOf(jsonObject.getInt(KEY_TRANSAC_ID)));
 
             } catch (JSONException e) {
                 e.printStackTrace();

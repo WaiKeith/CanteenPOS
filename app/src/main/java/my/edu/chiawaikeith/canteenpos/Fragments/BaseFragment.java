@@ -43,6 +43,7 @@ public class BaseFragment extends Fragment {
     public int response;
     public static final String OBJECT_OFFLINE_LOGIN = "OfflineLogin";
     public static final String KEY_ACCOUNT = "Account";
+    public static final String KEY_TRANSAC = "Transaction";
     public static final String JSON_ARRAY = "result";
 
     public DisplayImageOptions options = new DisplayImageOptions.Builder()
