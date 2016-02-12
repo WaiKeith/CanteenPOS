@@ -7,7 +7,8 @@ import java.io.Serializable;
  */
 public class OrderLines implements Serializable{
     public int order_line_id,transac_id,item_qty,food_id;
-    public double single_price,total_price,sub_total;
+    public double single_price,total_price;
+    String food_name;
 
     public int getOrder_line_id() {
         return order_line_id;
@@ -57,11 +58,11 @@ public class OrderLines implements Serializable{
         this.total_price = total_price;
     }
 
-    public double getSub_total() {
-        return sub_total;
+    public String getFood_name() {
+        return food_name;
     }
 
-    public void setSub_total(double sub_total) {
-        this.sub_total = sub_total;
+    public void setFood_name(String food_name) {
+        this.food_name = food_name;
     }
 }
