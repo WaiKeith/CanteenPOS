@@ -10,29 +10,57 @@
         layout="@layout/toolbar">
     </include>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
+    <!--<android.support.v7.widget.CardView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/dimen_10"-->
+        <!--android:layout_marginLeft="@dimen/dimen_10"-->
+        <!--android:layout_marginRight="@dimen/dimen_10"-->
+        <!--android:layout_marginBottom="@dimen/dimen_10"-->
+        <!--android:layout_below="@+id/toolbar"-->
+        <!--android:id="@+id/cv1">-->
+        <!--<LinearLayout-->
+            <!--android:id="@+id/linearLayoutRV"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="10dp">-->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_10"
-        android:layout_marginLeft="@dimen/dimen_10"
-        android:layout_marginRight="@dimen/dimen_10"
-        android:layout_marginBottom="@dimen/dimen_10"
         android:layout_below="@+id/toolbar"
-        android:id="@+id/cv1">
-        <LinearLayout
-            android:id="@+id/linearLayoutRV"
+        android:id="@+id/linearLayout1"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_marginLeft="160dp">
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:textStyle="bold"
+            android:text="Per Item"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Sub Total"
+            android:layout_marginLeft="50dp"/>
+        </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/order_line_recycler"
                 android:scrollbars="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="350dp"/>
+                android:layout_height="350dp"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_marginBottom="@dimen/dimen_10"
+                android:layout_below="@+id/linearLayout1"/>
 
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+        <!--</LinearLayout>-->
+    <!--</android.support.v7.widget.CardView>-->
 
     <!--<LinearLayout-->
         <!--android:layout_width="match_parent"-->
@@ -79,217 +107,6 @@
 
     <!--</LinearLayout>-->
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="60dp"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:id="@+id/linearLayout2"-->
-        <!--android:layout_below="@+id/linearLayout1">-->
-        <!--<TextView-->
-            <!--android:layout_width="19dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="0"-->
-            <!--android:id="@+id/tvFoodID2"-->
-            <!--android:layout_marginLeft="10dp"/>-->
-
-        <!--<Spinner-->
-            <!--android:layout_width="50dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/spinnerQty2"-->
-            <!--android:focusableInTouchMode="false" />-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="0"-->
-            <!--android:id="@+id/singlePrice2"-->
-            <!--android:layout_marginLeft="80dp"/>-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="0"-->
-            <!--android:id="@+id/subtotal2"-->
-            <!--android:layout_marginLeft="30dp"-->
-            <!--android:layout_marginStart="30dp" />-->
-
-        <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Add to cart"-->
-            <!--android:id="@+id/btnAddcart2"-->
-            <!--android:textColor="@color/blue"-->
-            <!--android:layout_marginLeft="45dp"-->
-            <!--style="?android:attr/borderlessButtonStyle"/>-->
-
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="60dp"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:id="@+id/linearLayout3"-->
-        <!--android:layout_below="@+id/linearLayout2">-->
-        <!--<TextView-->
-            <!--android:layout_width="19dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="0"-->
-            <!--android:id="@+id/tvFoodID3"-->
-            <!--android:layout_marginLeft="10dp"/>-->
-
-        <!--<Spinner-->
-            <!--android:layout_width="50dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/spinnerQty3"-->
-            <!--android:focusableInTouchMode="false" />-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="0"-->
-            <!--android:id="@+id/singlePrice3"-->
-            <!--android:layout_marginLeft="80dp"/>-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="0"-->
-            <!--android:id="@+id/subtotal3"-->
-            <!--android:layout_marginLeft="30dp"-->
-            <!--android:layout_marginStart="30dp" />-->
-
-        <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Add to cart"-->
-            <!--android:id="@+id/btnAddcart3"-->
-            <!--android:textColor="@color/blue"-->
-            <!--android:layout_marginLeft="45dp"-->
-            <!--style="?android:attr/borderlessButtonStyle"/>-->
-
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="60dp"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:id="@+id/linearLayout4"-->
-        <!--android:layout_below="@+id/linearLayout3">-->
-        <!--<TextView-->
-            <!--android:layout_width="19dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="0"-->
-            <!--android:id="@+id/tvFoodID4"-->
-            <!--android:layout_marginLeft="10dp"/>-->
-
-        <!--<Spinner-->
-            <!--android:layout_width="50dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/spinnerQty4"-->
-            <!--android:focusableInTouchMode="false" />-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="0"-->
-            <!--android:id="@+id/singlePrice4"-->
-            <!--android:layout_marginLeft="80dp"/>-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="0"-->
-            <!--android:id="@+id/subtotal4"-->
-            <!--android:layout_marginLeft="30dp"-->
-            <!--android:layout_marginStart="30dp" />-->
-
-        <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Add to cart"-->
-            <!--android:id="@+id/btnAddcart4"-->
-            <!--android:textColor="@color/blue"-->
-            <!--android:layout_marginLeft="45dp"-->
-            <!--style="?android:attr/borderlessButtonStyle"/>-->
-
-    <!--</LinearLayout>-->
-
-    <!--<Spinner-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/spinnerQty"-->
-    <!--android:focusableInTouchMode="false"-->
-    <!--android:layout_below="@+id/textView9"-->
-    <!--android:layout_alignParentLeft="true"-->
-    <!--android:layout_alignParentStart="true" />-->
-
-    <!--<TextView-->
-    <!--android:layout_width="19dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="2"-->
-    <!--android:id="@+id/textView9"-->
-    <!--android:layout_alignParentLeft="true"-->
-    <!--android:layout_alignParentStart="true"-->
-    <!--android:layout_marginTop="45dp"-->
-    <!--/>-->
-
-
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/tvPrice"-->
-    <!--android:hint="@string/price"-->
-    <!--android:text="@string/price"-->
-    <!--android:layout_alignTop="@+id/spinnerQty"-->
-    <!--android:layout_toRightOf="@+id/imagePlus"-->
-    <!--android:layout_toEndOf="@+id/imagePlus"-->
-    <!--android:layout_marginLeft="22dp"-->
-    <!--android:layout_marginStart="22dp" />-->
-
-
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="1"-->
-    <!--android:id="@+id/textQty"-->
-  <!---->
-    <!--android:layout_marginLeft="25dp"-->
-    <!--android:layout_marginStart="25dp"-->
-    <!--android:paddingLeft="20dp"/>-->
-
-    <!--<ImageView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/imagePlus"-->
-    <!--android:src="@drawable/ic_plus"-->
-    <!--android:clickable="true"-->
-   <!---->
-    <!--android:layout_toRightOf="@+id/textQty"-->
-    <!--android:layout_toEndOf="@+id/textQty" />-->
-
-    <!--<ImageView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/imageMinus"-->
-    <!--android:src="@drawable/ic_minus"-->
-    <!--android:clickable="true"-->
-    <!---->
-    <!--android:layout_alignRight="@+id/textQty"-->
-    <!--android:layout_alignEnd="@+id/textQty" />-->
-
-
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="0"-->
-    <!--android:id="@+id/subtotal2"-->
-    <!--android:layout_alignTop="@+id/spinnerQty"-->
-    <!--android:layout_alignLeft="@+id/subtotal1"-->
-    <!--android:layout_alignStart="@+id/subtotal1" />-->
-
     <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -301,13 +118,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvTotalPrice"
+        android:textStyle="bold"
         android:text="@string/totalprice" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textviewTotalPrice"
-        android:text="0"
+        android:textStyle="bold"
+        android:text="RM 0"
         android:layout_marginLeft="40dp"/>
     </LinearLayout>
 
@@ -321,6 +140,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:text="@string/totalGST"
         android:id="@+id/totalGst"
         android:layout_below="@+id/tvTotalPrice" />
@@ -329,7 +149,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textviewGSTPrice"
-        android:text="0"
+        android:textStyle="bold"
+        android:text="RM 0"
         android:layout_marginLeft="50dp"/>
     </LinearLayout>
 
@@ -361,7 +182,7 @@
             style="@style/Widget.MaterialSheetFab.Sheet">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -370,20 +191,59 @@
                     <!--style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"-->
                     <!--android:text="START" />-->
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/sheetImage1"
+                    android:layout_width="45dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_calculate" />
                 <TextView
                     android:id="@+id/fab_sheet_item_calculate"
                     style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
-                    android:text="CALCULATE" />
+                    android:text="SUM UP" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/sheetImage2"
+                    android:layout_width="45dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_checkout"/>
                 <TextView
                     android:id="@+id/fab_sheet_item_confirm"
                     style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
-                    android:text="CONFIRM" />
+                    android:text="CHECKOUT" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/sheetImage3"
+                    android:layout_width="45dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_nfc" />
                 <TextView
                     android:id="@+id/fab_sheet_item_next"
                     style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
                     android:text="TRANSACTION TRANSFER " />
+            </LinearLayout>
 
             </LinearLayout>
 
