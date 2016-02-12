@@ -250,7 +250,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         try {
             JSONObject jsonObject = new JSONObject(json);
             jsonArray = jsonObject.getJSONArray(BaseActivity.JSON_ARRAY);
-            Log.d("length",String.valueOf(jsonArray.length()));
+            Log.d("array",String.valueOf(jsonArray));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -281,10 +281,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             java.util.Date date = null;
             Calendar cal = Calendar.getInstance();
 
-            orderDateTime = transactions.getOrder_date_time();
-            if(orderDateTime != null) {
+            //orderDateTime = transactions.getOrder_date_time();
+            if(transactions.getOrder_date_time() != null) {
                 try {
-                    date = dfDate.parse(dfDate.format(orderDateTime));
+                    date = dfDate.parse(dfDate.format(transactions.getOrder_date_time()));
                     Log.d("day", dfDate.format(date));
                     today = dfDate.parse(dfDate.format(cal.getTime()));//Returns 15/10/2012
                 } catch (java.text.ParseException e) {

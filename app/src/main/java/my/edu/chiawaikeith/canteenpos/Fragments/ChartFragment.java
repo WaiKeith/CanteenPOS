@@ -301,8 +301,12 @@ public class ChartFragment extends BaseFragment {
             int diffInDays = (int) ((today.getTime() - date.getTime())/ (1000 * 60 * 60 * 24));
 
             //int days=0;
-            double d1=0,d2=0,d3=0,d4=0,d5=0,d6=0,d7=0;
+            double d0=0,d1=0,d2=0,d3=0,d4=0,d5=0,d6=0;
             switch (diffInDays){
+                case 0:
+                    d0 = transactions.getPayment_amount();
+                    break;
+
                 case 1:
                     d1 = transactions.getPayment_amount();
                     break;
@@ -326,25 +330,21 @@ public class ChartFragment extends BaseFragment {
                 case 6:
                     d6 = transactions.getPayment_amount();
                     break;
-
-                case 7:
-                    d7 = transactions.getPayment_amount();
-                    break;
             }
 
-            total1 += d1;
+            total1 += d0;
             expenseRecord.setDay1(total1);
-            total2 += d2;
+            total2 += d1;
             expenseRecord.setDay2(total2);
-            total3 += d3;
+            total3 += d2;
             expenseRecord.setDay3(total3);
-            total4 += d4;
+            total4 += d3;
             expenseRecord.setDay4(total4);
-            total5 += d5;
+            total5 += d4;
             expenseRecord.setDay5(total5);
-            total6 += d6;
+            total6 += d5;
             expenseRecord.setDay6(total6);
-            total7 += d7;
+            total7 += d6;
             expenseRecord.setDay7(total7);
 
         }
