@@ -41,6 +41,7 @@ import my.edu.chiawaikeith.canteenpos.Domains.Foods;
 import my.edu.chiawaikeith.canteenpos.Domains.OrderLines;
 import my.edu.chiawaikeith.canteenpos.Domains.Transactions;
 import my.edu.chiawaikeith.canteenpos.Fab;
+import my.edu.chiawaikeith.canteenpos.Fragments.OrderFragment;
 import my.edu.chiawaikeith.canteenpos.R;
 import my.edu.chiawaikeith.canteenpos.RequestHandler;
 
@@ -48,7 +49,7 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
     private String qty1,qty2,qty3,qty4,eText,status="Success";
     private Double a1,a2,b1,b2,c1,c2,d1,d2,s1,s2,s3,s4,aText,cText,bText,dText;
     private Double gst = 0.06,tPrice=0.00,totalgst=0.00;
-    private int acc_id,transacID;
+    public int acc_id,transacID;
     private Date orderDate;
     //private Spinner spinner1,spinner2,spinner3,spinner4;
     NfcAdapter nfcAdapter;
@@ -60,7 +61,9 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
 
     Calendar calendar;
     private ArrayList<OrderLines> orderList = new ArrayList<>();
-    Transactions transaction = new Transactions();
+    private Transactions transaction = new Transactions();
+    OrderLines totalRecord;
+    OrderLines orderLine = new OrderLines();
     private Foods food = new Foods();
     public static final String KEY_FOOD = "food";
     private RecyclerView recyclerView;
@@ -72,7 +75,7 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
     final static String INSERT_URL = "http://dinpos.comlu.com/Transactions/insert_transaction.php";
     final static String INSERT_URL2 = "http://dinpos.comlu.com/OrderLines/insert_order_line.php";
     final static String INSERT_URL3 = "http://dinpos.comlu.com/Transactions/start_transaction.php";
-    final static String GETORDERLINES_URL = "http://dinpos.comlu.com/Transactions/retrieve_order_line.php";
+    final static String GETORDERLINES_URL = "http://dinpos.comlu.com/OrderLines/retrieve_order_line.php";
     //final static String GETFOOD_URL = "http://canteenpos.comxa.com/Foods/retrieve_foods.php";
     final static String KEY_ACCOUNT_ID = "acc_id";
     final static String KEY_TRANSAC_ID = "transac_id";
@@ -155,11 +158,6 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
 //        foodID3 = (TextView)findViewById(R.id.tvFoodID3);
 //        foodID4 = (TextView)findViewById(R.id.tvFoodID4);
 
-//        aText = spinner1.getSelectedItem().toString();
-//        bText = spinner2.getSelectedItem().toString();
-//        cText = spinner3.getSelectedItem().toString();
-//        dText = spinner4.getSelectedItem().toString();
-
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
         Fab fab = (Fab)findViewById(R.id.fab);
@@ -178,14 +176,14 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.fab_sheet_item_next).setOnClickListener(this);
 
         food = (Foods) getIntent().getSerializableExtra(FoodAdapter.KEY_FOOD);
-        transacID = getIntent().getExtras().getInt(FoodList.KEY_TRANSAC_ID);
+        transaction = (Transactions) getIntent().getSerializableExtra(OrderFragment.KEY_TRANSAC);
+
 
         recyclerView = (RecyclerView) findViewById(R.id.order_line_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         initValues();
         getOrderLines();
-        startView();
 //        getTransaction();
 //        beginTransaction();
     }
@@ -205,8 +203,7 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
 
     private void initValues() {
         acc_id = new BaseActivity().getLoginDetail(this).getAcc_id();
-        //foodID1.setText(String.valueOf(food.getFood_id()));
-        //price1.setText(String.valueOf(food.getFood_price()));
+        transacID = transaction.getTransac_id();
     }
 
     @Override
@@ -219,11 +216,6 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-//        spinner1.setOnItemSelectedListener(new MyOnItemSelectedListener1());
-//        spinner2.setOnItemSelectedListener(new MyOnItemSelectedListener2());
-//        spinner3.setOnItemSelectedListener(new MyOnItemSelectedListener3());
-//        spinner4.setOnItemSelectedListener(new MyOnItemSelectedListener4());
-
         enableForegroundDispatchSystem();
     }
 
@@ -295,10 +287,10 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
                 break;
 
             case R.id.fab_sheet_item_calculate:
-                tPrice = s1 + s2 + s3 + s4;
-                totalPrice.setText(tPrice.toString());
+                totalPrice.setText(String.valueOf(totalRecord.getTotal_price()));
 
-                totalgst = tPrice * gst;
+                totalgst = totalRecord.getTotal_price()
+                        * gst;
                 totalGST.setText(totalgst.toString());
                 break;
 
@@ -382,7 +374,7 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            //loading = ProgressDialog.show(getActivity(), "Uploading...", null, true, true);
+            loading = ProgressDialog.show(FoodCarts.this, "Retrieving...", null, true, true);
         }
 
         @Override
@@ -395,7 +387,8 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
         @Override
         protected String doInBackground(String... params) {
             HashMap<String, String> data = new HashMap<>();
-            data.put(KEY_TRANSAC_ID,  String.valueOf(transacID));
+            data.put(KEY_TRANSAC_ID, String.valueOf(transacID));
+            //Log.d("transacidfoodcart",String.valueOf(transacID));
 
             return rh.sendPostRequest(GETORDERLINES_URL, data);
         }
@@ -405,7 +398,7 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
         try {
             JSONObject jsonObject = new JSONObject(json);
             mJsonArray = jsonObject.getJSONArray(BaseActivity.JSON_ARRAY);
-            Log.d("arraylength", String.valueOf(mJsonArray));
+            //Log.d("foodcartarray", String.valueOf(mJsonArray));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -413,11 +406,11 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
     }
 
     private void extractJsonData() {
-
+        totalRecord = new OrderLines();
+        double totalPrice=0,subTotal=0,qty=0,singlePrice=0;
         for (int i = 0; i < mJsonArray.length(); i++) {
             try {
                 JSONObject jsonObject = mJsonArray.getJSONObject(i);
-                OrderLines orderLine = new OrderLines();
                 Foods food = new Foods();
 
                 try{
@@ -425,7 +418,7 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
                     orderLine.setFood_id(jsonObject.getInt(KEY_FOOD_ID));
                     orderLine.setOrder_line_id(jsonObject.getInt(KEY_ORDERLINE_ID));
                     orderLine.setItem_qty(jsonObject.getInt(KEY_ITEMQTY));
-                    //food.setFood_name(jsonObject.getString(KEY_FOOD_NAME));
+                    orderLine.setSingle_price(jsonObject.getDouble(KEY_SINGLE_PRICE));
 
                     orderList.add(orderLine);
                     //foodList.add(food);
@@ -436,6 +429,12 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+            singlePrice = orderLine.getSingle_price();
+            qty = Double.parseDouble(String.valueOf(orderLine.getItem_qty()));
+            subTotal = singlePrice * qty;
+            totalPrice += subTotal;
+            totalRecord.setTotal_price(totalPrice);
 
         }
         if(mJsonArray.length() > 0) {
@@ -633,51 +632,6 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
 //            s1 = aText * a1;
 //            Log.d("sub",s1.toString());
 //            sub1.setText(s1.toString());
-//        }
-//
-//        @Override
-//        public void onNothingSelected(AdapterView<?> parent) {
-//
-//        }
-//    }
-
-//    public class MyOnItemSelectedListener2 implements AdapterView.OnItemSelectedListener {
-//        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//            qty2 = parent.getItemAtPosition(position).toString();
-//            b1 = Double.parseDouble(qty2);
-//            bText = Double.parseDouble(price2.getText().toString());
-//            s2 = bText * b1;
-//            sub2.setText(s2.toString());
-//        }
-//
-//        @Override
-//        public void onNothingSelected(AdapterView<?> parent) {
-//
-//        }
-//    }
-
-//    public class MyOnItemSelectedListener3 implements AdapterView.OnItemSelectedListener {
-//        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//            qty3 = parent.getItemAtPosition(position).toString();
-//            c1 = Double.parseDouble(qty3);
-//            cText = Double.parseDouble(price3.getText().toString());
-//            s3 = cText * c1;
-//            sub3.setText(s3.toString());
-//        }
-//
-//        @Override
-//        public void onNothingSelected(AdapterView<?> parent) {
-//
-//        }
-//    }
-
-//    public class MyOnItemSelectedListener4 implements AdapterView.OnItemSelectedListener {
-//        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//            qty4 = parent.getItemAtPosition(position).toString();
-//            d1 = Double.parseDouble(qty4);
-//            dText = Double.parseDouble(price4.getText().toString());
-//            s4 = dText * d1;
-//            sub4.setText(s4.toString());
 //        }
 //
 //        @Override
