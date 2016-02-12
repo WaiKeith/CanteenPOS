@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -38,7 +38,7 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
     private MaterialSheetFab materialSheetFab;
     public Foods food = new Foods();
     public static final String KEY_FOOD = "food";
-    Transactions transaction;
+    Transactions transaction = new Transactions();
     public Integer acc_id,transac_id,newTransac_id;
     private TextView stallID,foodID,foodName,foodCategory,price,quantity;
 
@@ -52,6 +52,7 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
     final static String KEY_ORDER_DATETIME = "order_date_time";
     final static String KEY_TOTAL_GST = "total_gst";
     final static String KEY_ORDER_STATUS = "order_status";
+    final static String KEY_PAYMENT_AMOUNT = "payment_amount";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,12 +87,14 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.fab_sheet_item_view).setOnClickListener(this);
 
         food = (Foods) getIntent().getSerializableExtra(FoodAdapter.KEY_FOOD);
-        getTransaction();
         initValues();
+        getTransaction();
+
 
     }
 
     public void initValues() {
+        acc_id = new BaseActivity().getLoginDetail(this).getAcc_id();
         foodID.setText(String.valueOf(food.getFood_id()));
         stallID.setText(String.valueOf(food.getStall_id()));
         foodName.setText(food.getFood_name());
@@ -147,15 +150,17 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
                 //transaction = new Transactions();
 
                 transaction.setTransac_id(jsonObject.getInt(KEY_TRANSAC_ID));
-//                transaction.setAcc_id(jsonObject.getInt(KEY_ACCOUNT_ID));
-//                transaction.setPayment_amount(jsonObject.getDouble(KEY_PAYMENT_AMOUNT));
-//                transaction.setTotal_gst(jsonObject.getDouble(KEY_TOTAL_GST));
-//                transaction.setOrder_date_time(mySqlDateTimeFormat.parse(jsonObject.getString(KEY_ORDER_DATETIME)));
-//                transaction.setOrder_status(jsonObject.getString(KEY_ORDER_STATUS));
+                transaction.setAcc_id(jsonObject.getInt(KEY_ACCOUNT_ID));
+                transaction.setPayment_amount(jsonObject.getDouble(KEY_PAYMENT_AMOUNT));
+                transaction.setTotal_gst(jsonObject.getDouble(KEY_TOTAL_GST));
+                transaction.setOrder_date_time(mySqlDateTimeFormat.parse(jsonObject.getString(KEY_ORDER_DATETIME)));
+                transaction.setOrder_status(jsonObject.getString(KEY_ORDER_STATUS));
                 newTransac_id = transaction.getTransac_id();
-                Log.d("transacid",String.valueOf(newTransac_id));
+
 
             } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
                 e.printStackTrace();
             }
         }
@@ -278,7 +283,6 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
                             }
                         })
                         .show();
-                Log.d("transacid", String.valueOf(newTransac_id));
                 break;
 
             case R.id.fab_sheet_item_view:

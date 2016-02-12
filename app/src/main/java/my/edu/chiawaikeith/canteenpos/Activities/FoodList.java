@@ -124,7 +124,7 @@ public class FoodList extends BaseActivity implements View.OnClickListener {
         @Override
         protected void onPostExecute(String json) {
             super.onPostExecute(json);
-            Log.d("FoodList", json);
+            //Log.d("FoodList", json);
             //loading.dismiss();
             convertJson(json);
             extractJsonData();
