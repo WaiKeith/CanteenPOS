@@ -14,6 +14,7 @@ import java.util.List;
 
 import my.edu.chiawaikeith.canteenpos.Activities.FoodDetails;
 import my.edu.chiawaikeith.canteenpos.Domains.Foods;
+import my.edu.chiawaikeith.canteenpos.Domains.Transactions;
 import my.edu.chiawaikeith.canteenpos.R;
 
 /**
@@ -25,8 +26,11 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     private List<Foods> foods;
     private Context context;
     private int itemLayout;
+    private String transacID;
     //public SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     public static final String KEY_FOOD = "food";
+    public Transactions transactions;
+    public static final String KEY_TRANSAC = "transaction";
 
     public FoodAdapter(Context context, List<Foods> foods, int itemLayout) {
         this.context = context;
@@ -84,6 +88,9 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
 
             Intent intent = new Intent(context, FoodDetails.class);
             intent.putExtra(KEY_FOOD, food);
+//
+//            transacID = String.valueOf(transactions.getTransac_id());
+//            intent.putExtra(KEY_TRANSAC, transacID);
             context.startActivity(intent);
         }
     }
