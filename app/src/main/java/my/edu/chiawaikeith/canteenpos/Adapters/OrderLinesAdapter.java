@@ -48,21 +48,21 @@ public class OrderLinesAdapter extends RecyclerView.Adapter<OrderLinesAdapter.Vi
         single = Double.parseDouble(String.valueOf(orderLines.get(position).getSingle_price()));
         sub = qty * single;
 
-        holder.foodId.setText(String.valueOf(orderLines.get(position).getFood_id()));
+        holder.foodName.setText(String.valueOf(orderLines.get(position).getFood_name()));
         holder.singleprice.setText("RM " + String.valueOf(orderLines.get(position).getSingle_price()));
         holder.itemqty.setText(String.valueOf(orderLines.get(position).getItem_qty()));
         holder.subtotal.setText("RM " + String.valueOf(sub));
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        TextView foodId,itemqty,singleprice,subtotal;
+        TextView foodName,itemqty,singleprice,subtotal;
 
 //        ImageView personPhoto;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            foodId = (TextView)itemView.findViewById(R.id.foodID);
+            foodName = (TextView)itemView.findViewById(R.id.foodName);
             itemqty = (TextView)itemView.findViewById(R.id.itemQty);
             singleprice = (TextView)itemView.findViewById(R.id.single);
             subtotal = (TextView)itemView.findViewById(R.id.subTotal);

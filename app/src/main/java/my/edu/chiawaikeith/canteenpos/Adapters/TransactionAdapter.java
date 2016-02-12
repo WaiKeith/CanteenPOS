@@ -43,7 +43,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.foodId.setText(String.valueOf(orderLines.get(position).getFood_id()));
+        holder.foodId.setText(String.valueOf(orderLines.get(position).getFood_name()));
         //holder.foodName.setText(foods.get(position).getFood_name());
         holder.itemqty.setText(String.valueOf(orderLines.get(position).getItem_qty()));
     }
