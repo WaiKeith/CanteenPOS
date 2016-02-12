@@ -43,8 +43,6 @@ import java.util.Locale;
 
 import my.edu.chiawaikeith.canteenpos.Activities.BaseActivity;
 import my.edu.chiawaikeith.canteenpos.Activities.FoodCarts;
-import my.edu.chiawaikeith.canteenpos.Activities.FoodDetails;
-import my.edu.chiawaikeith.canteenpos.Activities.NFCActivity;
 import my.edu.chiawaikeith.canteenpos.Adapters.FoodAdapter;
 import my.edu.chiawaikeith.canteenpos.Domains.Foods;
 import my.edu.chiawaikeith.canteenpos.Domains.Transactions;
@@ -224,8 +222,8 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
 
     private void beginTransaction(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Begin Transaction");
-        builder.setMessage("Confirm to start transaction?");
+        builder.setTitle("Pick Your Meal?");
+        //builder.setMessage("Confirm to start transaction?");
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getActivity().getApplicationContext(), "", Toast.LENGTH_LONG).show();
@@ -334,9 +332,9 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
 
         // Set material sheet item click listeners
         view.findViewById(R.id.fab_sheet_item_view).setOnClickListener(this);
-        view.findViewById(R.id.fab_sheet_item_confirm).setOnClickListener(this);
-        view.findViewById(R.id.fab_sheet_item_start).setOnClickListener(this);
-        view.findViewById(R.id.fab_sheet_item_next).setOnClickListener(this);
+//        view.findViewById(R.id.fab_sheet_item_confirm).setOnClickListener(this);
+//        view.findViewById(R.id.fab_sheet_item_start).setOnClickListener(this);
+//        view.findViewById(R.id.fab_sheet_item_next).setOnClickListener(this);
 
         recyclerView = (RecyclerView)view. findViewById(R.id.food_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -445,10 +443,10 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
 //                );
 //                break;
 
-            case R.id.fab_sheet_item_next:
-                Intent intent1 = new Intent(getActivity(), NFCActivity.class);
-                startActivity(intent1);
-                break;
+//            case R.id.fab_sheet_item_next:
+//                Intent intent1 = new Intent(getActivity(), NFCActivity.class);
+//                startActivity(intent1);
+//                break;
 
             case R.id.fab_sheet_item_view:
 //                tPrice = s1 + s2;
@@ -462,20 +460,20 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
                 startActivity(intent);
                 break;
 
-            case R.id.fab_sheet_item_start:
-                transac_id = transaction.getTransac_id();
-
-                //Log.d("tranid",String.valueOf(transac_id));
-                newTransac_id = transac_id + 1;
-                transaction.setTransac_id(newTransac_id);
-
-                //Log.d("transac_id2",String.valueOf(transac_id));
-
-                new newTransaction().execute(
-                        String.valueOf(newTransac_id),
-                        String.valueOf(acc_id)
-                );
-                break;
+//            case R.id.fab_sheet_item_start:
+//                transac_id = transaction.getTransac_id();
+//
+//                //Log.d("tranid",String.valueOf(transac_id));
+//                newTransac_id = transac_id + 1;
+//                transaction.setTransac_id(newTransac_id);
+//
+//                //Log.d("transac_id2",String.valueOf(transac_id));
+//
+//                new newTransaction().execute(
+//                        String.valueOf(newTransac_id),
+//                        String.valueOf(acc_id)
+//                );
+//                break;
 
 //            case R.id.fab_sheet_item_confirm:
 //                Intent intent2 = new Intent(getActivity(), TransactionList.class);
@@ -499,22 +497,22 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
 //                startActivity(intent2);
 //                break;
 
-            case R.id.food_recycler:
-//                transac_id = transaction.getTransac_id();
-
-                //Log.d("tranid",String.valueOf(transac_id));
-//                newTransac_id = transac_id + 1;
-//                transaction.setTransac_id(newTransac_id);
+//            case R.id.food_recycler:
+////                transac_id = transaction.getTransac_id();
 //
-//                //Log.d("transac_id2",String.valueOf(transac_id));
-//
-//                new newTransaction().execute(
-//                        String.valueOf(newTransac_id),
-//                        String.valueOf(acc_id)
-//                );
-                Intent i = new Intent(getActivity(), FoodDetails.class);
-                i.putExtra(KEY_TRANSACID,newTransac_id);
-                break;
+//                //Log.d("tranid",String.valueOf(transac_id));
+////                newTransac_id = transac_id + 1;
+////                transaction.setTransac_id(newTransac_id);
+////
+////                //Log.d("transac_id2",String.valueOf(transac_id));
+////
+////                new newTransaction().execute(
+////                        String.valueOf(newTransac_id),
+////                        String.valueOf(acc_id)
+////                );
+//                Intent i = new Intent(getActivity(), FoodDetails.class);
+//                i.putExtra(KEY_TRANSACID,newTransac_id);
+//                break;
 
         }
 
