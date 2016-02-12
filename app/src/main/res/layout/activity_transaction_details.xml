@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
         android:orientation="vertical"
         android:paddingTop="20dp"
@@ -52,14 +52,40 @@
         android:layout_marginLeft="60dp"/>
     </LinearLayout>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_10"
-        android:layout_marginLeft="@dimen/dimen_10"
-        android:layout_marginRight="@dimen/dimen_10"
-        android:layout_marginBottom="@dimen/dimen_10"
-        android:id="@+id/cv1">
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout8">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Item"
+            android:textStyle="bold"
+            android:layout_marginLeft="70dp"
+            android:padding="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Quantity"
+            android:layout_marginLeft="80dp"
+            android:textStyle="bold"/>
+        </LinearLayout>
+
+    <!--<android.support.v7.widget.CardView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/dimen_10"-->
+        <!--android:layout_marginLeft="@dimen/dimen_10"-->
+        <!--android:layout_marginRight="@dimen/dimen_10"-->
+        <!--android:layout_marginBottom="@dimen/dimen_10"-->
+        <!--android:id="@+id/cv1">-->
+     <ScrollView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content">
      <LinearLayout
         android:id="@+id/linearLayoutRV"
         android:layout_width="wrap_content"
@@ -73,7 +99,8 @@
                 android:layout_height="180dp"/>
 
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+     </ScrollView>
+    <!--</android.support.v7.widget.CardView>-->
 
     <LinearLayout
             android:layout_width="wrap_content"
@@ -90,7 +117,6 @@
                 android:id="@+id/tvPaymentAmt"
                 android:textStyle="bold"
                 android:layout_marginLeft="10dp"
-                android:padding="10dp"
                 android:layout_centerVertical="true"/>
 
             <TextView
@@ -106,7 +132,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="15dp"
         android:id="@+id/linearLayout4">
 
             <TextView
@@ -117,7 +142,6 @@
                 android:id="@+id/tvTotalGST"
                 android:textStyle="bold"
                 android:layout_marginLeft="10dp"
-                android:padding="10dp"
                 android:layout_centerVertical="true"/>
 
             <TextView
@@ -133,7 +157,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="15dp"
             android:id="@+id/linearLayout5">
 
             <TextView
@@ -144,7 +167,6 @@
                 android:id="@+id/tvStatus"
                 android:textStyle="bold"
                 android:layout_marginLeft="10dp"
-                android:padding="10dp"
                 android:layout_centerVertical="true"/>
 
             <TextView
