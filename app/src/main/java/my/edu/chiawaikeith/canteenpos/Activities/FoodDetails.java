@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -35,11 +38,12 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
     private MaterialSheetFab materialSheetFab;
     public Foods food = new Foods();
     public static final String KEY_FOOD = "food";
-    Transactions transaction = new Transactions();
-    private Integer acc_id,transac_id,newTransac_id;
+    Transactions transaction;
+    public Integer acc_id,transac_id,newTransac_id;
     private TextView stallID,foodID,foodName,foodCategory,price,quantity;
 
     final static String INSERT_URL = "http://dinpos.comlu.com/OrderLines/insert_order_line.php";
+    final static String GET_URL = "http://dinpos.comlu.com/Transactions/get_transaction.php";
     final static String KEY_ACCOUNT_ID = "acc_id";
     final static String KEY_TRANSAC_ID = "transac_id";
     final static String KEY_FOOD_ID = "food_id";
@@ -82,7 +86,9 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.fab_sheet_item_view).setOnClickListener(this);
 
         food = (Foods) getIntent().getSerializableExtra(FoodAdapter.KEY_FOOD);
+        getTransaction();
         initValues();
+
     }
 
     public void initValues() {
@@ -91,6 +97,69 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
         foodName.setText(food.getFood_name());
         foodCategory.setText(food.food_category);
         price.setText(String.valueOf(food.getFood_price()));
+    }
+
+    public void getTransaction(){
+        new getTransaction().execute();
+    }
+
+    public class getTransaction extends AsyncTask<String, Void, String> {
+        ProgressDialog loading;
+        RequestHandler rh = new RequestHandler();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //loading = ProgressDialog.show(getActivity(), "Uploading...", null, true, true);
+        }
+
+        @Override
+        protected void onPostExecute(String json) {
+            super.onPostExecute(json);
+            convertJson(json);
+            extractJsonData();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            HashMap<String, String> data = new HashMap<>();
+            data.put(KEY_ACCOUNT_ID,  String.valueOf(acc_id));
+
+            return rh.sendPostRequest(GET_URL, data);
+        }
+    }
+
+    private void convertJson(String json) {
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            mJsonArray = jsonObject.getJSONArray(BaseActivity.JSON_ARRAY);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void extractJsonData() {
+
+        for (int i = 0; i < mJsonArray.length(); i++) {
+            try {
+                JSONObject jsonObject = mJsonArray.getJSONObject(i);
+                //transaction = new Transactions();
+
+                transaction.setTransac_id(jsonObject.getInt(KEY_TRANSAC_ID));
+//                transaction.setAcc_id(jsonObject.getInt(KEY_ACCOUNT_ID));
+//                transaction.setPayment_amount(jsonObject.getDouble(KEY_PAYMENT_AMOUNT));
+//                transaction.setTotal_gst(jsonObject.getDouble(KEY_TOTAL_GST));
+//                transaction.setOrder_date_time(mySqlDateTimeFormat.parse(jsonObject.getString(KEY_ORDER_DATETIME)));
+//                transaction.setOrder_status(jsonObject.getString(KEY_ORDER_STATUS));
+                newTransac_id = transaction.getTransac_id();
+                Log.d("transacid",String.valueOf(newTransac_id));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     @Override
@@ -138,7 +207,6 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
                                                 foodID.getText().toString(),
                                                 String.valueOf(qty),
                                                 price.getText().toString());
-
                                         //startActivity(intent);
                                         break;
                                     case 2: // delete society event
@@ -210,6 +278,7 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
                             }
                         })
                         .show();
+                Log.d("transacid", String.valueOf(newTransac_id));
                 break;
 
             case R.id.fab_sheet_item_view:

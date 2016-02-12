@@ -73,7 +73,7 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
     final static String INSERT_URL2 = "http://dinpos.comlu.com/OrderLines/insert_order_line.php";
     final static String INSERT_URL3 = "http://dinpos.comlu.com/Transactions/start_transaction.php";
     final static String GETORDERLINES_URL = "http://dinpos.comlu.com/Transactions/retrieve_order_line.php";
-    final static String GETFOOD_URL = "http://canteenpos.comxa.com/Foods/retrieve_foods.php";
+    //final static String GETFOOD_URL = "http://canteenpos.comxa.com/Foods/retrieve_foods.php";
     final static String KEY_ACCOUNT_ID = "acc_id";
     final static String KEY_TRANSAC_ID = "transac_id";
     final static String KEY_FOOD_ID = "food_id";
@@ -172,7 +172,7 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
         materialSheetFab = new MaterialSheetFab<>(fab, sheetView, overlay, sheetColor, fabColor);
 
         // Set material sheet item click listeners
-        findViewById(R.id.fab_sheet_item_start).setOnClickListener(this);
+        //findViewById(R.id.fab_sheet_item_start).setOnClickListener(this);
         findViewById(R.id.fab_sheet_item_calculate).setOnClickListener(this);
         findViewById(R.id.fab_sheet_item_confirm).setOnClickListener(this);
         findViewById(R.id.fab_sheet_item_next).setOnClickListener(this);
