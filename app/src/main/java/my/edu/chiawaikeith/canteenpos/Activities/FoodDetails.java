@@ -53,6 +53,7 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
     final static String KEY_TOTAL_GST = "total_gst";
     final static String KEY_ORDER_STATUS = "order_status";
     final static String KEY_PAYMENT_AMOUNT = "payment_amount";
+    final static String KEY_FOOD_NAME = "food_name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,7 +212,8 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
                                                 String.valueOf(newTransac_id),
                                                 foodID.getText().toString(),
                                                 String.valueOf(qty),
-                                                price.getText().toString());
+                                                price.getText().toString(),
+                                                foodName.getText().toString());
                                         //startActivity(intent);
                                         break;
                                     case 2: // delete society event
@@ -219,63 +221,72 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
                                                 String.valueOf(newTransac_id),
                                                 foodID.getText().toString(),
                                                 String.valueOf(qty),
-                                                price.getText().toString());
+                                                price.getText().toString(),
+                                                foodName.getText().toString());
                                         break;
                                     case 3: // report
                                         new insertOrderLine().execute(
                                                 String.valueOf(newTransac_id),
                                                 foodID.getText().toString(),
                                                 String.valueOf(qty),
-                                                price.getText().toString());
+                                                price.getText().toString(),
+                                                foodName.getText().toString());
                                         break;
                                     case 4: // report
                                         new insertOrderLine().execute(
                                                 String.valueOf(newTransac_id),
                                                 foodID.getText().toString(),
                                                 String.valueOf(qty),
-                                                price.getText().toString());
+                                                price.getText().toString(),
+                                                foodName.getText().toString());
                                         break;
                                     case 5: // report
                                         new insertOrderLine().execute(
                                                 String.valueOf(newTransac_id),
                                                 foodID.getText().toString(),
                                                 String.valueOf(qty),
-                                                price.getText().toString());
+                                                price.getText().toString(),
+                                                foodName.getText().toString());
                                         break;
                                     case 6: // report
                                         new insertOrderLine().execute(
                                                 String.valueOf(newTransac_id),
                                                 foodID.getText().toString(),
                                                 String.valueOf(qty),
-                                                price.getText().toString());
+                                                price.getText().toString(),
+                                                foodName.getText().toString());
                                         break;
                                     case 7: // report
                                         new insertOrderLine().execute(
                                                 String.valueOf(newTransac_id),
                                                 foodID.getText().toString(),
                                                 String.valueOf(qty),
-                                                price.getText().toString());
+                                                price.getText().toString(),
+                                                foodName.getText().toString());
                                         break;
                                     case 8: // report
                                         new insertOrderLine().execute(
                                                 String.valueOf(newTransac_id),
                                                 foodID.getText().toString(),
                                                 String.valueOf(qty),
-                                                price.getText().toString());
+                                                price.getText().toString(),
+                                                foodName.getText().toString());
                                         break;
                                     case 9: // report
                                         new insertOrderLine().execute(
                                                 String.valueOf(newTransac_id),
                                                 foodID.getText().toString(),
                                                 String.valueOf(qty),
-                                                price.getText().toString());
+                                                price.getText().toString(),
+                                                foodName.getText().toString());
                                         break;
                                     case 10: // report
                                         new insertOrderLine().execute(
                                                 String.valueOf(newTransac_id),
                                                 foodID.getText().toString(),
                                                 String.valueOf(qty),
-                                                price.getText().toString());
+                                                price.getText().toString(),
+                                                foodName.getText().toString());
                                         break;
                                     default:
                                         break;
@@ -323,6 +334,7 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
             data.put(KEY_FOOD_ID, params[1]);
             data.put(KEY_ITEMQTY, params[2]);
             data.put(KEY_SINGLE_PRICE, params[3]);
+            data.put(KEY_FOOD_NAME, params[4]);
 
             return rh.sendPostRequest(INSERT_URL, data);
         }

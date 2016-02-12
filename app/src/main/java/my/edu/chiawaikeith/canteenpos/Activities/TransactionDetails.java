@@ -46,8 +46,8 @@ public class TransactionDetails extends BaseActivity implements View.OnClickList
     final static String KEY_FOOD_ID = "food_id";
     final static String KEY_ORDERLINE_ID = "order_line_id";
     final static String KEY_ITEM_QTY = "item_qty";
-    final static String KEY_FOOD_NAME = "F.food_name";
-    final static String GET_URL = "http://dinpos.comlu.com/OrderLines/retrieve_order_line.php";
+    final static String KEY_FOOD_NAME = "food_name";
+    final static String GET_URL = "http://dinpos.comlu.com/OrderLines/retrieve_order_lines.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,17 +124,16 @@ public class TransactionDetails extends BaseActivity implements View.OnClickList
             try {
                 JSONObject jsonObject = mJsonArray.getJSONObject(i);
                 OrderLines orderLine = new OrderLines();
-                Foods food = new Foods();
+                //Foods food = new Foods();
 
             try{
                 orderLine.setTransac_id(jsonObject.getInt(KEY_TRANSAC_ID));
                 orderLine.setFood_id(jsonObject.getInt(KEY_FOOD_ID));
                 orderLine.setOrder_line_id(jsonObject.getInt(KEY_ORDERLINE_ID));
                 orderLine.setItem_qty(jsonObject.getInt(KEY_ITEM_QTY));
-                //food.setFood_name(jsonObject.getString(KEY_FOOD_NAME));
+                orderLine.setFood_name(jsonObject.getString(KEY_FOOD_NAME));
 
                 orderList.add(orderLine);
-                //foodList.add(food);
                 //Log.d("foodname", food.getFood_name());
             } catch (JSONException e) {
                 e.printStackTrace();

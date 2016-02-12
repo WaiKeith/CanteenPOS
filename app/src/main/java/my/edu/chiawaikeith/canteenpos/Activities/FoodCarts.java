@@ -75,7 +75,7 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
     final static String INSERT_URL = "http://dinpos.comlu.com/Transactions/insert_transaction.php";
     final static String INSERT_URL2 = "http://dinpos.comlu.com/OrderLines/insert_order_line.php";
     final static String INSERT_URL3 = "http://dinpos.comlu.com/Transactions/start_transaction.php";
-    final static String GETORDERLINES_URL = "http://dinpos.comlu.com/OrderLines/retrieve_order_line.php";
+    final static String GETORDERLINES_URL = "http://dinpos.comlu.com/OrderLines/retrieve_order_lines.php";
     //final static String GETFOOD_URL = "http://canteenpos.comxa.com/Foods/retrieve_foods.php";
     final static String KEY_ACCOUNT_ID = "acc_id";
     final static String KEY_TRANSAC_ID = "transac_id";
@@ -374,7 +374,7 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            loading = ProgressDialog.show(FoodCarts.this, "Retrieving...", null, true, true);
+            //loading = ProgressDialog.show(FoodCarts.this, "Retrieving...", null, true, true);
         }
 
         @Override
@@ -421,6 +421,7 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
                     orderLine.setOrder_line_id(jsonObject.getInt(KEY_ORDERLINE_ID));
                     orderLine.setItem_qty(jsonObject.getInt(KEY_ITEMQTY));
                     orderLine.setSingle_price(jsonObject.getDouble(KEY_SINGLE_PRICE));
+                    orderLine.setFood_name(jsonObject.getString(KEY_FOOD_NAME));
 
                     orderList.add(orderLine);
                     //foodList.add(food);
