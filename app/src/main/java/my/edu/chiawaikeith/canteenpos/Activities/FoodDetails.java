@@ -84,7 +84,7 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
 
         // Set material sheet item click listeners
         findViewById(R.id.fab_sheet_item_add).setOnClickListener(this);
-        findViewById(R.id.fab_sheet_item_view).setOnClickListener(this);
+//        findViewById(R.id.fab_sheet_item_view).setOnClickListener(this);
 
         food = (Foods) getIntent().getSerializableExtra(FoodAdapter.KEY_FOOD);
         initValues();
@@ -285,9 +285,9 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
                         .show();
                 break;
 
-            case R.id.fab_sheet_item_view:
-                startActivity(intent);
-                break;
+//            case R.id.fab_sheet_item_view:
+//                startActivity(intent);
+//                break;
         }
     }
 

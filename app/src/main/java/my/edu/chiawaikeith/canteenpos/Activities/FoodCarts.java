@@ -63,7 +63,7 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
     private ArrayList<OrderLines> orderList = new ArrayList<>();
     private Transactions transaction = new Transactions();
     OrderLines totalRecord;
-    OrderLines orderLine = new OrderLines();
+    //OrderLines orderLine = new OrderLines();
     private Foods food = new Foods();
     public static final String KEY_FOOD = "food";
     private RecyclerView recyclerView;
@@ -409,8 +409,10 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
         totalRecord = new OrderLines();
         double totalPrice=0,subTotal=0,qty=0,singlePrice=0;
         for (int i = 0; i < mJsonArray.length(); i++) {
+            OrderLines orderLine = new OrderLines();
             try {
                 JSONObject jsonObject = mJsonArray.getJSONObject(i);
+
                 Foods food = new Foods();
 
                 try{
