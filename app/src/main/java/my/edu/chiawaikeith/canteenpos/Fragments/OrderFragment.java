@@ -21,7 +21,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -44,8 +43,8 @@ import java.util.Locale;
 
 import my.edu.chiawaikeith.canteenpos.Activities.BaseActivity;
 import my.edu.chiawaikeith.canteenpos.Activities.FoodCarts;
+import my.edu.chiawaikeith.canteenpos.Activities.FoodDetails;
 import my.edu.chiawaikeith.canteenpos.Activities.NFCActivity;
-import my.edu.chiawaikeith.canteenpos.Activities.TransactionList;
 import my.edu.chiawaikeith.canteenpos.Adapters.FoodAdapter;
 import my.edu.chiawaikeith.canteenpos.Domains.Foods;
 import my.edu.chiawaikeith.canteenpos.Domains.Transactions;
@@ -74,13 +73,14 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
     private MaterialSheetFab materialSheetFab;
     boolean mAndroidBeamAvailable  = false;
 
-    final static String INSERT_URL1 = "http://canteenpos.comxa.com/Transactions/insert_transaction.php";
-    final static String INSERT_URL2 = "http://canteenpos.comxa.com/OrderLines/insert_order_line.php";
-    final static String INSERT_URL3 = "http://canteenpos.comxa.com/Transactions/start_transaction.php";
-    final static String GET_URL = "http://canteenpos.comxa.com/Transactions/get_transaction.php";
+//    final static String INSERT_URL1 = "http://canteenpos.comxa.com/Transactions/insert_transaction.php";
+//    final static String INSERT_URL2 = "http://canteenpos.comxa.com/OrderLines/insert_order_line.php";
+    final static String START_URL = "http://dinpos.comlu.com/Transactions/start_transaction.php";
+    final static String GET_URL = "http://dinpos.comlu.com/Transactions/get_transaction.php";
     final static String GETFOOD_URL = "http://dinpos.comlu.com/Foods/retrieve_foods.php";
     final static String KEY_ACCOUNT_ID = "acc_id";
     final static String KEY_TRANSAC_ID = "transac_id";
+    static String KEY_TRANSACID;
     final static String KEY_FOOD_ID = "food_id";
     final static String KEY_PAYMENT_AMOUNT = "payment_amount";
     final static String KEY_ORDER_DATETIME = "order_date_time";
@@ -477,26 +477,43 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
                 );
                 break;
 
-            case R.id.fab_sheet_item_confirm:
-                Intent intent2 = new Intent(getActivity(), TransactionList.class);
+//            case R.id.fab_sheet_item_confirm:
+//                Intent intent2 = new Intent(getActivity(), TransactionList.class);
+//
+//
+//                calendar = Calendar.getInstance();
+//                orderDate = calendar.getTime();
+//
+//                new insertOrder().execute(
+//                        String.valueOf(transaction.getTransac_id()),
+//                        String.valueOf(acc_id),
+//                        totalPrice.getText().toString(),
+//                        totalGST.getText().toString(),
+//                        orderDate.toString(),
+//                        status);
+//
+//                //Log.d("transacid3",String.valueOf(transaction.getTransac_id()));
+//
+//                //transaction.setTransac_id(transac_id);
+//
+//                startActivity(intent2);
+//                break;
 
+            case R.id.food_recycler:
+//                transac_id = transaction.getTransac_id();
 
-                calendar = Calendar.getInstance();
-                orderDate = calendar.getTime();
-
-                new insertOrder().execute(
-                        String.valueOf(transaction.getTransac_id()),
-                        String.valueOf(acc_id),
-                        totalPrice.getText().toString(),
-                        totalGST.getText().toString(),
-                        orderDate.toString(),
-                        status.toString());
-
-                //Log.d("transacid3",String.valueOf(transaction.getTransac_id()));
-
-                //transaction.setTransac_id(transac_id);
-
-                startActivity(intent2);
+                //Log.d("tranid",String.valueOf(transac_id));
+//                newTransac_id = transac_id + 1;
+//                transaction.setTransac_id(newTransac_id);
+//
+//                //Log.d("transac_id2",String.valueOf(transac_id));
+//
+//                new newTransaction().execute(
+//                        String.valueOf(newTransac_id),
+//                        String.valueOf(acc_id)
+//                );
+                Intent i = new Intent(getActivity(), FoodDetails.class);
+                i.putExtra(KEY_TRANSACID,newTransac_id);
                 break;
 
         }
@@ -609,101 +626,101 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
             data.put(KEY_ACCOUNT_ID, params[1]);
             data.put(KEY_ORDER_STATUS, params[2]);
 
-            return rh.sendPostRequest(INSERT_URL3, data);
+            return rh.sendPostRequest(START_URL, data);
         }
     }
 
-    public class insertOrder extends AsyncTask<String, Void, String> {
-
-        ProgressDialog loading;
-        RequestHandler rh = new RequestHandler();
-//        Integer acc_id;
+//    public class insertOrder extends AsyncTask<String, Void, String> {
 //
-//        public insertOrder(Integer accountId) {
-//            this.acc_id = accountId;
-//        }
-
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            loading = ProgressDialog.show(getActivity(), "Uploading...", null, true, true);
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            loading.dismiss();
-            Toast.makeText(getActivity().getApplicationContext(), s, Toast.LENGTH_LONG).show();
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            HashMap<String, String> data = new HashMap<>();
-
-            data.put(KEY_TRANSAC_ID, params[0]);
-            data.put(KEY_ACCOUNT_ID, params[1]);
-            data.put(KEY_PAYMENT_AMOUNT, params[2]);
-            data.put(KEY_TOTAL_GST, params[3]);
-            data.put(KEY_ORDER_DATETIME, params[4]);
-            data.put(KEY_ORDER_STATUS, params[5]);
-
-            return rh.sendPostRequest(INSERT_URL1, data);
-        }
-    }
-
-    public final class insertOrderLine extends AsyncTask<String, Void, String> {
-
-        ProgressDialog loading;
-        RequestHandler rh = new RequestHandler();
-//        Integer transacID;
+//        ProgressDialog loading;
+//        RequestHandler rh = new RequestHandler();
+////        Integer acc_id;
+////
+////        public insertOrder(Integer accountId) {
+////            this.acc_id = accountId;
+////        }
 //
-//        public insertOrderLine(Integer transac_ID) {
-//            this.transacID = transac_ID;
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            loading = ProgressDialog.show(getActivity(), "Uploading...", null, true, true);
 //        }
+//
+//        @Override
+//        protected void onPostExecute(String s) {
+//            super.onPostExecute(s);
+//            loading.dismiss();
+//            Toast.makeText(getActivity().getApplicationContext(), s, Toast.LENGTH_LONG).show();
+//        }
+//
+//        @Override
+//        protected String doInBackground(String... params) {
+//            HashMap<String, String> data = new HashMap<>();
+//
+//            data.put(KEY_TRANSAC_ID, params[0]);
+//            data.put(KEY_ACCOUNT_ID, params[1]);
+//            data.put(KEY_PAYMENT_AMOUNT, params[2]);
+//            data.put(KEY_TOTAL_GST, params[3]);
+//            data.put(KEY_ORDER_DATETIME, params[4]);
+//            data.put(KEY_ORDER_STATUS, params[5]);
+//
+//            return rh.sendPostRequest(INSERT_URL1, data);
+//        }
+//    }
 
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            loading = ProgressDialog.show(getActivity(), "Uploading...", null, true, true);
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            loading.dismiss();
-            Toast.makeText(getActivity().getApplicationContext(), s, Toast.LENGTH_LONG).show();
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            HashMap<String, String> data = new HashMap<>();
-
-            data.put(KEY_TRANSAC_ID, params[0]);
-            data.put(KEY_FOOD_ID, params[1]);
-            data.put(KEY_ITEMQTY, params[2]);
-
-            return rh.sendPostRequest(INSERT_URL2, data);
-        }
-    }
-
-    public class MyOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            mText = parent.getItemAtPosition(position).toString();
-            b = Double.parseDouble(sText);
-            a = Double.parseDouble(mText);
-
-            s2 = b * a;
-            bText = s2.toString();
-            sub2.setText(bText);
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-        }
-    }
+//    public final class insertOrderLine extends AsyncTask<String, Void, String> {
+//
+//        ProgressDialog loading;
+//        RequestHandler rh = new RequestHandler();
+////        Integer transacID;
+////
+////        public insertOrderLine(Integer transac_ID) {
+////            this.transacID = transac_ID;
+////        }
+//
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            loading = ProgressDialog.show(getActivity(), "Uploading...", null, true, true);
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String s) {
+//            super.onPostExecute(s);
+//            loading.dismiss();
+//            Toast.makeText(getActivity().getApplicationContext(), s, Toast.LENGTH_LONG).show();
+//        }
+//
+//        @Override
+//        protected String doInBackground(String... params) {
+//            HashMap<String, String> data = new HashMap<>();
+//
+//            data.put(KEY_TRANSAC_ID, params[0]);
+//            data.put(KEY_FOOD_ID, params[1]);
+//            data.put(KEY_ITEMQTY, params[2]);
+//
+//            return rh.sendPostRequest(INSERT_URL2, data);
+//        }
+//    }
+//
+//    public class MyOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+//        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//            mText = parent.getItemAtPosition(position).toString();
+//            b = Double.parseDouble(sText);
+//            a = Double.parseDouble(mText);
+//
+//            s2 = b * a;
+//            bText = s2.toString();
+//            sub2.setText(bText);
+//        }
+//
+//        @Override
+//        public void onNothingSelected(AdapterView<?> parent) {
+//
+//        }
+//    }
 
     private void enableForegroundDispatchSystem(){
         Intent intent2 = new Intent(getActivity(),OrderFragment.class).addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
