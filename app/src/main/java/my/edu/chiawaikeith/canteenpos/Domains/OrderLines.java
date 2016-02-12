@@ -6,8 +6,8 @@ import java.io.Serializable;
  * Created by win77 on 13/12/2015.
  */
 public class OrderLines implements Serializable{
-    public int order_line_id,transac_id,item_qty,food_id,total_qty;
-    public double single_price;
+    public int order_line_id,transac_id,item_qty,food_id;
+    public double single_price,total_price,sub_total;
 
     public int getOrder_line_id() {
         return order_line_id;
@@ -49,11 +49,19 @@ public class OrderLines implements Serializable{
         this.single_price = single_price;
     }
 
-    public int getTotal_qty() {
-        return total_qty;
+    public double getTotal_price() {
+        return total_price;
     }
 
-    public void setTotal_qty(int total_qty) {
-        this.total_qty = total_qty;
+    public void setTotal_price(double total_price) {
+        this.total_price = total_price;
+    }
+
+    public double getSub_total() {
+        return sub_total;
+    }
+
+    public void setSub_total(double sub_total) {
+        this.sub_total = sub_total;
     }
 }
