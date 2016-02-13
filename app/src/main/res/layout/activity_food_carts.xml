@@ -32,7 +32,7 @@
         android:id="@+id/linearLayout1"
         android:orientation="horizontal"
         android:padding="5dp"
-        android:layout_marginLeft="160dp">
+        android:layout_marginLeft="170dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -48,6 +48,15 @@
             android:layout_marginLeft="50dp"/>
         </LinearLayout>
 
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout1"
+        android:id="@+id/sv">
+        <LinearLayout
+            android:id="@+id/linearLayoutRV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/order_line_recycler"
                 android:scrollbars="vertical"
@@ -56,8 +65,9 @@
                 android:layout_marginTop="@dimen/dimen_10"
                 android:layout_marginLeft="@dimen/dimen_10"
                 android:layout_marginRight="@dimen/dimen_10"
-                android:layout_marginBottom="@dimen/dimen_10"
-                android:layout_below="@+id/linearLayout1"/>
+                android:layout_marginBottom="@dimen/dimen_10"/>
+        </LinearLayout>
+    </ScrollView>
 
         <!--</LinearLayout>-->
     <!--</android.support.v7.widget.CardView>-->
@@ -107,12 +117,24 @@
 
     <!--</LinearLayout>-->
 
+    <View
+        android:layout_below="@+id/sv"
+        android:id="@+id/separator2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginBottom="5dp"
+        android:background="#90909090"
+        />
+
     <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/linearLayout20"
-    android:layout_marginTop="500dp"
-    android:layout_marginLeft="120dp">
+    android:layout_marginTop="550dp"
+    android:layout_marginLeft="80dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -135,8 +157,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout21"
         android:layout_below="@+id/linearLayout20"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="120dp">
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="80dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
