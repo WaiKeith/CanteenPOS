@@ -132,7 +132,7 @@ public class ChartFragment extends BaseFragment {
         protected void onPostExecute(String json) {
             super.onPostExecute(json);
             //loading.dismiss();
-            Log.d("ChartFragment", json);
+            //Log.d("ChartFragment", json);
             convertJson(json);
             extractJsonData();
 
@@ -151,7 +151,7 @@ public class ChartFragment extends BaseFragment {
         try {
             JSONObject jsonObject = new JSONObject(json);
             jsonArray = jsonObject.getJSONArray(BaseActivity.JSON_ARRAY);
-            Log.d("length",String.valueOf(jsonArray.length()));
+            //Log.d("length",String.valueOf(jsonArray.length()));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -179,7 +179,7 @@ public class ChartFragment extends BaseFragment {
             switch (foodCategory){
                 case "rice":
                     riceQty = orderLines.getItem_qty();
-                    Log.d("total1",String.valueOf(categoryRecord.getRice()));
+                    //Log.d("total1",String.valueOf(categoryRecord.getRice()));
                     break;
 
                 case "noodle":
@@ -263,7 +263,7 @@ public class ChartFragment extends BaseFragment {
         try {
             JSONObject jsonObject = new JSONObject(Json);
             jsonArray = jsonObject.getJSONArray(BaseActivity.JSON_ARRAY);
-            Log.d("length2",String.valueOf(jsonArray.length()));
+            Log.d("array",String.valueOf(jsonArray));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -292,14 +292,15 @@ public class ChartFragment extends BaseFragment {
             Calendar cal = Calendar.getInstance();
             try {
                 date = dfDate.parse(dfDate.format(transactions.getOrder_date_time()));
-                Log.d("day",dfDate.format(date));
+                Log.d("date",dfDate.format(date));
                 today = dfDate.parse(dfDate.format(cal.getTime()));//Returns 15/10/2012
+                Log.d("day",dfDate.format(today));
             } catch (java.text.ParseException e) {
                 e.printStackTrace();
             }
 
             int diffInDays = (int) ((today.getTime() - date.getTime())/ (1000 * 60 * 60 * 24));
-
+            Log.d("diffday",String.valueOf(diffInDays));
             //int days=0;
             double d0=0,d1=0,d2=0,d3=0,d4=0,d5=0,d6=0;
             switch (diffInDays){
