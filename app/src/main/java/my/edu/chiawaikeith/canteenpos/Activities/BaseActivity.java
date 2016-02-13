@@ -54,6 +54,7 @@ public class BaseActivity extends AppCompatActivity {
     public Calendar calendar;
 
     public static final String OBJECT_OFFLINE_LOGIN = "OfflineLogin";
+    public static final String KEY_TRANSAC = "Transaction";
     protected ImageLoader imageLoader = ImageLoader.getInstance();
 
     @Override
