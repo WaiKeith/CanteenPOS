@@ -1,6 +1,7 @@
 package my.edu.chiawaikeith.canteenpos.Fragments;
 
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -8,7 +9,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,6 +23,7 @@ import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import my.edu.chiawaikeith.canteenpos.Activities.AlarmReceiver;
 import my.edu.chiawaikeith.canteenpos.Activities.BaseActivity;
 import my.edu.chiawaikeith.canteenpos.Activities.ReminderList;
 import my.edu.chiawaikeith.canteenpos.Activities.ScheduleClient;
@@ -48,6 +49,7 @@ public class ReminderFragment extends BaseFragment implements
     final static String KEY_DATE = "reminder_date";
     final static String KEY_TIME = "reminder_time";
 
+    private PendingIntent pendingIntent;
     private Reminders reminder = new Reminders();
     private ScheduleClient scheduleClient;
     private EditText editDesc,timeTextView,dateTextView,editTitle;
@@ -113,6 +115,23 @@ public class ReminderFragment extends BaseFragment implements
         // Set material sheet item click listeners
         view.findViewById(R.id.fab_sheet_item_add).setOnClickListener(this);
         view.findViewById(R.id.fab_sheet_item_check).setOnClickListener(this);
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.MONTH, 6);
+        calendar.set(Calendar.YEAR, 2013);
+        calendar.set(Calendar.DAY_OF_MONTH, 13);
+
+        calendar.set(Calendar.HOUR_OF_DAY, 20);
+        calendar.set(Calendar.MINUTE, 48);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.AM_PM,Calendar.PM);
+
+        Intent myIntent = new Intent(getActivity(), AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, myIntent,0);
+
+        //AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(ALARM_SERVICE);
+        //alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
 
         initValues();
         return view;
@@ -231,8 +250,8 @@ public class ReminderFragment extends BaseFragment implements
                         editDesc.getText().toString(),
                         dateTextView.getText().toString(),
                         timeTextView.getText().toString());
-                Log.d("date",dateTextView.getText().toString());
-                Log.d("time",timeTextView.getText().toString());
+//                Log.d("date",dateTextView.getText().toString());
+//                Log.d("time",timeTextView.getText().toString());
 
 //                EventDataSource eventDataSource = new EventDataSource(getActivity());
 //                eventDataSource.insertEvent(eventRecord);
@@ -271,7 +290,7 @@ public class ReminderFragment extends BaseFragment implements
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            loading = ProgressDialog.show(getActivity(), "Uploading...", null, true, true);
+            loading = ProgressDialog.show(getActivity(), "Adding...", null, true, true);
         }
 
         @Override
