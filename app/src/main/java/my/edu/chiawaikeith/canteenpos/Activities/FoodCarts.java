@@ -31,7 +31,6 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -50,7 +49,6 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
     private Double a1,a2,b1,b2,c1,c2,d1,d2,s1,s2,s3,s4,aText,cText,bText,dText;
     private Double gst = 0.06,tPrice=0.00,totalgst=0.00;
     public int acc_id,transacID;
-    private Date orderDate;
     //private Spinner spinner1,spinner2,spinner3,spinner4;
     NfcAdapter nfcAdapter;
     FoodAdapter foodAdapter;
@@ -59,7 +57,6 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
     //private Button addCart1,addCart2,addCart3,addCart4;
     private Toolbar toolBar;
 
-    Calendar calendar;
     private ArrayList<OrderLines> orderList = new ArrayList<>();
     private Transactions transaction = new Transactions();
     OrderLines totalRecord;
@@ -312,16 +309,17 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
             case R.id.fab_sheet_item_confirm:
                 Intent intent2 = new Intent(this, TransactionList.class);
 
-
+                String orderDate = null;
+                Calendar calendar;
                 calendar = Calendar.getInstance();
-                orderDate = calendar.getTime();
+                orderDate = mySqlDateTimeFormat.format(calendar.getTime());
 
                 new insertOrder().execute(
                         String.valueOf(transacID),
                         String.valueOf(acc_id),
                         totalPrice.getText().toString(),
                         totalGST.getText().toString(),
-                        orderDate.toString(),
+                        orderDate,
                         status.toString());
 
                 //Log.d("transacid3",String.valueOf(transaction.getTransac_id()));
