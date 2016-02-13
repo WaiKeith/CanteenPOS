@@ -1,10 +1,8 @@
 package my.edu.chiawaikeith.canteenpos.Activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,7 +37,7 @@ public class LoginActivity extends BaseActivity{
     private static final String LOGIN_URL = "http://dinpos.comlu.com/Accounts/Students/login_account.php";
     final static String KEY_USERNAME = "user_name";
     final static String KEY_PASSWORD = "acc_password";
-    private static final String KEY_URL = "Url";
+    //private static final String KEY_URL = "Url";
 
     public SimpleDateFormat mySqlDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private OfflineLogin offlineLogin;
@@ -179,7 +177,7 @@ public class LoginActivity extends BaseActivity{
             offlineLogin.setRegister_date(mySqlDateFormat.parse(jsonObject.getString(AccountRecord.COLUMN_REGISTER_DATE)));
 
             offlineLogin.setResponse((jsonObject.getInt(KEY_RESPONSE)));
-            Log.d("LoginActivity", "response : " + jsonObject.getInt("response")+"");
+            //Log.d("LoginActivity", "response : " + jsonObject.getInt("response")+"");
 
 
         } catch (JSONException e) {
@@ -187,13 +185,5 @@ public class LoginActivity extends BaseActivity{
         } catch (ParseException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void shortToast(Context a, String message) {
-        Toast.makeText(a, message, Toast.LENGTH_SHORT).show();
-    }
-
-    public void longToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
