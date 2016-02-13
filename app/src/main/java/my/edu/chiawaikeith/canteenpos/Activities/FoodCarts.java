@@ -45,24 +45,18 @@ import my.edu.chiawaikeith.canteenpos.R;
 import my.edu.chiawaikeith.canteenpos.RequestHandler;
 
 public class FoodCarts extends BaseActivity implements View.OnClickListener {
-    private String qty1,qty2,qty3,qty4,eText,status="Success";
-    private Double a1,a2,b1,b2,c1,c2,d1,d2,s1,s2,s3,s4,aText,cText,bText,dText;
+    private String status="Success";
     private Double gst = 0.06,tPrice=0.00,totalgst=0.00;
     public int acc_id,transacID;
-    //private Spinner spinner1,spinner2,spinner3,spinner4;
     NfcAdapter nfcAdapter;
-    FoodAdapter foodAdapter;
-    private TextView price1,price2,price3,price4,sub1,sub2,sub3,sub4;
-    private TextView totalPrice,totalGST,foodID1,foodID2,foodID3,foodID4;
-    //private Button addCart1,addCart2,addCart3,addCart4;
     private Toolbar toolBar;
+    private TextView totalPrice,totalGST;
 
     private ArrayList<OrderLines> orderList = new ArrayList<>();
     private Transactions transaction = new Transactions();
     OrderLines totalRecord;
     //OrderLines orderLine = new OrderLines();
     private Foods food = new Foods();
-    public static final String KEY_FOOD = "food";
     private RecyclerView recyclerView;
     private JSONArray mJsonArray;
     private ArrayList<Foods> foodList = new ArrayList<>();
@@ -70,10 +64,7 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
     boolean mAndroidBeamAvailable  = false;
 
     final static String INSERT_URL = "http://dinpos.comlu.com/Transactions/insert_transaction.php";
-    final static String INSERT_URL2 = "http://dinpos.comlu.com/OrderLines/insert_order_line.php";
-    final static String INSERT_URL3 = "http://dinpos.comlu.com/Transactions/start_transaction.php";
     final static String GETORDERLINES_URL = "http://dinpos.comlu.com/OrderLines/retrieve_order_lines.php";
-    //final static String GETFOOD_URL = "http://canteenpos.comxa.com/Foods/retrieve_foods.php";
     final static String KEY_ACCOUNT_ID = "acc_id";
     final static String KEY_TRANSAC_ID = "transac_id";
     final static String KEY_FOOD_ID = "food_id";
@@ -94,35 +85,6 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_carts);
 
-//        spinner1 = (Spinner)findViewById(R.id.spinnerQty1);
-//        spinner2 = (Spinner)findViewById(R.id.spinnerQty2);
-//        spinner3 = (Spinner)findViewById(R.id.spinnerQty3);
-//        spinner4 = (Spinner)findViewById(R.id.spinnerQty4);
-
-//        Integer[] values =
-//                {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-//        ArrayAdapter<Integer> Qtyadapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, values);
-//        Qtyadapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-//        spinner1.setAdapter(Qtyadapter);
-//        spinner2.setAdapter(Qtyadapter);
-//        spinner3.setAdapter(Qtyadapter);
-//        spinner4.setAdapter(Qtyadapter);
-
-        //cal = (Button)view.findViewById(R.id.btnCal);
-        //cal.setOnClickListener(this);
-
-//        addCart1 = (Button)findViewById(R.id.btnAddcart1);
-//        addCart1.setOnClickListener(this);
-//
-//        addCart2 = (Button)findViewById(R.id.btnAddcart2);
-//        addCart2.setOnClickListener(this);
-//
-//        addCart2 = (Button)findViewById(R.id.btnAddcart3);
-//        addCart2.setOnClickListener(this);
-//
-//        addCart2 = (Button)findViewById(R.id.btnAddcart4);
-//        addCart2.setOnClickListener(this);
-
         toolBar = (Toolbar)findViewById(R.id.toolbar);
 
         setSupportActionBar(toolBar);
@@ -131,30 +93,11 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-//        price1 = (TextView)findViewById(R.id.singlePrice);
-//        price2 = (TextView)findViewById(R.id.singlePrice2);
-//        price3 = (TextView)findViewById(R.id.singlePrice3);
-//        price4 = (TextView)findViewById(R.id.singlePrice4);
-
         totalPrice = (TextView)findViewById(R.id.textviewTotalPrice);
         totalPrice.setText(tPrice.toString());
 
         totalGST = (TextView)findViewById(R.id.textviewGSTPrice);
         totalGST.setText(totalgst.toString());
-
-//        sub1 = (TextView)findViewById(R.id.subtotal1);
-        //s1 = Integer.parseInt(sub1.getText().toString());
-//        sub2 = (TextView)findViewById(R.id.subtotal2);
-//        //s2 = Integer.parseInt(sub2.getText().toString());
-//        sub3 = (TextView)findViewById(R.id.subtotal3);
-//        sub4 = (TextView)findViewById(R.id.subtotal4);
-
-
-//        foodID1 = (TextView)findViewById(R.id.tvFoodID);
-//        foodID2 = (TextView)findViewById(R.id.tvFoodID2);
-//        foodID3 = (TextView)findViewById(R.id.tvFoodID3);
-//        foodID4 = (TextView)findViewById(R.id.tvFoodID4);
-
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
         Fab fab = (Fab)findViewById(R.id.fab);
@@ -167,7 +110,6 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
         materialSheetFab = new MaterialSheetFab<>(fab, sheetView, overlay, sheetColor, fabColor);
 
         // Set material sheet item click listeners
-        //findViewById(R.id.fab_sheet_item_start).setOnClickListener(this);
         findViewById(R.id.fab_sheet_item_calculate).setOnClickListener(this);
         findViewById(R.id.fab_sheet_item_confirm).setOnClickListener(this);
         findViewById(R.id.fab_sheet_item_next).setOnClickListener(this);
@@ -175,23 +117,14 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
         food = (Foods) getIntent().getSerializableExtra(FoodAdapter.KEY_FOOD);
         transaction = (Transactions) getIntent().getSerializableExtra(OrderFragment.KEY_TRANSAC);
 
-
         recyclerView = (RecyclerView) findViewById(R.id.order_line_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         initValues();
         getOrderLines();
-//        getTransaction();
-//        beginTransaction();
     }
 
     private void startView() {
-//        tvTransacID.setText(String.valueOf(transaction.getTransac_id()));
-//        tvPayment.setText(String.valueOf(transaction.getPayment_amount()));
-//        tvTotalGST.setText(String.valueOf(transaction.getTotal_gst()));
-//        tvDate.setText(mySqlDateTimeFormat.format(transaction.getOrder_date_time()));
-//        tvStatus.setText(transaction.getOrder_status());
-
         OrderLinesAdapter orderLinesAdapter;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         orderLinesAdapter = new OrderLinesAdapter(FoodCarts.this, orderList, R.layout.view_cart_line);
@@ -280,31 +213,16 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
         switch (v.getId()){
             case R.id.fab_sheet_item_next:
                 Intent intent1 = new Intent(this, NFCActivity.class);
+                intent1.putExtra(KEY_TRANSAC,transaction);
                 startActivity(intent1);
                 break;
 
             case R.id.fab_sheet_item_calculate:
                 totalPrice.setText(String.valueOf(totalRecord.getTotal_price()));
 
-                totalgst = totalRecord.getTotal_price()
-                        * gst;
+                totalgst = totalRecord.getTotal_price() * gst;
                 totalGST.setText(totalgst.toString());
                 break;
-
-//            case R.id.fab_sheet_item_start:
-//                transac_id = transaction.getTransac_id();
-//
-//                Log.d("tranid",String.valueOf(transac_id));
-//                newTransac_id = transac_id + 1;
-//                transaction.setTransac_id(newTransac_id);
-//
-//                Log.d("transac_id2",String.valueOf(transac_id));
-//
-//                new newTransaction().execute(
-//                        String.valueOf(newTransac_id),
-//                        String.valueOf(acc_id)
-//                );
-//                break;
 
             case R.id.fab_sheet_item_confirm:
                 Intent intent2 = new Intent(this, TransactionList.class);
@@ -329,29 +247,6 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
                 startActivity(intent2);
                 break;
 
-//            case R.id.btnAddcart1:
-//                Log.d("newid",String.valueOf(newTransac_id));
-//
-//                new insertOrderLine().execute(
-//                        String.valueOf(newTransac_id),
-//                        foodID1.getText().toString(),
-//                        qty1.toString());
-//                break;
-//
-//            case R.id.btnAddcart2:
-//                new insertOrderLine().execute(
-//                        String.valueOf(newTransac_id),
-//                        foodID2.getText().toString(),
-//                        qty2.toString());
-//                break;
-//
-//            case R.id.btnAddcart3:
-//                new insertOrderLine().execute(
-//                        String.valueOf(newTransac_id),
-//                        foodID3.getText().toString(),
-//                        qty3.toString());
-//                break;
-//
 //            case R.id.btnAddcart4:
 //                new insertOrderLine().execute(
 //                        String.valueOf(newTransac_id),
@@ -457,98 +352,6 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
         }
     }
 
-//    public class getTransaction extends AsyncTask<String, Void, String> {
-//        ProgressDialog loading;
-//        RequestHandler rh = new RequestHandler();
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            //loading = ProgressDialog.show(getActivity(), "Uploading...", null, true, true);
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String json) {
-//            super.onPostExecute(json);
-//            convertJson(json);
-//            extractJsonData();
-//        }
-//
-//        @Override
-//        protected String doInBackground(String... params) {
-//            HashMap<String, String> data = new HashMap<>();
-//            data.put(KEY_ACCOUNT_ID,  String.valueOf(acc_id));
-//
-//            return rh.sendPostRequest(GET_URL, data);
-//        }
-//    }
-//
-//    private void convertJson(String json) {
-//        try {
-//            JSONObject jsonObject = new JSONObject(json);
-//            mJsonArray = jsonObject.getJSONArray(BaseActivity.JSON_ARRAY);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
-//
-//    private void extractJsonData() {
-//
-//        for (int i = 0; i < mJsonArray.length(); i++) {
-//            try {
-//                JSONObject jsonObject = mJsonArray.getJSONObject(i);
-//                //Transactions transactions = new Transactions();
-//
-//                transaction.setTransac_id(jsonObject.getInt(KEY_TRANSAC_ID));
-//                transaction.setAcc_id(jsonObject.getInt(KEY_ACCOUNT_ID));
-//                transaction.setPayment_amount(jsonObject.getDouble(KEY_PAYMENT_AMOUNT));
-//                transaction.setTotal_gst(jsonObject.getDouble(KEY_TOTAL_GST));
-//                transaction.setOrder_date_time(mySqlDateTimeFormat.parse(jsonObject.getString(KEY_ORDER_DATETIME)));
-//                transaction.setOrder_status(jsonObject.getString(KEY_ORDER_STATUS));
-//
-//
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-//
-//
-//    public class newTransaction extends AsyncTask<String, Void, String> {
-//        ProgressDialog loading;
-//        RequestHandler rh = new RequestHandler();
-////        Transactions transac;
-////
-////        public newTransaction(Transactions transactions){
-////            this.transac = transactions;
-////        }
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            loading = ProgressDialog.show(FoodCarts.this, "Uploading...", null, true, true);
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String s) {
-//            super.onPostExecute(s);
-//            loading.dismiss();
-//            Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-//        }
-//
-//        @Override
-//        protected String doInBackground(String... params) {
-//            HashMap<String, String> data = new HashMap<>();
-//
-//            data.put(KEY_TRANSAC_ID, params[0]);
-//            data.put(KEY_ACCOUNT_ID, params[1]);
-//
-//            return rh.sendPostRequest(INSERT_URL3, data);
-//        }
-//    }
 
     public class insertOrder extends AsyncTask<String, Void, String> {
 
@@ -564,7 +367,7 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            loading = ProgressDialog.show(FoodCarts.this, "Uploading...", null, true, true);
+            loading = ProgressDialog.show(FoodCarts.this, "Adding...", null, true, true);
         }
 
         @Override
@@ -588,42 +391,6 @@ public class FoodCarts extends BaseActivity implements View.OnClickListener {
             return rh.sendPostRequest(INSERT_URL, data);
         }
     }
-
-//    public final class insertOrderLine extends AsyncTask<String, Void, String> {
-//
-//        ProgressDialog loading;
-//        RequestHandler rh = new RequestHandler();
-////        Integer transacID;
-////
-////        public insertOrderLine(Integer transac_ID) {
-////            this.transacID = transac_ID;
-////        }
-//
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            loading = ProgressDialog.show(FoodCarts.this, "Uploading...", null, true, true);
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String s) {
-//            super.onPostExecute(s);
-//            loading.dismiss();
-//            Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-//        }
-//
-//        @Override
-//        protected String doInBackground(String... params) {
-//            HashMap<String, String> data = new HashMap<>();
-//
-//            data.put(KEY_TRANSAC_ID, params[0]);
-//            data.put(KEY_FOOD_ID, params[1]);
-//            data.put(KEY_ITEMQTY, params[2]);
-//
-//            return rh.sendPostRequest(INSERT_URL2, data);
-//        }
-//    }
 
 //    public class MyOnItemSelectedListener1 implements AdapterView.OnItemSelectedListener {
 //        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

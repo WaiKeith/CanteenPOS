@@ -13,13 +13,14 @@ import android.widget.TextView;
 import my.edu.chiawaikeith.canteenpos.R;
 
 public class NFCDisplayActivity extends AppCompatActivity {
-    private TextView aTextView,bTextView;
+    private TextView mTextView,bTextView,nTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfcdisplay);
-        //aTextView = (TextView) findViewById(R.id.text_view_AccID);
-        bTextView = (TextView)findViewById(R.id.text_view_TransacID);
+        mTextView = (TextView) findViewById(R.id.text_view_AccID);
+        nTextView = (TextView) findViewById(R.id.text_view_TransacID);
+        bTextView = (TextView)findViewById(R.id.text_view_msg);
     }
 
 
@@ -55,9 +56,18 @@ public class NFCDisplayActivity extends AppCompatActivity {
 
             NdefMessage message = (NdefMessage) rawMessages[0]; // only one message transferred
             bTextView.setText(new String(message.getRecords()[0].getPayload()));
-
+            getMessage();
         } else
             bTextView.setText("Waiting for NDEF Message");
+    }
 
+    public void getMessage(){
+        String msg = bTextView.getText().toString();
+        String[] split = msg.split(".");
+        String firstSubString = split[0];
+        String secondSubString = split[1];
+
+        mTextView.setText(firstSubString);
+        nTextView.setText(secondSubString);
     }
 }

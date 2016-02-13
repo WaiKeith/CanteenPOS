@@ -14,12 +14,16 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import my.edu.chiawaikeith.canteenpos.Domains.Transactions;
 import my.edu.chiawaikeith.canteenpos.R;
 
 public class NFCActivity extends AppCompatActivity implements NfcAdapter.CreateNdefMessageCallback{
 
-    private TextView aText,bText;
+    private TextView aText;
     private Toolbar toolBar;
+    private String front,behind;
+    private Transactions transaction = new Transactions();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +38,11 @@ public class NFCActivity extends AppCompatActivity implements NfcAdapter.CreateN
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //aText = (TextView) findViewById(R.id.textview_acc_id);
-        bText = (TextView) findViewById(R.id.textview_transac_id);
+        aText = (TextView) findViewById(R.id.textview_transac_id);
+
+        transaction = (Transactions) getIntent().getSerializableExtra(FoodCarts.KEY_TRANSAC);
+
+        initValues();
 
         NfcAdapter mAdapter = NfcAdapter.getDefaultAdapter(this);
         if (mAdapter == null) {
@@ -58,6 +66,12 @@ public class NFCActivity extends AppCompatActivity implements NfcAdapter.CreateN
         mAdapter.setNdefPushMessageCallback(this, this);
     }
 
+    private void initValues(){
+        front = String.valueOf(transaction.getAcc_id());
+        behind = String.valueOf(transaction.getTransac_id());
+        aText.setText(front + "." + behind);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -68,12 +82,8 @@ public class NFCActivity extends AppCompatActivity implements NfcAdapter.CreateN
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -83,7 +93,7 @@ public class NFCActivity extends AppCompatActivity implements NfcAdapter.CreateN
 
     @Override
     public NdefMessage createNdefMessage(NfcEvent event) {
-        String message = bText.getText().toString();
+        String message = aText.getText().toString();
         NdefRecord ndefRecord = NdefRecord.createMime("text/plain", message.getBytes());
         NdefMessage ndefMessage = new NdefMessage(ndefRecord);
         return ndefMessage;
