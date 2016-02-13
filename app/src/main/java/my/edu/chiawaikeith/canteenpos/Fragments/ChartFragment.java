@@ -327,9 +327,9 @@ public class ChartFragment extends BaseFragment {
                     d5 = transactions.getPayment_amount();
                     break;
 
-                case 6:
-                    d6 = transactions.getPayment_amount();
-                    break;
+//                case 6:
+//                    d6 = transactions.getPayment_amount();
+//                    break;
             }
 
             total1 += d0;
@@ -344,8 +344,8 @@ public class ChartFragment extends BaseFragment {
             expenseRecord.setDay5(total5);
             total6 += d5;
             expenseRecord.setDay6(total6);
-            total7 += d6;
-            expenseRecord.setDay7(total7);
+//            total7 += d6;
+//            expenseRecord.setDay7(total7);
 
         }
 
@@ -370,10 +370,10 @@ public class ChartFragment extends BaseFragment {
         float f5 = (float)day5;
         day6 = expenseRecord.getDay6();
         float f6 = (float)day6;
-        day7 = expenseRecord.getDay7();
-        float f7 = (float)day7;
+//        day7 = expenseRecord.getDay7();
+//        float f7 = (float)day7;
 
-        barChart.addBar(new BarModel(f7, 0xFF123456));
+//        barChart.addBar(new BarModel(f7, 0xFF123456));
         barChart.addBar(new BarModel(f6, 0xFF343456));
         barChart.addBar(new BarModel(f5, 0xFF563456));
         barChart.addBar(new BarModel(f4, 0xFF873F56));
