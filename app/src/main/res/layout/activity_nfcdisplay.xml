@@ -9,9 +9,18 @@
     tools:context="my.edu.chiawaikeith.canteenpos.Activities.NFCDisplayActivity">
 
     <TextView
+        android:id="@+id/text_view_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        android:lines="3"
+        android:gravity="top|center"/>
+
+    <TextView
         android:id="@+id/text_view_AccID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/text_view_msg"
         android:textSize="32sp"
         android:lines="3"
         android:gravity="top|center"/>
