@@ -285,8 +285,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             if(transactions.getOrder_date_time() != null) {
                 try {
                     date = dfDate.parse(dfDate.format(transactions.getOrder_date_time()));
-                    Log.d("day", dfDate.format(date));
                     today = dfDate.parse(dfDate.format(cal.getTime()));//Returns 15/10/2012
+                    Log.d("day", dfDate.format(today));
                 } catch (java.text.ParseException e) {
                     e.printStackTrace();
                 }
