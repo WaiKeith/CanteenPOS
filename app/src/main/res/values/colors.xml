@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#333355</color>
-    <color name="primaryColorDark">#333355</color>
-    <color name="accentColor">#303F9F</color>
-    <color name="colorHighlight">#3F51B5</color>
+    <color name="primaryColor">#303F9F</color>
+    <color name="accentColor">#315FB5</color>
     <color name="dividerColor">#868686</color>
     <color name="pink">#ff66cc</color>
     <color name="red">#ffeb3134</color>
