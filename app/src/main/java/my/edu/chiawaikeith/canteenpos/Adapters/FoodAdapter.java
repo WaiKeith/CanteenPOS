@@ -30,7 +30,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     //public SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     public static final String KEY_FOOD = "food";
     public Transactions transactions;
-    public static final String KEY_TRANSAC = "transaction";
 
     public FoodAdapter(Context context, List<Foods> foods, int itemLayout) {
         this.context = context;
@@ -72,7 +71,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             viewInfo = (Button)itemView.findViewById(R.id.btnView);
 
             itemView.setOnClickListener(this);
-
         }
 
         @Override
@@ -88,9 +86,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
 
             Intent intent = new Intent(context, FoodDetails.class);
             intent.putExtra(KEY_FOOD, food);
-//
-//            transacID = String.valueOf(transactions.getTransac_id());
-//            intent.putExtra(KEY_TRANSAC, transacID);
+
             context.startActivity(intent);
         }
     }
