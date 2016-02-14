@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.flipboard.bottomsheet.commons.ImagePickerSheetView;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.software.shell.fab.ActionButton;
 
 import java.io.File;
@@ -55,7 +54,7 @@ public class EditProfile extends BaseActivity implements View.OnClickListener {
     Uri selectedImageUri;
     private String selectedImagePath;
 
-    ImageView pImage,mImageProfile,ImageView2,ImageView3;
+    ImageView pImage,mImageProfile;
     BottomSheetLayout mBottomSheetImage;
     private FloatingActionButton fabSave;
     private Bitmap mBitmapImage1;
@@ -109,8 +108,8 @@ public class EditProfile extends BaseActivity implements View.OnClickListener {
         editTextName.setHint(account.getUser_name());
         editTextPW.setHint(account.getAcc_password());
 
-        if(account.getProfile_image_path() != ""){
-            ImageLoader.getInstance().displayImage(account.getProfile_image_path(), mImageProfile, options);}
+//        if(account.getProfile_image_path() != ""){
+//            ImageLoader.getInstance().displayImage(account.getProfile_image_path(), mImageProfile, options);}
 
         calendar = Calendar.getInstance();
     }
@@ -177,13 +176,14 @@ public class EditProfile extends BaseActivity implements View.OnClickListener {
             data.put(KEY_ACCOUNT_ID, String.valueOf(acc_id));
             data.put(KEY_USERNAME, accounts.getUser_name());
             data.put(KEY_PASSWORD, accounts.getAcc_password());
-            data.put(KEY_IMAGE_PATH, accounts.getProfile_image_path());
             Log.d("bitmap", getStringImage(accounts.getProfileImageBitmap()));
-            if(accounts.getProfileImageBitmap() != null)
-                data.put(KEY_BITMAP,getStringImage(accounts.getProfileImageBitmap()));
-            else
-                data.put(KEY_BITMAP,"");
-
+            if(accounts.getProfileImageBitmap() != null) {
+                data.put(KEY_IMAGE_PATH, "");
+                data.put(KEY_BITMAP, getStringImage(accounts.getProfileImageBitmap()));
+            }else {
+                data.put(KEY_BITMAP, "");
+                data.put(KEY_IMAGE_PATH, accounts.getProfile_image_path());
+            }
             return requestHandler.sendPostRequest(UPDATE_URL, data);
         }
     }
