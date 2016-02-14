@@ -62,15 +62,15 @@
     <string name="agree_terms">Agree</string>
     <string name="i_agree_terms">I agree with the terms and conditions</string>
 
-    <string-array name="ques">
-        <item name="PetName">Pet name</item>
-        <item name="FavouriteFood">Favourite food</item>
-        <item name="FavouriteMovie">Movie</item>
+    <string name="pickCategory">Choose item category :</string>
+    <string-array name="category">
+        <item name="rice">Rice</item>
+        <item name="noodle">Noodle</item>
     </string-array>
 
     <string name="submitAns">Submit answer</string>
     <string name="pickQty">Pick item quantity :</string>
-    <integer-array name="quantity">
+    <string-array name="quantity">
         <item name="1">1</item>
         <item name="2">2</item>
         <item name="3">3</item>
@@ -81,7 +81,7 @@
         <item name="8">8</item>
         <item name="9">9</item>
         <item name="10">10</item>
-    </integer-array>
+    </string-array>
 
     <string name="title_activity_order">Order</string>
     <string name="title_activity_splash_screen">Splash Screen</string>
