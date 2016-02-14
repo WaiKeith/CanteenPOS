@@ -46,7 +46,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.paymentAmt.setText(String.valueOf(orders.get(position).getPayment_amount()));
+        holder.paymentAmt.setText("RM " + String.valueOf(orders.get(position).getPayment_amount()));
         holder.orderDate.setText(mySqlDateFormat.format(orders.get(position).getOrder_date_time()));
     }
 
