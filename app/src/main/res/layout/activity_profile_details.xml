@@ -94,22 +94,31 @@
                             android:orientation="horizontal"
                             android:id="@+id/stud">
 
-                            <TextView
-                                android:id="@+id/tvStud"
+                            <!--<TextView-->
+                            <!--android:id="@+id/tvStud"-->
+                            <!--android:layout_width="150dp"-->
+                            <!--android:layout_height="30dp"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:padding="6dp"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:text="Student Name"-->
+                            <!--android:textStyle="bold"/>-->
+
+                            <ImageView
+                                android:id="@+id/icon1"
                                 android:layout_width="150dp"
-                                android:layout_height="30dp"
+                                android:layout_height="40dp"
                                 android:layout_marginLeft="10dp"
                                 android:padding="6dp"
-                                android:layout_centerVertical="true"
-                                android:text="Student Name"
-                                android:textStyle="bold"/>
+                                android:src="@drawable/ic_name" />
 
                             <TextView
                                 android:id="@+id/stud_name"
                                 android:layout_width="150dp"
-                                android:layout_height="30dp"
+                                android:layout_height="40dp"
                                 android:text=""
-                                android:textStyle="bold"/>
+                                android:textStyle="bold"
+                                android:gravity="center"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -118,22 +127,31 @@
                             android:orientation="horizontal"
                             android:id="@+id/ic">
 
-                            <TextView
-                                android:id="@+id/tvICNo"
+                            <!--<TextView-->
+                            <!--android:id="@+id/tvICNo"-->
+                            <!--android:layout_width="150dp"-->
+                            <!--android:layout_height="30dp"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:padding="6dp"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:text="NRIC"-->
+                            <!--android:textStyle="bold"/>-->
+
+                            <ImageView
+                                android:id="@+id/icon2"
                                 android:layout_width="150dp"
-                                android:layout_height="30dp"
+                                android:layout_height="40dp"
                                 android:layout_marginLeft="10dp"
                                 android:padding="6dp"
-                                android:layout_centerVertical="true"
-                                android:text="NRIC"
-                                android:textStyle="bold"/>
+                                android:src="@drawable/ic_nric" />
 
                             <TextView
                                 android:id="@+id/ic_no"
                                 android:layout_width="150dp"
-                                android:layout_height="30dp"
+                                android:layout_height="40dp"
                                 android:text=""
-                                android:textStyle="bold"/>
+                                android:textStyle="bold"
+                                android:gravity="center"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -142,22 +160,31 @@
                             android:orientation="horizontal"
                             android:id="@+id/dateBorn">
 
-                            <TextView
-                                android:id="@+id/tvDOB"
+                            <!--<TextView-->
+                            <!--android:id="@+id/tvDOB"-->
+                            <!--android:layout_width="150dp"-->
+                            <!--android:layout_height="30dp"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:padding="6dp"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:text="Date of Birth"-->
+                            <!--android:textStyle="bold"/>-->
+
+                            <ImageView
+                                android:id="@+id/icon3"
                                 android:layout_width="150dp"
-                                android:layout_height="30dp"
+                                android:layout_height="40dp"
                                 android:layout_marginLeft="10dp"
                                 android:padding="6dp"
-                                android:layout_centerVertical="true"
-                                android:text="Date of Birth"
-                                android:textStyle="bold"/>
+                                android:src="@drawable/ic_birthday" />
 
                             <TextView
                                 android:id="@+id/date_born"
                                 android:layout_width="150dp"
-                                android:layout_height="30dp"
+                                android:layout_height="40dp"
                                 android:text=""
-                                android:textStyle="bold"/>
+                                android:textStyle="bold"
+                                android:gravity="center"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -166,22 +193,31 @@
                             android:orientation="horizontal"
                             android:id="@+id/contactNo">
 
-                            <TextView
-                                android:id="@+id/tvContactNo"
+                            <!--<TextView-->
+                            <!--android:id="@+id/tvContactNo"-->
+                            <!--android:layout_width="150dp"-->
+                            <!--android:layout_height="30dp"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:padding="6dp"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:text="Contact Number"-->
+                            <!--android:textStyle="bold"/>-->
+
+                            <ImageView
+                                android:id="@+id/icon4"
                                 android:layout_width="150dp"
-                                android:layout_height="30dp"
+                                android:layout_height="40dp"
                                 android:layout_marginLeft="10dp"
                                 android:padding="6dp"
-                                android:layout_centerVertical="true"
-                                android:text="Contact Number"
-                                android:textStyle="bold"/>
+                                android:src="@drawable/ic_contact" />
 
                             <TextView
                                 android:id="@+id/contact_no"
                                 android:layout_width="150dp"
-                                android:layout_height="30dp"
+                                android:layout_height="40dp"
                                 android:text=""
-                                android:textStyle="bold"/>
+                                android:textStyle="bold"
+                                android:gravity="center"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -190,22 +226,31 @@
                             android:orientation="horizontal"
                             android:id="@+id/course">
 
-                            <TextView
-                                android:id="@+id/tvCourse"
+                            <!--<TextView-->
+                            <!--android:id="@+id/tvCourse"-->
+                            <!--android:layout_width="150dp"-->
+                            <!--android:layout_height="30dp"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:padding="6dp"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:text="Studying Course"-->
+                            <!--android:textStyle="bold"/>-->
+
+                            <ImageView
+                                android:id="@+id/icon5"
                                 android:layout_width="150dp"
-                                android:layout_height="30dp"
+                                android:layout_height="40dp"
                                 android:layout_marginLeft="10dp"
                                 android:padding="6dp"
-                                android:layout_centerVertical="true"
-                                android:text="Studying Course"
-                                android:textStyle="bold"/>
+                                android:src="@drawable/ic_course" />
 
                             <TextView
                                 android:id="@+id/courseStudy"
                                 android:layout_width="150dp"
-                                android:layout_height="30dp"
+                                android:layout_height="40dp"
                                 android:text=""
-                                android:textStyle="bold"/>
+                                android:textStyle="bold"
+                                android:gravity="center"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -214,22 +259,31 @@
                             android:orientation="horizontal"
                             android:id="@+id/email">
 
-                            <TextView
-                                android:id="@+id/tvEmail"
-                                android:layout_width="150dp"
-                                android:layout_height="30dp"
-                                android:layout_marginLeft="10dp"
+                            <!--<TextView-->
+                            <!--android:id="@+id/tvEmail"-->
+                            <!--android:layout_width="150dp"-->
+                            <!--android:layout_height="30dp"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:padding="6dp"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:text="E-mail"-->
+                            <!--android:textStyle="bold"/>-->
+
+                            <ImageView
+                                android:id="@+id/icon6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="55dp"
                                 android:padding="6dp"
-                                android:layout_centerVertical="true"
-                                android:text="E-mail"
-                                android:textStyle="bold"/>
+                                android:src="@drawable/ic_email" />
 
                             <TextView
                                 android:id="@+id/studemail"
-                                android:layout_width="150dp"
-                                android:layout_height="30dp"
+                                android:layout_width="220dp"
+                                android:layout_height="40dp"
                                 android:text=""
-                                android:textStyle="bold"/>
+                                android:textStyle="bold"
+                                android:gravity="center"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -278,22 +332,31 @@
                             android:orientation="horizontal"
                             android:id="@+id/cust">
 
-                            <TextView
-                                android:id="@+id/tvCust"
+                            <!--<TextView-->
+                            <!--android:id="@+id/tvCust"-->
+                            <!--android:layout_width="150dp"-->
+                            <!--android:layout_height="30dp"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:padding="6dp"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:text="Student ID"-->
+                            <!--android:textStyle="bold"/>-->
+
+                            <ImageView
+                                android:id="@+id/icon7"
                                 android:layout_width="150dp"
-                                android:layout_height="30dp"
+                                android:layout_height="40dp"
                                 android:layout_marginLeft="10dp"
                                 android:padding="6dp"
-                                android:layout_centerVertical="true"
-                                android:text="Student ID"
-                                android:textStyle="bold"/>
+                                android:src="@drawable/ic_studentid" />
 
                             <TextView
                                 android:id="@+id/cust_Id"
                                 android:layout_width="150dp"
-                                android:layout_height="30dp"
+                                android:layout_height="40dp"
                                 android:text=""
-                                android:textStyle="bold"/>
+                                android:textStyle="bold"
+                                android:gravity="center"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -302,22 +365,21 @@
                             android:orientation="horizontal"
                             android:id="@+id/name">
 
-                            <TextView
-                                android:id="@+id/tvName"
+                            <ImageView
+                                android:id="@+id/icon8"
                                 android:layout_width="150dp"
-                                android:layout_height="30dp"
+                                android:layout_height="40dp"
                                 android:layout_marginLeft="10dp"
                                 android:padding="6dp"
-                                android:layout_centerVertical="true"
-                                android:text="User Name"
-                                android:textStyle="bold"/>
+                                android:src="@drawable/ic_profile_pic" />
 
                             <TextView
                                 android:id="@+id/user_Name"
                                 android:layout_width="150dp"
-                                android:layout_height="30dp"
+                                android:layout_height="40dp"
                                 android:text=""
-                                android:textStyle="bold"/>
+                                android:textStyle="bold"
+                                android:gravity="center"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -326,22 +388,31 @@
                             android:orientation="horizontal"
                             android:id="@+id/balance">
 
-                            <TextView
-                                android:id="@+id/tvBalance"
+                            <!--<TextView-->
+                            <!--android:id="@+id/tvBalance"-->
+                            <!--android:layout_width="150dp"-->
+                            <!--android:layout_height="30dp"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:padding="6dp"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:text="Account Balance"-->
+                            <!--android:textStyle="bold"/>-->
+
+                            <ImageView
+                                android:id="@+id/icon9"
                                 android:layout_width="150dp"
-                                android:layout_height="30dp"
+                                android:layout_height="40dp"
                                 android:layout_marginLeft="10dp"
                                 android:padding="6dp"
-                                android:layout_centerVertical="true"
-                                android:text="Account Balance"
-                                android:textStyle="bold"/>
+                                android:src="@drawable/ic_acc_balance" />
 
                             <TextView
                                 android:id="@+id/acc_Balance"
                                 android:layout_width="150dp"
-                                android:layout_height="30dp"
+                                android:layout_height="40dp"
                                 android:text=""
-                                android:textStyle="bold"/>
+                                android:textStyle="bold"
+                                android:gravity="center"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -350,22 +421,31 @@
                             android:orientation="horizontal"
                             android:id="@+id/date">
 
-                            <TextView
-                                android:id="@+id/tvDate"
+                            <!--<TextView-->
+                            <!--android:id="@+id/tvDate"-->
+                            <!--android:layout_width="150dp"-->
+                            <!--android:layout_height="30dp"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:padding="6dp"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:text="Register Date"-->
+                            <!--android:textStyle="bold"/>-->
+
+                            <ImageView
+                                android:id="@+id/icon10"
                                 android:layout_width="150dp"
-                                android:layout_height="30dp"
+                                android:layout_height="40dp"
                                 android:layout_marginLeft="10dp"
                                 android:padding="6dp"
-                                android:layout_centerVertical="true"
-                                android:text="Register Date"
-                                android:textStyle="bold"/>
+                                android:src="@drawable/ic_date" />
 
                             <TextView
                                 android:id="@+id/register_Date"
                                 android:layout_width="150dp"
-                                android:layout_height="30dp"
+                                android:layout_height="40dp"
                                 android:text=""
-                                android:textStyle="bold"/>
+                                android:textStyle="bold"
+                                android:gravity="center"/>
                         </LinearLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
