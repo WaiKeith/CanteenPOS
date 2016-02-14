@@ -21,12 +21,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 
 import org.json.JSONArray;
@@ -36,7 +34,6 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -52,22 +49,19 @@ import my.edu.chiawaikeith.canteenpos.RequestHandler;
 
 
 public class OrderFragment extends BaseFragment implements View.OnClickListener {
-    private String mText,sText,bText,status="In Progress";
-    private Double a,b,g,s1,s2;
+    private String mText,status="In Progress";
     private Double gst = 0.06,tPrice=0.00,totalgst=0.00;
     private Integer acc_id,transac_id,newTransac_id,f;
     private Date orderDate;
-    private Spinner spinnerQuantity;
     NfcAdapter nfcAdapter;
     FoodAdapter foodAdapter;
-    private TextView price,totalPrice,qty,aPrice,sub1,sub2,totalGST,foodID,foodID2;
-    private Button write,cal,order,start,addCart1,addCart2,next;
-    private ImageView d,e;
-    Calendar calendar;
+    private TextView tvCategory;
     Transactions transaction = new Transactions();
     private RecyclerView recyclerView;
     private JSONArray mJsonArray;
     private ArrayList<Foods> foodList = new ArrayList<>();
+    private ArrayList<Foods> riceList = new ArrayList<>();
+    private ArrayList<Foods> noodleList = new ArrayList<>();
     private MaterialSheetFab materialSheetFab;
     boolean mAndroidBeamAvailable  = false;
 
@@ -78,7 +72,6 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
     final static String GETFOOD_URL = "http://dinpos.comlu.com/Foods/retrieve_foods.php";
     final static String KEY_ACCOUNT_ID = "acc_id";
     final static String KEY_TRANSAC_ID = "transac_id";
-    static String KEY_TRANSACID;
     final static String KEY_FOOD_ID = "food_id";
     final static String KEY_PAYMENT_AMOUNT = "payment_amount";
     final static String KEY_ORDER_DATETIME = "order_date_time";
@@ -133,6 +126,20 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
         recyclerView.setAdapter(foodAdapter);
     }
 
+//    public void riceView() {
+//        FoodAdapter foodAdapter;
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        foodAdapter = new FoodAdapter(getActivity(), riceList, R.layout.view_food_row);
+//        recyclerView.setAdapter(foodAdapter);
+//    }
+//
+//    public void noodleView() {
+//        FoodAdapter foodAdapter;
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        foodAdapter = new FoodAdapter(getActivity(), noodleList, R.layout.view_food_row);
+//        recyclerView.setAdapter(foodAdapter);
+//    }
+
     public void loadFoods() {
         new getFood().execute();
     }
@@ -156,7 +163,7 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
         @Override
         protected void onPostExecute(String json1) {
             super.onPostExecute(json1);
-            Log.d("ReminderList", json1);
+            //Log.d("ReminderList", json1);
             //loading.dismiss();
             convertJson1(json1);
             extractJsonData1();
@@ -201,10 +208,15 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+//                if (foods.getFood_category().equals("Rice")){
+//                    riceList.add(foods);
+//                }else if (foods.getFood_category().equals("Noodle")){
+//                    noodleList.add(foods);
+//                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
         if(mJsonArray.length() > 0) {
             startView();
@@ -222,7 +234,7 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
 
     private void beginTransaction(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Pick Your Meal?");
+        builder.setTitle("Pick your meal?");
         //builder.setMessage("Confirm to start transaction?");
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
@@ -230,11 +242,11 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
 
                 transac_id = transaction.getTransac_id();
 
-                Log.d("tranid", String.valueOf(transac_id));
+                //Log.d("tranid", String.valueOf(transac_id));
                 newTransac_id = transac_id + 1;
                 transaction.setTransac_id(newTransac_id);
 
-                Log.d("transac_id2", String.valueOf(newTransac_id));
+                //Log.d("transac_id2", String.valueOf(newTransac_id));
 
                 new newTransaction().execute(
                         String.valueOf(newTransac_id),
@@ -259,67 +271,9 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_order, container, false);
-
-//        spinnerQuantity = (Spinner)view.findViewById(R.id.spinnerQty);
-//        //spinnerqty = (Spinner)view.findViewById(R.id.spinnerQty1);
-//
-//        Integer[] values =
-//                {1, 2, 3, 4, 5};
-//        ArrayAdapter<Integer> Qtyadapter = new ArrayAdapter<Integer>(getActivity(), android.R.layout.simple_spinner_item, values);
-//        Qtyadapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-//        spinnerQuantity.setAdapter(Qtyadapter);
-//
-//        d = (ImageView)view.findViewById(R.id.imagePlus);
-//        d.setOnClickListener(this);
-//        e = (ImageView)view.findViewById(R.id.imageMinus);
-//        e.setOnClickListener(this);
-//
-//        write = (Button)view.findViewById(R.id.btnWrite);
-//        write.setOnClickListener(this);
-//
-//        //cal = (Button)view.findViewById(R.id.btnCal);
-//        //cal.setOnClickListener(this);
-//
-//        addCart1 = (Button)view.findViewById(R.id.btnAddcart1);
-//        addCart1.setOnClickListener(this);
-//
-//        addCart2 = (Button)view.findViewById(R.id.btnAddcart2);
-//        addCart2.setOnClickListener(this);
-//
-////        order = (Button)view.findViewById(R.id.btnConfirm);
-////        order.setOnClickListener(this);
-//
-//        //start = (Button)view.findViewById(R.id.btnStart);
-//        //start.setOnClickListener(this);
-//
-//        price = (TextView)view.findViewById(R.id.tvPrice);
-//        sText = price.getText().toString();
-//
-//        totalPrice = (TextView)view.findViewById(R.id.textviewTotalPrice);
-//        totalPrice.setText(tPrice.toString());
-//
-//        totalGST = (TextView)view.findViewById(R.id.textviewGSTPrice);
-//        totalGST.setText(totalgst.toString());
-//
-//        sub1 = (TextView)view.findViewById(R.id.subtotal1);
-//        //s1 = Integer.parseInt(sub1.getText().toString());
-//        sub2 = (TextView)view.findViewById(R.id.subtotal2);
-//        //s2 = Integer.parseInt(sub2.getText().toString());
-//
-//        aPrice = (TextView)view.findViewById(R.id.singlePrice);
-//        g = Double.parseDouble(aPrice.getText().toString());
-//
-//        qty = (TextView)view.findViewById(R.id.textQty);
-//        f = Integer.parseInt(qty.getText().toString());
-//
-//        foodID = (TextView)view.findViewById(R.id.tvFoodID);
-//        foodID2 = (TextView)view.findViewById(R.id.textView9);
-//
 //        mText = spinnerQuantity.getSelectedItem().toString();
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(getActivity());
-//        next = (Button)view.findViewById(R.id.btnNextPage);
-//        next.setOnClickListener(this);
 
         Fab fab = (Fab) view.findViewById(R.id.fab);
         View sheetView = view.findViewById(R.id.fab_sheet);
@@ -332,10 +286,9 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
 
         // Set material sheet item click listeners
         view.findViewById(R.id.fab_sheet_item_view).setOnClickListener(this);
-//        view.findViewById(R.id.fab_sheet_item_confirm).setOnClickListener(this);
-//        view.findViewById(R.id.fab_sheet_item_start).setOnClickListener(this);
-//        view.findViewById(R.id.fab_sheet_item_next).setOnClickListener(this);
+        view.findViewById(R.id.fab_sheet_item_category).setOnClickListener(this);
 
+        tvCategory = (TextView)view.findViewById(R.id.textviewCategory);
         recyclerView = (RecyclerView)view. findViewById(R.id.food_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;
@@ -358,166 +311,44 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onResume() {
         super.onResume();
-        //spinnerQuantity.setOnItemSelectedListener(new MyOnItemSelectedListener());
-
         enableForegroundDispatchSystem();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-//            case R.id.imagePlus:
-//                f++;
-//                qty.setText(f.toString());
-//                s1 = f * g;
-//                sub1.setText(s1.toString());
-//
-//                break;
-//
-//            case R.id.imageMinus:
-//                f--;
-//                qty.setText(f.toString());
-//                s1 = f * g;
-//                sub1.setText(s1.toString());
-//
-//                break;
-
-//            case R.id.btnCal:
-//                tPrice = s1 + s2;
-//                totalPrice.setText(tPrice.toString());
-//
-//                totalgst = tPrice * gst;
-//                totalGST.setText(totalgst.toString());
-//                break;
-
-//            case R.id.btnConfirm:
-//                Intent intent = new Intent(getActivity(), OrderList.class);
-//
-//
-//                calendar = Calendar.getInstance();
-//                orderDate = calendar.getTime();
-//
-//                new insertOrder().execute(
-//                        String.valueOf(transaction.getTransac_id()),
-//                        String.valueOf(acc_id),
-//                        totalPrice.getText().toString(),
-//                        totalGST.getText().toString(),
-//                        orderDate.toString(),
-//                        status.toString());
-//
-//                //Log.d("transacid3",String.valueOf(transaction.getTransac_id()));
-//
-//                //transaction.setTransac_id(transac_id);
-//
-//                startActivity(intent);
-//                break;
-
-//            case R.id.btnAddcart1:
-//                Log.d("newid",String.valueOf(newTransac_id));
-//
-//                new insertOrderLine().execute(
-//                        String.valueOf(newTransac_id),
-//                        foodID.getText().toString(),
-//                        qty.getText().toString());
-//                break;
-//
-//            case R.id.btnAddcart2:
-//                new insertOrderLine().execute(
-//                        String.valueOf(newTransac_id),
-//                        foodID2.getText().toString(),
-//                        mText.toString());
-//                break;
-
-//            case R.id.btnStart:
-//                transac_id = transaction.getTransac_id();
-//
-//                Log.d("tranid",String.valueOf(transac_id));
-//                newTransac_id = transac_id + 1;
-//                transaction.setTransac_id(newTransac_id);
-//
-//                Log.d("transac_id2",String.valueOf(transac_id));
-//
-//                new newTransaction().execute(
-//                        String.valueOf(newTransac_id),
-//                        String.valueOf(acc_id)
-//                );
-//                break;
-
-//            case R.id.fab_sheet_item_next:
-//                Intent intent1 = new Intent(getActivity(), NFCActivity.class);
-//                startActivity(intent1);
-//                break;
 
             case R.id.fab_sheet_item_view:
-//                tPrice = s1 + s2;
-//                totalPrice.setText(tPrice.toString());
-//
-//                totalgst = tPrice * gst;
-//                totalGST.setText(totalgst.toString());
-
                 Intent intent = new Intent(getActivity(), FoodCarts.class);
                 intent.putExtra(KEY_TRANSAC, transaction);
                 startActivity(intent);
                 break;
 
-//            case R.id.fab_sheet_item_start:
-//                transac_id = transaction.getTransac_id();
-//
-//                //Log.d("tranid",String.valueOf(transac_id));
-//                newTransac_id = transac_id + 1;
-//                transaction.setTransac_id(newTransac_id);
-//
-//                //Log.d("transac_id2",String.valueOf(transac_id));
-//
-//                new newTransaction().execute(
-//                        String.valueOf(newTransac_id),
-//                        String.valueOf(acc_id)
-//                );
-//                break;
+            case R.id.fab_sheet_item_category:
+                new MaterialDialog.Builder(getActivity())
+                        .title(R.string.pickCategory)
+                        .items(R.array.category)
+                        .itemsCallback(new MaterialDialog.ListCallback() {
+                            @Override
+                            public void onSelection(MaterialDialog dialog, View view, int category, CharSequence text) {
+                                switch (category) {
+                                    case 1:
+                                        tvCategory.setText("Rice");
+                                        getActivity().recreate();
+                                        //riceView();
+                                    break;
 
-//            case R.id.fab_sheet_item_confirm:
-//                Intent intent2 = new Intent(getActivity(), TransactionList.class);
-//
-//
-//                calendar = Calendar.getInstance();
-//                orderDate = calendar.getTime();
-//
-//                new insertOrder().execute(
-//                        String.valueOf(transaction.getTransac_id()),
-//                        String.valueOf(acc_id),
-//                        totalPrice.getText().toString(),
-//                        totalGST.getText().toString(),
-//                        orderDate.toString(),
-//                        status);
-//
-//                //Log.d("transacid3",String.valueOf(transaction.getTransac_id()));
-//
-//                //transaction.setTransac_id(transac_id);
-//
-//                startActivity(intent2);
-//                break;
-
-//            case R.id.food_recycler:
-////                transac_id = transaction.getTransac_id();
-//
-//                //Log.d("tranid",String.valueOf(transac_id));
-////                newTransac_id = transac_id + 1;
-////                transaction.setTransac_id(newTransac_id);
-////
-////                //Log.d("transac_id2",String.valueOf(transac_id));
-////
-////                new newTransaction().execute(
-////                        String.valueOf(newTransac_id),
-////                        String.valueOf(acc_id)
-////                );
-//                Intent i = new Intent(getActivity(), FoodDetails.class);
-//                i.putExtra(KEY_TRANSACID,newTransac_id);
-//                break;
-
+                                    case 2:
+                                        tvCategory.setText("Noodle");
+                                        getActivity().recreate();
+                                        //noodleView();
+                                        break;
+                                }
+                            }
+                        })
+                        .show();
+                break;
         }
-
-//        s1 = f * g;
-//        sub1.setText(s1.toString());
     }
 
     protected void onNewIntent(Intent newIntent) {

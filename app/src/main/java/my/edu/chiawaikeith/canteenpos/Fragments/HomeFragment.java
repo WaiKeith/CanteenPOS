@@ -198,10 +198,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         userName.setText(account.getUser_name());
         Log.d("name",account.getUser_name());
         //custID.setText(account.getCust_id());
-        accountBalance.setText(String.valueOf(account.getAcc_balance()));
+        accountBalance.setText("RM " + String.valueOf(account.getAcc_balance()));
         if(account.getAcc_balance() <= 1.00){
             accStatus.setText("Not allow to order");
-            shortToast(getActivity(),"Reason: Minimum account balance is 1.00 and above!");
+            //shortToast(getActivity(),"Reason: Minimum account balance is 1.00 and above!");
         }else {
             accStatus.setText("Able to order");
         }

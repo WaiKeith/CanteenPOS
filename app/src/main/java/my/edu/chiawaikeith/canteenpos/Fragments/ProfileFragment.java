@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -51,6 +52,7 @@ public class ProfileFragment extends BaseFragment {
     private TextView icNo,dateBorn,contactNo;
     private int acc_id;
     private CircleImageView profilePic;
+    private ImageView cover;
     JSONArray mJsonArray;
     public SimpleDateFormat mySqlDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -113,6 +115,25 @@ public class ProfileFragment extends BaseFragment {
         icNo = (TextView)view.findViewById(R.id.ic_no);
         dateBorn = (TextView)view.findViewById(R.id.date_born);
         contactNo = (TextView)view.findViewById(R.id.contact_no);
+        //cover = (ImageView)view.findViewById(R.id.cover_image);
+
+//        final int []imageArray={R.drawable.gradient,R.drawable.content_bg};
+//
+//        final Handler handler = new Handler();
+//        Runnable runnable = new Runnable() {
+//            int i=0;
+//            public void run() {
+//                cover.setImageResource(imageArray[i]);
+//                i++;
+//                if(i>imageArray.length-1)
+//                {
+//                    i=0;
+//                }
+//                handler.postDelayed(this, 200);  //for interval...
+//            }
+//        };
+//        handler.postDelayed(runnable, 2000); //for initial delay..
+
 
         fabEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -295,7 +316,7 @@ public class ProfileFragment extends BaseFragment {
         profileName.setText(account.getUser_name());
         userName.setText(account.getUser_name());
         custID.setText(account.getCust_id());
-        accountBalance.setText(String.valueOf(account.getAcc_balance()));
+        accountBalance.setText("RM " + String.valueOf(account.getAcc_balance()));
         registerDate.setText(mySqlDateFormat.format(account.getRegister_date()));
         studName.setText(student.getStud_name());
         studCourse.setText(student.getStud_course());
