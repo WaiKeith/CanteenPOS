@@ -7,11 +7,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import my.edu.chiawaikeith.canteenpos.Activities.FoodDetails;
 import my.edu.chiawaikeith.canteenpos.Domains.Foods;
 import my.edu.chiawaikeith.canteenpos.Domains.Transactions;
@@ -29,6 +33,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     private String transacID;
     //public SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     public static final String KEY_FOOD = "food";
+    public CircleImageView foodpic;
     public Transactions transactions;
 
     public FoodAdapter(Context context, List<Foods> foods, int itemLayout) {
@@ -42,6 +47,13 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         super.onAttachedToRecyclerView(recyclerView);
     }
 
+    public DisplayImageOptions options = new DisplayImageOptions.Builder()
+            .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+            .cacheInMemory(true)
+            .cacheOnDisk(true)
+            .considerExifParams(true)
+            .build();
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_food_row, parent, false);
@@ -53,12 +65,13 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.food_name.setText(foods.get(position).getFood_name());
         holder.food_price.setText("RM " + String.valueOf(foods.get(position).getFood_price()));
+        if(foods.get(position).getFood_image_path() != ""){
+            ImageLoader.getInstance().displayImage(foods.get(position).getFood_image_path(), foodpic, options);}
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         CardView cv;
         TextView food_name,food_price;
-        Button viewInfo;
 
 //        ImageView personPhoto;
 
@@ -68,7 +81,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
 
             food_name = (TextView)itemView.findViewById(R.id.foodName);
             food_price  = (TextView)itemView.findViewById(R.id.foodPrice);
-            viewInfo = (Button)itemView.findViewById(R.id.btnView);
+            foodpic = (CircleImageView)itemView.findViewById(R.id.image_food);
 
             itemView.setOnClickListener(this);
         }
