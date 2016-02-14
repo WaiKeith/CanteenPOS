@@ -186,7 +186,7 @@ public class ProfileDetails extends BaseActivity {
         profileName.setText(account.getUser_name());
         userName.setText(account.getUser_name());
         custID.setText(account.getCust_id());
-        accountBalance.setText(String.valueOf(account.getAcc_balance()));
+        accountBalance.setText("RM " + String.valueOf(account.getAcc_balance()));
         registerDate.setText(mySqlDateFormat.format(account.getRegister_date()));
         studName.setText(student.getStud_name());
         studCourse.setText(student.getStud_course());

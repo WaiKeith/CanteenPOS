@@ -40,21 +40,20 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
     private MaterialSheetFab materialSheetFab;
     public Foods food = new Foods();
     private CircleImageView foodPic;
-    public static final String KEY_FOOD = "food";
     Transactions transaction = new Transactions();
-    public Integer acc_id,transac_id,newTransac_id;
+    public Integer acc_id,newTransac_id;
     private TextView stallID,foodID,foodName,foodCategory,price,quantity;
 
     final static String INSERT_URL = "http://dinpos.comlu.com/OrderLines/insert_order_line.php";
     final static String GET_URL = "http://dinpos.comlu.com/Transactions/get_transaction.php";
-    final static String GETFOOD_URL = "http://dinpos.comlu.com/Foods/retrieve_foods.php";
+//    final static String GETFOOD_URL = "http://dinpos.comlu.com/Foods/retrieve_foods.php";
     final static String KEY_ACCOUNT_ID = "acc_id";
     final static String KEY_TRANSAC_ID = "transac_id";
     final static String KEY_FOOD_ID = "food_id";
     final static String KEY_ITEMQTY = "item_qty";
     final static String KEY_SINGLE_PRICE = "single_price";
     final static String KEY_ORDER_DATETIME = "order_date_time";
-    final static String KEY_FOOD_IMAGE_PATH = "food_image_path";
+//    final static String KEY_FOOD_IMAGE_PATH = "food_image_path";
     final static String KEY_TOTAL_GST = "total_gst";
     final static String KEY_ORDER_STATUS = "order_status";
     final static String KEY_PAYMENT_AMOUNT = "payment_amount";
@@ -91,12 +90,10 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
 
         // Set material sheet item click listeners
         findViewById(R.id.fab_sheet_item_add).setOnClickListener(this);
-//        findViewById(R.id.fab_sheet_item_view).setOnClickListener(this);
-
         food = (Foods) getIntent().getSerializableExtra(FoodAdapter.KEY_FOOD);
         initValues();
         getTransaction();
-        getFood();
+        //getFood();
 
     }
 
@@ -107,6 +104,8 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
         foodName.setText(food.getFood_name());
         foodCategory.setText(food.food_category);
         price.setText(String.valueOf(food.getFood_price()));
+        if(food.getFood_image_path() != ""){
+            ImageLoader.getInstance().displayImage(food.getFood_image_path(), foodPic, options);}
     }
 
     public void getTransaction(){
@@ -174,74 +173,70 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
 
     }
 
-    public void getFood(){
-        new getFood().execute();
-    }
-
-    public class getFood extends AsyncTask<String, Void, String> {
-        ProgressDialog loading;
-        RequestHandler rh = new RequestHandler();
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            //loading = ProgressDialog.show(getActivity(), "Uploading...", null, true, true);
-        }
-
-        @Override
-        protected void onPostExecute(String json) {
-            super.onPostExecute(json);
-            convertJson1(json);
-            extractJsonData1();
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            HashMap<String, String> data = new HashMap<>();
-            data.put(KEY_FOOD_ID,  String.valueOf(food.getFood_id()));
-
-            return rh.sendPostRequest(GETFOOD_URL, data);
-        }
-    }
-
-    private void convertJson1(String json) {
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            mJsonArray = jsonObject.getJSONArray(BaseActivity.JSON_ARRAY);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private void extractJsonData1() {
-
-        for (int i = 0; i < mJsonArray.length(); i++) {
-            try {
-                JSONObject jsonObject = mJsonArray.getJSONObject(i);
-                //transaction = new Transactions();
-
-                food.setFood_id((jsonObject.getInt(KEY_FOOD_ID)));
-                food.setFood_name(jsonObject.getString(KEY_FOOD_NAME));
-                food.setFood_image_path(jsonObject.getString(KEY_FOOD_IMAGE_PATH));
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            loadFoodImage();
-        }
-
-    }
-
-    private void loadFoodImage() {
-        if(food.getFood_image_path() != ""){
-            ImageLoader.getInstance().displayImage(food.getFood_image_path(), foodPic, options);}
-    }
-
-    public void insertOrderLine(){
-
-    }
+//    public void getFood(){
+//        new getFood().execute();
+//    }
+//
+//    public class getFood extends AsyncTask<String, Void, String> {
+//        ProgressDialog loading;
+//        RequestHandler rh = new RequestHandler();
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            //loading = ProgressDialog.show(getActivity(), "Uploading...", null, true, true);
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String json) {
+//            super.onPostExecute(json);
+//            convertJson1(json);
+//            extractJsonData1();
+//        }
+//
+//        @Override
+//        protected String doInBackground(String... params) {
+//            HashMap<String, String> data = new HashMap<>();
+//            data.put(KEY_FOOD_ID,  String.valueOf(food.getFood_id()));
+//
+//            return rh.sendPostRequest(GETFOOD_URL, data);
+//        }
+//    }
+//
+//    private void convertJson1(String json) {
+//        try {
+//            JSONObject jsonObject = new JSONObject(json);
+//            mJsonArray = jsonObject.getJSONArray(BaseActivity.JSON_ARRAY);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+//
+//    private void extractJsonData1() {
+//
+//        for (int i = 0; i < mJsonArray.length(); i++) {
+//            try {
+//                JSONObject jsonObject = mJsonArray.getJSONObject(i);
+//                //transaction = new Transactions();
+//
+//                food.setFood_id((jsonObject.getInt(KEY_FOOD_ID)));
+//                food.setFood_name(jsonObject.getString(KEY_FOOD_NAME));
+//                food.setFood_image_path(jsonObject.getString(KEY_FOOD_IMAGE_PATH));
+//                Log.d("foodpath",food.getFood_image_path());
+//
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//            loadFoodImage();
+//        }
+//
+//    }
+//
+//    private void loadFoodImage() {
+//        if(food.getFood_image_path() != ""){
+//            ImageLoader.getInstance().displayImage(food.getFood_image_path(), foodPic, options);}
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -276,16 +271,16 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
                         .itemsCallback(new MaterialDialog.ListCallback() {
                             @Override
                             public void onSelection(MaterialDialog dialog, View view, int qty, CharSequence text) {
+                                Intent intent = new Intent(view.getContext(), FoodList.class);
                                 switch (qty) {
                                     case 1: // edit society event
-                                        Intent intent = new Intent(view.getContext(), FoodCarts.class);
                                         new insertOrderLine().execute(
                                                 String.valueOf(newTransac_id),
                                                 foodID.getText().toString(),
                                                 String.valueOf(qty),
                                                 price.getText().toString(),
                                                 foodName.getText().toString());
-                                        //startActivity(intent);
+                                        startActivity(intent);
                                         break;
                                     case 2: // delete society event
                                         new insertOrderLine().execute(
@@ -294,6 +289,7 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
                                                 String.valueOf(qty),
                                                 price.getText().toString(),
                                                 foodName.getText().toString());
+                                        startActivity(intent);
                                         break;
                                     case 3: // report
                                         new insertOrderLine().execute(
@@ -302,6 +298,7 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
                                                 String.valueOf(qty),
                                                 price.getText().toString(),
                                                 foodName.getText().toString());
+                                        startActivity(intent);
                                         break;
                                     case 4: // report
                                         new insertOrderLine().execute(
@@ -310,6 +307,7 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
                                                 String.valueOf(qty),
                                                 price.getText().toString(),
                                                 foodName.getText().toString());
+                                        startActivity(intent);
                                         break;
                                     case 5: // report
                                         new insertOrderLine().execute(
@@ -318,6 +316,7 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
                                                 String.valueOf(qty),
                                                 price.getText().toString(),
                                                 foodName.getText().toString());
+                                        startActivity(intent);
                                         break;
                                     case 6: // report
                                         new insertOrderLine().execute(
@@ -326,6 +325,7 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
                                                 String.valueOf(qty),
                                                 price.getText().toString(),
                                                 foodName.getText().toString());
+                                        startActivity(intent);
                                         break;
                                     case 7: // report
                                         new insertOrderLine().execute(
@@ -334,6 +334,7 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
                                                 String.valueOf(qty),
                                                 price.getText().toString(),
                                                 foodName.getText().toString());
+                                        startActivity(intent);
                                         break;
                                     case 8: // report
                                         new insertOrderLine().execute(
@@ -342,6 +343,7 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
                                                 String.valueOf(qty),
                                                 price.getText().toString(),
                                                 foodName.getText().toString());
+                                        startActivity(intent);
                                         break;
                                     case 9: // report
                                         new insertOrderLine().execute(
@@ -350,6 +352,7 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
                                                 String.valueOf(qty),
                                                 price.getText().toString(),
                                                 foodName.getText().toString());
+                                        startActivity(intent);
                                         break;
                                     case 10: // report
                                         new insertOrderLine().execute(
@@ -358,6 +361,7 @@ public class FoodDetails extends BaseActivity implements View.OnClickListener {
                                                 String.valueOf(qty),
                                                 price.getText().toString(),
                                                 foodName.getText().toString());
+                                        startActivity(intent);
                                         break;
                                     default:
                                         break;
